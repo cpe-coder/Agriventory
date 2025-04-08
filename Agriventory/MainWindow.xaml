@@ -1,0 +1,11 @@
+﻿<Window x:Class="Agriventory.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Dashboard Panel" Height="1117" Width="1728" MinWidth="400" MinHeight="700">
+    <Grid Background="#111315"  >
+        <Button Background="#04a4c8" Grid.Row="0" Width="200" Height="50" Foreground="White" FontSize="16" FontWeight="Bold" FontFamily="Open Sans">Log In</Button>
+    </Grid>
+</Window>

@@ -1,0 +1,16 @@
+<Window x:Class="Agriventory.View.LoginView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:Agriventory.View"
+        mc:Ignorable="d"
+        Height="1117" 
+        Width="1728" 
+        MinWidth="400" 
+        MinHeight="700"
+        Title="Admin Login">
+    <Grid Background="#111315">
+        
+    </Grid>
+</Window>
