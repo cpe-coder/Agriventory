@@ -17,4 +17,10 @@ public partial class LoginView : Window
             DragMove();
         }
     }
+
+
+    private void Close_Method(object sender, RoutedEventArgs e)
+    {
+        Application.Current.Shutdown();
+    }
 }

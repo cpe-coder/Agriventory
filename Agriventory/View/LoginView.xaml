@@ -38,29 +38,163 @@
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="55"/> 
-                        <ColumnDefinition Width="100"/> 
-                        <ColumnDefinition Width="25"/> 
-                        <ColumnDefinition Width="25"/> 
+                        <ColumnDefinition Width="70"/> 
+                        <ColumnDefinition Width="70"/> 
+                        <ColumnDefinition /> 
+                        <ColumnDefinition Width="50"/> 
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Text="Agri"
+                    <TextBlock Grid.Column="0" Text="Admin"
                                Foreground="White"
-                               FontSize="20"
+                               FontSize="15"
                                FontWeight="Bold"
                                VerticalAlignment="Center"
                                Margin="15,0,0,0"
                                Padding="0,0,0,10"
                                FontFamily="Roboto"/>
-                    <TextBlock Grid.Column="1" Text="ventory"
+                    <TextBlock Grid.Column="1" Text="Login"
                                Foreground="BlueViolet"
-                               FontSize="20"
+                               FontSize="15"
                                FontWeight="Bold"
                                Margin="0,0,0,0"
                                Padding="0,0,0,10"
                                VerticalAlignment="Center"
                                FontFamily="Roboto"/>
+                    <Border Grid.Column="3" 
+                            Height="20" 
+                            HorizontalAlignment="Right" 
+                            Margin="0,5,5,0" 
+                            VerticalAlignment="Top" 
+                            Width="20" 
+                            Background="BlueViolet" 
+                            CornerRadius="3">
+                        <Button
+                                Height="20"
+                                Width="20" 
+                                Content="🗙"
+                                FontSize="14"
+                                Foreground="#111315"
+                                Cursor="Hand" 
+                                Padding="0,-4,0,0"
+                                VerticalAlignment="Center"
+                                BorderBrush="Transparent"
+                                Background="Transparent"
+                                Click="Close_Method"
+                               />
+                    </Border>
+                   
                 </Grid>
+              <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0, 30,0,0" Width="300" Grid.Row="2">
+                 <Image Source="/images/agrilogo.png" Width="80" Height="80" />
+                  <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                      <Grid.RowDefinitions>
+                          <RowDefinition />
+                          <RowDefinition/>
+                      </Grid.RowDefinitions>
+                  <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="40"/>
+                      <ColumnDefinition Width="75"/>
+                  </Grid.ColumnDefinitions>
+                  <TextBlock Grid.Row="0" Grid.Column="0" Text="Agri"
+                             Foreground="BlueViolet"
+                             FontSize="20"
+                             FontWeight="Bold"
+                             Margin="0,0,0,0"
+                             Padding="0,0,0,10"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             FontFamily="Roboto"
+                  />
+                  <TextBlock Grid.Row="0" Grid.Column="1" Text="ventory"
+                             Foreground="white"
+                             FontSize="20"
+                             FontWeight="Bold"
+                             Margin="0,0,0,0"
+                             Padding="0,0,0,10"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             FontFamily="Roboto"
+                  />
+                  </Grid>
+                  <TextBlock Text="Username" 
+                             Foreground="White" 
+                             FontFamily="roboto"
+                             FontWeight="Medium"/>
+                 <Border CornerRadius="5" 
+                         Margin="0,0,0,10"
+                         BorderThickness="1"
+                         BorderBrush="BlueViolet">
+                     <TextBox BorderBrush="Transparent" 
+                              Height="35" 
+                              Foreground="White"
+                              Background="Transparent"
+                              VerticalAlignment="Center"
+                              FontWeight="Medium"
+                              FontFamily="roboto"
+                     />
+                 </Border>
+                 <TextBlock Text="Password" 
+                            Foreground="White" 
+                            FontFamily="roboto"
+                            FontWeight="Medium"/>
+                 <Border CornerRadius="5" 
+                         BorderThickness="1"
+                         Margin="0,0,0,10"
+                         BorderBrush="BlueViolet">
+                     <TextBox BorderBrush="Transparent" 
+                              Height="35" 
+                              Foreground="White"
+                              Background="Transparent"
+                              VerticalAlignment="Center"
+                              FontWeight="Medium"
+                              FontFamily="roboto"
+                     />
+                 </Border>
+                 <Border CornerRadius="5" 
+                         BorderThickness="1"
+                         Margin="0,0,0,10"
+                         Height="35"
+                         Background="BlueViolet">
+                 <Button Content="Log In"
+                         VerticalAlignment="Center"
+                         FontWeight="Bold"
+                         BorderBrush="Transparent"
+                         Background="Transparent"
+                         Foreground="White"/>
+                 </Border>
+              </StackPanel>
             </Grid>
         </Border>
     </Border>
 </Window>
+
+<!-- Grid VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1"> -->
+<!-- <Grid.RowDefinitions> -->
+<!--     <RowDefinition /> -->
+<!--     <RowDefinition/> -->
+<!--     <RowDefinition/> -->
+<!--     <RowDefinition/> -->
+<!-- </Grid.RowDefinitions> -->
+<!-- <Grid.ColumnDefinitions> -->
+<!--     <ColumnDefinition Width="100"/>  -->
+<!--     <ColumnDefinition Width="100"/>  -->
+<!-- </Grid.ColumnDefinitions> -->
+<!-- <TextBlock Grid.Row="0" Grid.Column="0" Text="Admin" -->
+<!--            Foreground="BlueViolet" -->
+<!--            FontSize="30" -->
+<!--            FontWeight="Bold" -->
+<!--            Margin="0,0,0,0" -->
+<!--            Padding="0,0,0,10" -->
+<!--            VerticalAlignment="Center" -->
+<!--            FontFamily="Roboto" -->
+<!-- />  -->
+<!-- <TextBlock Grid.Row="0" Grid.Column="1" Text="Login" -->
+<!--            Foreground="white" -->
+<!--            FontSize="30" -->
+<!--            FontWeight="Bold" -->
+<!--            Margin="0,0,0,0" -->
+<!--            Padding="0,0,0,10" -->
+<!--            VerticalAlignment="Center" -->
+<!--            FontFamily="Roboto" -->
+<!-- /> -->
+<!--                      -->
+<!-- </Grid> -->
