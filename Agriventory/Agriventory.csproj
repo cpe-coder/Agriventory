@@ -9,7 +9,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Model\" />
       <Folder Include="ViewModel\" />
     </ItemGroup>
 
@@ -19,6 +18,14 @@
       <None Remove="images\agrilogo.png" />
       <None Remove="Images\logo.png" />
       <Resource Include="Images\logo.png" />
+      <None Remove="Images\loginlogo.png" />
+      <Resource Include="Images\loginlogo.png" />
+      <None Remove="Images\bg2.jpg" />
+      <Resource Include="Images\bg2.jpg" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MongoDB.Driver" Version="3.3.0" />
     </ItemGroup>
 
 </Project>

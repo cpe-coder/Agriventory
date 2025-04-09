@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         mc:Ignorable="d"
         Height="500" 
-        Width="400" 
+        Width="800" 
         Title="Admin Login"
         WindowStyle="None"
         ResizeMode="NoResize"
@@ -33,42 +33,46 @@
            </Border.Background>
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="55"/>
-                    <RowDefinition/>
+                    <RowDefinition Height="80" />
+                    <RowDefinition Height="420"/>
+                    <RowDefinition />
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="70"/> 
-                        <ColumnDefinition Width="70"/> 
-                        <ColumnDefinition /> 
-                        <ColumnDefinition Width="50"/> 
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" 
-                               Foreground="White"
-                               FontSize="15"
-                               FontWeight="Bold"
-                               VerticalAlignment="Center"
-                               Margin="15,0,0,0"
-                               Padding="0,0,0,10"
-                               FontFamily="Roboto"/>
-                    <TextBlock Grid.Column="1" 
+                <StackPanel HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Grid.Row="0">
+                    <TextBlock Text="Welcome back!" 
                                Foreground="DodgerBlue"
-                               FontSize="15"
                                FontWeight="Bold"
-                               Margin="0,0,0,0"
-                               Padding="0,0,0,10"
+                               FontSize="30"
+                               FontStyle="Italic"
+                               Margin="0,0,0,5"
+                               FontFamily="roboto"
                                VerticalAlignment="Center"
-                               FontFamily="Roboto"/>
-                </Grid>
+                               TextAlignment="Center"/>
+                </StackPanel>
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="400" /> 
+                        <ColumnDefinition Width="400" /> 
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0"
+                        BorderBrush="DodgerBlue" 
+                        Width="300"
+                        CornerRadius="10"
+                        BorderThickness="1.5"
+                    >
+                       <Border.Background>
+                           <ImageBrush ImageSource="/Images/bg2.jpg" />
+                       </Border.Background>
+                    </Border>
               <StackPanel Orientation="Vertical" 
                           HorizontalAlignment="Center" 
-                          Margin="0, 20,0,0" 
+                          Margin="0, 0,0,0" 
                           Width="300" 
-                          Grid.Row="1">
-                 <Image Source="/Images/logo.png" 
-                        OpacityMask="Aqua"
-                        Width="80" 
-                        Height="80" />
+                          Grid.Column="1">
+                 <Image Source="/Images/loginlogo.png" 
+                        Width="120" 
+                        Height="120" />
                   <Grid HorizontalAlignment="Center" 
                         VerticalAlignment="Center">
                       <Grid.RowDefinitions>
@@ -76,10 +80,21 @@
                           <RowDefinition/>
                       </Grid.RowDefinitions>
                   <Grid.ColumnDefinitions>
+                      <ColumnDefinition />
                       <ColumnDefinition Width="40"/>
                       <ColumnDefinition Width="75"/>
                   </Grid.ColumnDefinitions>
-                  <TextBlock Grid.Row="0" Grid.Column="0" Text="Agri"
+                  <TextBlock Grid.Row="0" Grid.Column="0" Text="Login to"
+                             Foreground="White"
+                             FontSize="15"
+                             FontWeight="Bold"
+                             Margin="0,0,5,0"
+                             Padding="0,0,0,10"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             FontFamily="Roboto"
+                  />
+                  <TextBlock Grid.Row="0" Grid.Column="1" Text="Agri"
                              Foreground="DodgerBlue"
                              FontSize="20"
                              FontWeight="Bold"
@@ -89,7 +104,7 @@
                              VerticalAlignment="Center"
                              FontFamily="Roboto"
                   />
-                  <TextBlock Grid.Row="0" Grid.Column="1" Text="ventory"
+                  <TextBlock Grid.Row="0" Grid.Column="2" Text="ventory"
                              Foreground="white"
                              FontSize="20"
                              FontWeight="Bold"
@@ -102,7 +117,7 @@
                   </Grid>
                  <TextBlock x:Name="ErrorMessage" 
                             TextAlignment="Center" 
-                            Foreground="#ff2100" 
+                            Foreground="#ff5647" 
                             FontWeight="Medium" 
                             Margin="0,-5,0,2"/>
                  
@@ -169,32 +184,21 @@
                          </ControlTemplate>
                      </Button.Template>
                  </Button>
-                 <Button Content="Close"
-                         VerticalAlignment="Center"
-                         FontWeight="Bold"
-                         Height="28"
-                         Width="60"
-                         Cursor="Hand"
-                         Margin="0,40,0,0"
-                         BorderBrush="Transparent"
-                         Background="Transparent"
-                         Click="Close_Method"
-                         Foreground="White">
-                     <Button.Template>
-                         <ControlTemplate TargetType="Button">
-                             <Border CornerRadius="4" 
-                                     BorderThickness="1"
-                                     Margin="0,0,0,0"
-                                     Height="28"
-                                     BorderBrush="DodgerBlue">
-                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
-                             </Border>
-                         </ControlTemplate>
-                     </Button.Template>
-                 </Button>
-                    
-                
+                 <Grid HorizontalAlignment="Center"
+                       Height="50"
+                       VerticalAlignment="Center">
+                     
+                <TextBlock Foreground="LightGray" 
+                           FontSize="10" 
+                           Margin="0,20,0,0"
+                           TextWrapping="Wrap" 
+                           TextAlignment="Center" 
+                           FontFamily="roboto"
+                           Text="Only admin is allowed to use this system!, Thank you for understanding." />
+                 </Grid>
               </StackPanel>
+                </Grid>
+
             </Grid>
         </Border>
     </Border>
