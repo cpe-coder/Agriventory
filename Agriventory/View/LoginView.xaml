@@ -4,8 +4,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         mc:Ignorable="d"
-        Height="450" 
-        Width="800" 
+        Height="500" 
+        Width="400" 
         Title="Admin Login"
         WindowStyle="None"
         ResizeMode="NoResize"
@@ -16,7 +16,7 @@
         >
     <Border CornerRadius="12">
         <Border.Background>
-            <ImageBrush ImageSource="/images/bg.jpg" Stretch="Fill"></ImageBrush>
+            <ImageBrush ImageSource="/Images/bg.jpg" Stretch="Fill"></ImageBrush>
         </Border.Background>
         
         <Border CornerRadius="10"
@@ -43,7 +43,7 @@
                         <ColumnDefinition /> 
                         <ColumnDefinition Width="50"/> 
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Text="Admin"
+                    <TextBlock Grid.Column="0" 
                                Foreground="White"
                                FontSize="15"
                                FontWeight="Bold"
@@ -51,7 +51,7 @@
                                Margin="15,0,0,0"
                                Padding="0,0,0,10"
                                FontFamily="Roboto"/>
-                    <TextBlock Grid.Column="1" Text="Login"
+                    <TextBlock Grid.Column="1" 
                                Foreground="BlueViolet"
                                FontSize="15"
                                FontWeight="Bold"
@@ -59,33 +59,17 @@
                                Padding="0,0,0,10"
                                VerticalAlignment="Center"
                                FontFamily="Roboto"/>
-                    <Border Grid.Column="3" 
-                            Height="20" 
-                            HorizontalAlignment="Right" 
-                            Margin="0,5,5,0" 
-                            VerticalAlignment="Top" 
-                            Width="20" 
-                            Background="BlueViolet" 
-                            CornerRadius="3">
-                        <Button
-                                Height="20"
-                                Width="20" 
-                                Content="🗙"
-                                FontSize="14"
-                                Foreground="#111315"
-                                Cursor="Hand" 
-                                Padding="0,-4,0,0"
-                                VerticalAlignment="Center"
-                                BorderBrush="Transparent"
-                                Background="Transparent"
-                                Click="Close_Method"
-                               />
-                    </Border>
-                   
                 </Grid>
-              <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0, 30,0,0" Width="300" Grid.Row="2">
-                 <Image Source="/images/agrilogo.png" Width="80" Height="80" />
-                  <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+              <StackPanel Orientation="Vertical" 
+                          HorizontalAlignment="Center" 
+                          Margin="0, 20,0,0" 
+                          Width="300" 
+                          Grid.Row="1">
+                 <Image Source="/Images/agrilogo.png" 
+                        Width="80" 
+                        Height="80" />
+                  <Grid HorizontalAlignment="Center" 
+                        VerticalAlignment="Center">
                       <Grid.RowDefinitions>
                           <RowDefinition />
                           <RowDefinition/>
@@ -115,6 +99,12 @@
                              FontFamily="Roboto"
                   />
                   </Grid>
+                 <TextBlock x:Name="ErrorMessage" 
+                            TextAlignment="Center" 
+                            Foreground="#ff2100" 
+                            FontWeight="Medium" 
+                            Margin="0,-5,0,2"/>
+                 
                   <TextBlock Text="Username" 
                              Foreground="White" 
                              FontFamily="roboto"
@@ -122,12 +112,15 @@
                  <Border CornerRadius="5" 
                          Margin="0,0,0,10"
                          BorderThickness="1"
+                         Height="35"
                          BorderBrush="BlueViolet">
                      <TextBox BorderBrush="Transparent" 
-                              Height="35" 
+                              Height="35"
                               Foreground="White"
+                              x:Name="Username"
                               Background="Transparent"
                               VerticalAlignment="Center"
+                              Padding="0,10,6,0"
                               FontWeight="Medium"
                               FontFamily="roboto"
                      />
@@ -137,64 +130,71 @@
                             FontFamily="roboto"
                             FontWeight="Medium"/>
                  <Border CornerRadius="5" 
+                         Height="35"
                          BorderThickness="1"
                          Margin="0,0,0,10"
                          BorderBrush="BlueViolet">
                      <TextBox BorderBrush="Transparent" 
                               Height="35" 
+                              x:Name="Password"
                               Foreground="White"
                               Background="Transparent"
+                              Padding="0,10,6,0"
                               VerticalAlignment="Center"
                               FontWeight="Medium"
                               FontFamily="roboto"
                      />
                  </Border>
-                 <Border CornerRadius="5" 
-                         BorderThickness="1"
-                         Margin="0,0,0,10"
-                         Height="35"
-                         Background="BlueViolet">
+                
                  <Button Content="Log In"
+                         x:Name="LoginButton"
                          VerticalAlignment="Center"
                          FontWeight="Bold"
+                         Height="35"
+                         Cursor="Hand"
                          BorderBrush="Transparent"
                          Background="Transparent"
-                         Foreground="White"/>
-                 </Border>
+                         Click="ButtonBase_OnClick"
+                         Foreground="White">
+                     <Button.Template>
+                         <ControlTemplate TargetType="Button">
+                             <Border CornerRadius="5" 
+                                     BorderThickness="1"
+                                     Margin="0,0,0,0"
+                                     Height="35"
+                                     Background="BlueViolet">
+                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+                             </Border>
+                         </ControlTemplate>
+                     </Button.Template>
+                 </Button>
+                 <Button Content="Close"
+                         VerticalAlignment="Center"
+                         FontWeight="Bold"
+                         Height="28"
+                         Width="60"
+                         Cursor="Hand"
+                         Margin="0,40,0,0"
+                         BorderBrush="Transparent"
+                         Background="Transparent"
+                         Click="Close_Method"
+                         Foreground="White">
+                     <Button.Template>
+                         <ControlTemplate TargetType="Button">
+                             <Border CornerRadius="4" 
+                                     BorderThickness="1"
+                                     Margin="0,0,0,0"
+                                     Height="28"
+                                     BorderBrush="BlueViolet">
+                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+                             </Border>
+                         </ControlTemplate>
+                     </Button.Template>
+                 </Button>
+                    
+                
               </StackPanel>
             </Grid>
         </Border>
     </Border>
 </Window>
-
-<!-- Grid VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1"> -->
-<!-- <Grid.RowDefinitions> -->
-<!--     <RowDefinition /> -->
-<!--     <RowDefinition/> -->
-<!--     <RowDefinition/> -->
-<!--     <RowDefinition/> -->
-<!-- </Grid.RowDefinitions> -->
-<!-- <Grid.ColumnDefinitions> -->
-<!--     <ColumnDefinition Width="100"/>  -->
-<!--     <ColumnDefinition Width="100"/>  -->
-<!-- </Grid.ColumnDefinitions> -->
-<!-- <TextBlock Grid.Row="0" Grid.Column="0" Text="Admin" -->
-<!--            Foreground="BlueViolet" -->
-<!--            FontSize="30" -->
-<!--            FontWeight="Bold" -->
-<!--            Margin="0,0,0,0" -->
-<!--            Padding="0,0,0,10" -->
-<!--            VerticalAlignment="Center" -->
-<!--            FontFamily="Roboto" -->
-<!-- />  -->
-<!-- <TextBlock Grid.Row="0" Grid.Column="1" Text="Login" -->
-<!--            Foreground="white" -->
-<!--            FontSize="30" -->
-<!--            FontWeight="Bold" -->
-<!--            Margin="0,0,0,0" -->
-<!--            Padding="0,0,0,10" -->
-<!--            VerticalAlignment="Center" -->
-<!--            FontFamily="Roboto" -->
-<!-- /> -->
-<!--                      -->
-<!-- </Grid> -->
