@@ -1,14 +1,21 @@
 using System.Windows;
 using System.Windows.Input;
+using Agriventory.Model;
 using MongoDB.Driver;
 
 namespace Agriventory.View;
 
 public partial class LoginView : Window
 {
+
+    private readonly MongoDBService _mongoService;
     public LoginView()
     {
         InitializeComponent();
+
+        _mongoService = new MongoDBService();
+        
+        
     }
 
     private void LoginView_OnMouseDown(object sender, MouseButtonEventArgs e)
@@ -25,49 +32,47 @@ public partial class LoginView : Window
         Application.Current.Shutdown();
     }
 
-    private readonly MongoDBService _mongoService = new MongoDBService();
     private async void LoginButtonClicked(object sender, RoutedEventArgs e)
     {
-        string username = Username.Text.Trim();
-        string password = Password.Password;
-
-        ErrorMessage.Text = "";
-        
-        var usersCollection = _mongoService.GetUsersCollection();
-        var filter = Builders<User>.Filter.Eq(u => u.Username, username) & Builders<User>.Filter.Eq(u => u.Password, password);
-        var user = await usersCollection.Find(filter).FirstOrDefaultAsync();
-        
-        Console.WriteLine(user);
-
-        if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+        try
         {
-            ErrorMessage.Text = "Empty fields.";
-            return;
-        }
+            string username = UsernameTextBox.Text.Trim();
+            string password = PasswordBox.Password.Trim();
+            
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Empty field!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning); 
+                return;
+            }
+            
+            var userCollections = _mongoService.GetUsersCollection();
+            var filter = Builders<User>.Filter.Eq(u => u.Username, username) & Builders<User>.Filter.Eq(u => u.Password, password);
+            var user = await userCollections.Find(filter).FirstOrDefaultAsync();
 
-        LoginButton.Content = "Loading...";
+            LoginButton.Content = "Loading...";
+            LoginButton.IsEnabled = false;
+            
+            if (user != null)
+            {
+                MessageBox.Show("Login successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                var dashboard = new DashboardView();
+                dashboard.Show();
+                this.Close();
+                return;
+            }
 
 
-        await Task.Delay(2000);
-
-        if (username != user.Username || password != user.Password)
-        {
-            ErrorMessage.Text = "Invalid username or password.";
+            MessageBox.Show("Invalid username or password!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             LoginButton.Content = "Login";
             LoginButton.IsEnabled = true;
         }
-        else
+        catch (Exception err)
         {
-            MessageBox.Show("Login successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information); 
-            LoginButton.Content = "Login"; 
+            MessageBox.Show($"Error: {err.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            LoginButton.Content = "Login";
             LoginButton.IsEnabled = true;
-            var dashboard = new MainWindow();
-            dashboard.Show();
-            this.Close();
         }
-
-        
-
-
+       
     }
 }

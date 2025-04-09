@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Agriventory.View;
 
 namespace Agriventory;
 
@@ -19,5 +20,9 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+
+        var login = new LoginView();
+        login.Show();
+        this.Close();
     }
 }

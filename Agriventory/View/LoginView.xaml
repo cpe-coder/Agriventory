@@ -115,15 +115,11 @@
                              FontFamily="Roboto"
                   />
                   </Grid>
-                 <TextBlock x:Name="ErrorMessage" 
-                            TextAlignment="Center" 
-                            Foreground="#ff5647" 
-                            FontWeight="Medium" 
-                            Margin="0,-5,0,2"/>
-                 
+         
                   <TextBlock Text="Username" 
                              Foreground="White" 
                              FontFamily="roboto"
+                             Margin="0,5,0,0"
                              FontWeight="Medium"/>
                  <Border CornerRadius="5" 
                          Margin="0,0,0,10"
@@ -133,7 +129,7 @@
                      <TextBox BorderBrush="Transparent" 
                               Height="35"
                               Foreground="White"
-                              x:Name="Username"
+                              x:Name="UsernameTextBox"
                               Background="Transparent"
                               VerticalAlignment="Center"
                               Padding="0,10,6,0"
@@ -152,7 +148,7 @@
                          BorderBrush="DodgerBlue">
                      <PasswordBox BorderBrush="Transparent" 
                               Height="35" 
-                              x:Name="Password"
+                              x:Name="PasswordBox"
                               Foreground="White"
                               Background="Transparent"
                               Padding="0,10,6,0"
