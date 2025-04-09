@@ -9,9 +9,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="images\" />
       <Folder Include="Model\" />
       <Folder Include="ViewModel\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="images\bg.jpg" />
+      <Resource Include="images\bg.jpg" />
     </ItemGroup>
 
 </Project>

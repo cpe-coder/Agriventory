@@ -3,14 +3,64 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:Agriventory.View"
         mc:Ignorable="d"
-        Height="1117" 
-        Width="1728" 
-        MinWidth="400" 
-        MinHeight="700"
-        Title="Admin Login">
-    <Grid Background="#111315">
+        Height="450" 
+        Width="800" 
+        Title="Admin Login"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        MouseDown="LoginView_OnMouseDown"
+        Background="Transparent"
+        AllowsTransparency="True"
+        >
+    <Border CornerRadius="12">
+        <Border.Background>
+            <ImageBrush ImageSource="/images/bg.jpg" Stretch="Fill"></ImageBrush>
+        </Border.Background>
         
-    </Grid>
+        <Border CornerRadius="10"
+                    BorderThickness="1"
+                    BorderBrush="BlueViolet"
+                    Opacity="0.95">
+            
+           <Border.Background >
+               <LinearGradientBrush StartPoint="0,0" EndPoint="0,0">
+                   <GradientStop Color="#111315" Offset="0" ></GradientStop>
+                   <GradientStop Color="#111315" Offset="0.75" ></GradientStop>
+                   
+               </LinearGradientBrush>
+           </Border.Background>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="55"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="55"/> 
+                        <ColumnDefinition Width="100"/> 
+                        <ColumnDefinition Width="25"/> 
+                        <ColumnDefinition Width="25"/> 
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="Agri"
+                               Foreground="White"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               VerticalAlignment="Center"
+                               Margin="15,0,0,0"
+                               Padding="0,0,0,10"
+                               FontFamily="Roboto"/>
+                    <TextBlock Grid.Column="1" Text="ventory"
+                               Foreground="BlueViolet"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               Margin="0,0,0,0"
+                               Padding="0,0,0,10"
+                               VerticalAlignment="Center"
+                               FontFamily="Roboto"/>
+                </Grid>
+            </Grid>
+        </Border>
+    </Border>
 </Window>
