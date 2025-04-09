@@ -17,7 +17,8 @@
       <None Remove="images\bg.jpg" />
       <Resource Include="Images\bg.jpg" />
       <None Remove="images\agrilogo.png" />
-      <Resource Include="Images\agrilogo.png" />
+      <None Remove="Images\logo.png" />
+      <Resource Include="Images\logo.png" />
     </ItemGroup>
 
 </Project>

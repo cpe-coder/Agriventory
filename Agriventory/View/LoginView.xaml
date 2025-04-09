@@ -21,7 +21,7 @@
         
         <Border CornerRadius="10"
                     BorderThickness="1"
-                    BorderBrush="BlueViolet"
+                    BorderBrush="DodgerBlue"
                     Opacity="0.95">
             
            <Border.Background >
@@ -52,7 +52,7 @@
                                Padding="0,0,0,10"
                                FontFamily="Roboto"/>
                     <TextBlock Grid.Column="1" 
-                               Foreground="BlueViolet"
+                               Foreground="DodgerBlue"
                                FontSize="15"
                                FontWeight="Bold"
                                Margin="0,0,0,0"
@@ -65,7 +65,8 @@
                           Margin="0, 20,0,0" 
                           Width="300" 
                           Grid.Row="1">
-                 <Image Source="/Images/agrilogo.png" 
+                 <Image Source="/Images/logo.png" 
+                        OpacityMask="Aqua"
                         Width="80" 
                         Height="80" />
                   <Grid HorizontalAlignment="Center" 
@@ -79,7 +80,7 @@
                       <ColumnDefinition Width="75"/>
                   </Grid.ColumnDefinitions>
                   <TextBlock Grid.Row="0" Grid.Column="0" Text="Agri"
-                             Foreground="BlueViolet"
+                             Foreground="DodgerBlue"
                              FontSize="20"
                              FontWeight="Bold"
                              Margin="0,0,0,0"
@@ -113,7 +114,7 @@
                          Margin="0,0,0,10"
                          BorderThickness="1"
                          Height="35"
-                         BorderBrush="BlueViolet">
+                         BorderBrush="DodgerBlue">
                      <TextBox BorderBrush="Transparent" 
                               Height="35"
                               Foreground="White"
@@ -133,8 +134,8 @@
                          Height="35"
                          BorderThickness="1"
                          Margin="0,0,0,10"
-                         BorderBrush="BlueViolet">
-                     <TextBox BorderBrush="Transparent" 
+                         BorderBrush="DodgerBlue">
+                     <PasswordBox BorderBrush="Transparent" 
                               Height="35" 
                               x:Name="Password"
                               Foreground="White"
@@ -154,7 +155,7 @@
                          Cursor="Hand"
                          BorderBrush="Transparent"
                          Background="Transparent"
-                         Click="ButtonBase_OnClick"
+                         Click="LoginButtonClicked"
                          Foreground="White">
                      <Button.Template>
                          <ControlTemplate TargetType="Button">
@@ -162,7 +163,7 @@
                                      BorderThickness="1"
                                      Margin="0,0,0,0"
                                      Height="35"
-                                     Background="BlueViolet">
+                                     Background="DodgerBlue">
                              <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
                              </Border>
                          </ControlTemplate>
@@ -185,7 +186,7 @@
                                      BorderThickness="1"
                                      Margin="0,0,0,0"
                                      Height="28"
-                                     BorderBrush="BlueViolet">
+                                     BorderBrush="DodgerBlue">
                                  <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
                              </Border>
                          </ControlTemplate>

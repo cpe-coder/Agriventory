@@ -1,9 +1,5 @@
 using System.Windows;
-using System.Windows.Automation.Provider;
-using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-
 namespace Agriventory.View;
 
 public partial class LoginView : Window
@@ -28,8 +24,39 @@ public partial class LoginView : Window
     }
 
 
-    private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+    private async void LoginButtonClicked(object sender, RoutedEventArgs e)
     {
-      Console.WriteLine("Hello world");
+        string username = Username.Text.Trim();
+        string password = Password.Password;
+
+        ErrorMessage.Text = "";
+
+        if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+        {
+            ErrorMessage.Text = "Empty fields.";
+            return;
+        }
+
+        LoginButton.Content = "Loading...";
+
+
+        await Task.Delay(2000);
+
+        if (username != "admin" || password != "admin")
+        {
+            ErrorMessage.Text = "Invalid username or password.";
+            LoginButton.Content = "Login";
+            LoginButton.IsEnabled = true;
+        }
+        else
+        {
+            MessageBox.Show("Login successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information); 
+            LoginButton.Content = "Login"; 
+            LoginButton.IsEnabled = true;
+        }
+
+        
+
+
     }
 }
