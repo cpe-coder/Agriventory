@@ -9,10 +9,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="ViewModel\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <None Remove="images\bg.jpg" />
       <Resource Include="Images\bg.jpg" />
       <None Remove="images\agrilogo.png" />
