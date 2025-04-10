@@ -2,9 +2,9 @@ using System.Windows.Controls;
 
 namespace Agriventory.View;
 
-public partial class PigView : UserControl
+public partial class Stocks : UserControl
 {
-    public PigView()
+    public Stocks()
     {
         InitializeComponent();
     }
