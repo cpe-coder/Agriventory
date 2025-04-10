@@ -34,29 +34,48 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
-                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="75"/>
                         </Grid.RowDefinitions>
                         <Border Grid.Row="0"
+                                  CornerRadius="0,0,10,0"
                                   BorderBrush="#111315"
-                                  BorderThickness="0,0,0,3"
-                                  Padding="0,0,0,10">
+                                  Padding="0,0,0,15"
+                                  BorderThickness="0,0,0,5">
                             <Image Source="/Images/dashboardLogo.png"
                                    Height="50"
                                    Margin="0,20,0,0"/>
                         </Border>
-                        <StackPanel Grid.Row="1"></StackPanel>
+                        <StackPanel Grid.Row="1">
+                             
+                        </StackPanel>
                         <StackPanel Grid.Row="2">
-                           
-                            <Border CornerRadius="5"
-                                    BorderThickness="1"
-                                    Height="30"
-                                    Width="100"
-                                    BorderBrush="#ff5757">
+                            <Border CornerRadius="0,10,0,0"
+                                    BorderBrush="#111315"
+                                    BorderThickness="0,5,0,0" 
+                                    Padding="0,10,0,10">
                                 <Button Content="Logout"
+                                        VerticalAlignment="Center"
+                                        FontWeight="Bold"
+                                        Height="30"
                                         Width="100"
-                                        BorderThickness="0"
+                                        Click="Logout_Method"
+                                        Cursor="Hand"
+                                        BorderBrush="Transparent"
                                         Background="Transparent"
-                                        Height="30"/>
+                                        Foreground="White">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border CornerRadius="5" 
+                                                    BorderThickness="1"
+                                                    Margin="0,0,0,0"
+                                                    Height="30"
+                                                    Width="100"
+                                                    Background="#ff5757">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
                             </Border>
                         </StackPanel>
                     </Grid>

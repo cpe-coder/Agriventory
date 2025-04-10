@@ -49,9 +49,13 @@ public partial class DashboardView : Window
             else
             {
                 this.WindowState = WindowState.Maximized;
-
                 _isMaximized = true;
             }
         }
+    }
+
+    private void Logout_Method(object sender, RoutedEventArgs e)
+    {
+        Application.Current.Shutdown();
     }
 }
