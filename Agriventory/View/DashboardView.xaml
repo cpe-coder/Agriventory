@@ -55,8 +55,8 @@
                         <StackPanel Grid.Row="1">
                          
                             <menuBar:Btn BorderThickness="1" Style="{StaticResource BtnStyle}"
-                                         Command="{Binding HomeCommand}"
-                                         IsChecked="True">
+                                         IsChecked="True"
+                                         Click="HomeButton_Click">
 
                                 <Grid >
                                     <TextBlock Text="Home"

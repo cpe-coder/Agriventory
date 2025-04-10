@@ -58,4 +58,8 @@ public partial class DashboardView : Window
     {
         Application.Current.Shutdown();
     }
+
+    private void HomeButton_Click(object sender, RoutedEventArgs e)
+    {
+    }
 }
