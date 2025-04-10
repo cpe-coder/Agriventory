@@ -7,6 +7,7 @@
         Height="500" 
         Width="800" 
         Title="Admin Login"
+        Icon="/Images/logo.ico"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"

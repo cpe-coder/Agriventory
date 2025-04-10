@@ -6,6 +6,7 @@
         mc:Ignorable="d"
         Height="500" 
         Background="Transparent"
+        Icon="/Images/logo.ico"
         Width="800" >
         
         <Border Background="#111315" 
