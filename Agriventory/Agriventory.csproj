@@ -24,6 +24,8 @@
       <Resource Include="Images\bg2.jpg" />
       <None Remove="Images\logo.ico" />
       <Resource Include="Images\logo.ico" />
+      <None Remove="Images\dashboardLogo.png" />
+      <Resource Include="Images\dashboardLogo.png" />
     </ItemGroup>
 
     <ItemGroup>

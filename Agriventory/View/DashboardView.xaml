@@ -17,9 +17,62 @@
     <Border CornerRadius="12" 
             MouseDown="Background_MouseDown"
             MouseLeftButtonDown="OnMouseLeftButtonDown"
-            BorderBrush="DodgerBlue"
+            BorderBrush="#ff5757"
             BorderThickness="1"
-            Background="#111315"
+            Background="#161622"
             >
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+         
+            <Grid Grid.Column="0" Background="Transparent">
+                <Border Background="#222236"
+                        CornerRadius="12,0,0,12" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="50"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0"
+                                  BorderBrush="#111315"
+                                  BorderThickness="0,0,0,3"
+                                  Padding="0,0,0,10">
+                            <Image Source="/Images/dashboardLogo.png"
+                                   Height="50"
+                                   Margin="0,20,0,0"/>
+                        </Border>
+                        <StackPanel Grid.Row="1"></StackPanel>
+                        <StackPanel Grid.Row="2">
+                           
+                            <Border CornerRadius="5"
+                                    BorderThickness="1"
+                                    Height="30"
+                                    Width="100"
+                                    BorderBrush="#ff5757">
+                                <Button Content="Logout"
+                                        Width="100"
+                                        BorderThickness="0"
+                                        Background="Transparent"
+                                        Height="30"/>
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+              <Grid Grid.Column="1">
+                  <Grid.RowDefinitions>
+                      <RowDefinition Height="50"/>
+                      <RowDefinition/>
+                  </Grid.RowDefinitions>
+                  <StackPanel Grid.Row="0">
+                  </StackPanel>
+                  <StackPanel Grid.Row="1">
+                      
+                  </StackPanel>
+              </Grid>
+        </Grid>
     </Border>
 </Window>
