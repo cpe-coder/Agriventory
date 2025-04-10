@@ -1,6 +1,6 @@
 namespace Agriventory.ViewModel;
 
-public class HomViewModel
+public class HomeViewModel
 {
     
 }

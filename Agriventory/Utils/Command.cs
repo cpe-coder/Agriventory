@@ -2,18 +2,21 @@ using System.Windows.Input;
 
 namespace Agriventory.Utils;
 
-public class Command(Action<object> execute, Func<object, bool>? canExecute = null)
-    : ICommand
+class Command : ICommand
 {
-    public event EventHandler? CanExecuteChanged
-        {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
-        }
+    private readonly Action<object> _execute;
+    private readonly Func<object, bool> _canExecute;
 
-        public bool CanExecute(object? parameter) => parameter != null && (canExecute == null || canExecute(parameter));
-        public void Execute(object? parameter)
-        {
-            if (parameter != null) execute(parameter);
-        }
+    public event EventHandler CanExecuteChanged
+    {
+        add { CommandManager.RequerySuggested += value; }
+        remove { CommandManager.RequerySuggested -= value; }
+    }
+    public Command(Action<object> execute, Func<object, bool> canExecute = null)
+    {
+        _execute = execute;
+        _canExecute = canExecute;
+    }
+    public bool CanExecute(object parameter) => _canExecute == null || _canExecute(parameter);
+    public void Execute(object parameter) => _execute(parameter);
 }

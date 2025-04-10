@@ -19,28 +19,21 @@ public class NavigationViewModel : ViewModelBase
     public ICommand HistoryCommand { get; set; }
     public ICommand AboutCommand { get; set; }
 
-    private void Home(object obj) => CurrentView = new HomViewModel();
+    private void Home(object obj) => CurrentView = new HomeViewModel();
     private void Stocks(object obj) => CurrentView = new StocksViewModel();
     private void Transaction(object obj) => CurrentView = new TransactionViewModel();
     private void History(object obj) => CurrentView = new HistoryViewModel();
     private void About(object obj) => CurrentView = new AboutViewModel();
 
-    public NavigationViewModel(object currentView, ICommand stocksCommand, ICommand transactionCommand, ICommand historyCommand, ICommand aboutCommand)
+    public NavigationViewModel()
     
     {
-        _currentView = currentView;
-        StocksCommand = stocksCommand;
-        TransactionCommand = transactionCommand;
-        HistoryCommand = historyCommand;
-        AboutCommand = aboutCommand;
-        
         HomeCommand = new Command(Home);
         StocksCommand = new Command(Stocks);
         TransactionCommand = new Command(Transaction);
         HistoryCommand = new Command(History);
         AboutCommand = new Command(About);
 
-        // Startup Page
-        CurrentView = new HomViewModel();
+        CurrentView = new HomeViewModel();
     }
 }

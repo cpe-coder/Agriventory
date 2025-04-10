@@ -4,17 +4,17 @@
            TargetType="TextBlock">
 
         <Setter Property="FontFamily"
-                Value="/Fonts/#Rubik" />
+                Value="/Fonts/roboto" />
         <Setter Property="VerticalAlignment"
                 Value="Center" />
         <Setter Property="HorizontalAlignment"
                 Value="Left" />
         <Setter Property="Foreground"
-                Value="#DBDBDB" />
+                Value="#ff5757" />
         <Setter Property="FontSize"
-                Value="18" />
+                Value="15" />
         <Setter Property="Margin"
-                Value="70,0,0,0" />
+                Value="45,0,0,0" />
 
     </Style>
 </ResourceDictionary>
