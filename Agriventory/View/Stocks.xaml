@@ -12,7 +12,9 @@
         <vm:StocksViewModel/>
     </UserControl.DataContext>
     
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-        <TextBlock Foreground="Aqua" Text="Stocks"/>
+    <Grid Background="#161622">
+        <Border HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Foreground="White" FontSize="30" Text="Stocks" />
+        </Border>
     </Grid>
 </UserControl>

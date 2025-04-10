@@ -15,5 +15,4 @@
                 CornerRadius="12">
             <Image Width="150" Height="150" Source="Images/logo.png"/>
         </Border>
-    
 </Window>

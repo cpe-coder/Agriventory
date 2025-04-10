@@ -159,7 +159,7 @@
                   <StackPanel Grid.Row="0">
                   </StackPanel>
                   <StackPanel Grid.Row="1">
-                      
+                      <ContentControl x:Name="ContentControl" Content="{Binding CurrentView}"/>
                   </StackPanel>
               </Grid>
         </Grid>

@@ -13,7 +13,9 @@
     </UserControl.DataContext>
     
     
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-        <TextBlock Foreground="Aqua" Text="Transaction"/>
+    <Grid Background="#161622">
+        <Border HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Foreground="White" FontSize="30" Text="Transaction" />
+        </Border>
     </Grid>
 </UserControl>

@@ -12,7 +12,9 @@
         <vm:HomeViewModel/>
     </UserControl.DataContext>
     
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-        <TextBlock Foreground="Aqua" Text="Home"/>
+    <Grid Background="#161622">
+        <Border HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Foreground="White" FontSize="30" Text="Home" />
+        </Border>
     </Grid>
 </UserControl>

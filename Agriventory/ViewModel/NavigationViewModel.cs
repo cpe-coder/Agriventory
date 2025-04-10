@@ -8,10 +8,10 @@ public class NavigationViewModel : ViewModelBase
     private object _currentView;
     public object CurrentView
     {
-        get { return _currentView; }
-        set { _currentView = value; OnPropertyChanged(); }
+        get => _currentView;
+        private set { _currentView = value; OnPropertyChanged(); }
     }
-    
+
     
     public ICommand HomeCommand { get; set; }
     public ICommand StocksCommand { get; set; }
