@@ -1,21 +1,21 @@
 using System.Windows.Input;
 
-namespace Agriventory.Utils;
+namespace Agriventory;
 
 public class RelayCommand : ICommand
 {
-   private Action<object> execute;
+   private Action<object> _execute;
    private Func<object, bool> canExecute;
 
    public RelayCommand(Action<object> execute)
    {
-      this.execute = execute;
+      this._execute = execute;
       canExecute = null;
    }
 
    public RelayCommand(Action<object> execute, Func<object, bool> canExecute)
    {
-      this.execute = execute;
+      this._execute = execute;
       this.canExecute = canExecute;
    }
    
@@ -32,7 +32,7 @@ public class RelayCommand : ICommand
 
    public void Execute(object parameter)
    {
-      execute(parameter);
+      _execute(parameter);
    }
    
    

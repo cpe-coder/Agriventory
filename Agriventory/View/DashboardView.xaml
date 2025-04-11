@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:vm="clr-namespace:Agriventory.ViewModel"
         xmlns:menuBar="clr-namespace:Agriventory.Utils"
+        xmlns:viewModel="clr-namespace:Agriventory.ViewModel"
         xmlns:view="clr-namespace:Agriventory.View"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
@@ -19,37 +19,36 @@
         MinWidth="1000">
     
     <Window.DataContext>
-        <vm:NavigationViewModel/>
+        <viewModel:NavigationViewModel/>
     </Window.DataContext>
     
     <Window.Resources>
-        <DataTemplate DataType="{x:Type vm:HomeViewModel}">
+        <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
             <view:HomeView/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type vm:ChickenViewModel}">
+        <DataTemplate DataType="{x:Type viewModel:ChickenViewModel}">
             <view:ChickenView/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type vm:PigViewModel}">
+        <DataTemplate DataType="{x:Type viewModel:PigViewModel}">
             <view:PigView/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type vm:TransactionViewModel}">
+        <DataTemplate DataType="{x:Type viewModel:TransactionViewModel}">
             <view:TransactionView/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type vm:AboutViewModel}">
+        <DataTemplate DataType="{x:Type viewModel:AboutViewModel}">
             <view:AboutView/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type vm:StartupViewModel}">
+        <DataTemplate DataType="{x:Type viewModel:StartupViewModel}">
             <TextBlock Text="Welcome to Agriventory!" Foreground="White" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </DataTemplate>
     </Window.Resources>
-
-    
-    <Border CornerRadius="12" 
+   
+      <Border CornerRadius="12" 
             MouseDown="Background_MouseDown"
             MouseLeftButtonDown="OnMouseLeftButtonDown"
             BorderBrush="#ff5757"
@@ -137,16 +136,17 @@
             </Grid>
               <Grid Grid.Column="1">
                   <Grid.RowDefinitions>
-                      <RowDefinition Height="50"/>
-                      <RowDefinition/>
+                      <RowDefinition Height="60"/>
+                      <RowDefinition Height="*"/>
                   </Grid.RowDefinitions>
                   <StackPanel Grid.Row="0">
                   </StackPanel>
                   <StackPanel Grid.Row="1">
-                      <ContentControl x:Name="Pages"
+                      <ContentControl  x:Name="Pages"
                                       Content="{Binding SelectedViewModel}"/>
                   </StackPanel>
               </Grid>
         </Grid>
     </Border>
+    
 </Window>
