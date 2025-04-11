@@ -125,10 +125,24 @@
                       <RowDefinition Height="60"/>
                       <RowDefinition Height="*"/>
                   </Grid.RowDefinitions>
-                  <Grid Grid.Row="0">
-                     
-                          <Image Source="/Assets/logo.png" Height="50" />
-                  </Grid>
+                  <Border Grid.Row="0"
+                          CornerRadius="0,0,10,10"
+                          Background="#222236"
+                          Margin="2,0,00,0">
+                      <Grid Background="Transparent" >
+                         <Grid.ColumnDefinitions>
+                             <ColumnDefinition/>
+                             <ColumnDefinition/>
+                         </Grid.ColumnDefinitions>
+                          <StackPanel Grid.Column="1"
+                                      HorizontalAlignment="Right"
+                                      VerticalAlignment="Center">
+                              
+                              <Image Margin="0,0,20,0" 
+                                     Source="/Assets/avatar.png" Height="35" />
+                          </StackPanel>
+                      </Grid>
+                  </Border>
                   <StackPanel Grid.Row="1">
                       <ContentControl  x:Name="Pages"
                                       Content="{Binding SelectedViewModel}"/>

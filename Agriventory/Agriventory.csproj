@@ -38,6 +38,8 @@
       <Resource Include="Assets\user.png" />
       <None Remove="Assets\logout.png" />
       <Resource Include="Assets\logout.png" />
+      <None Remove="Assets\avatar.png" />
+      <Resource Include="Assets\avatar.png" />
     </ItemGroup>
 
     <ItemGroup>
