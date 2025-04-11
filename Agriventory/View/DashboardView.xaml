@@ -20,7 +20,7 @@
     <Window.DataContext>
         <vm:NavigationViewModel/>
     </Window.DataContext>
-
+    
     <Border CornerRadius="12" 
             MouseDown="Background_MouseDown"
             MouseLeftButtonDown="OnMouseLeftButtonDown"
@@ -53,70 +53,24 @@
                                    Margin="0,20,0,0"/>
                         </Border>
                         <StackPanel Grid.Row="1">
-                         
-                            <menuBar:Btn BorderThickness="1" Style="{StaticResource BtnStyle}"
-                                         IsChecked="True"
-                                         Click="HomeButton_Click">
+                          <ItemsControl ItemsSource="{Binding SourceCollection}">
+                              <ItemsControl.ItemTemplate>
+                                  <DataTemplate>
+                                      <StackPanel>
+                                          <!-- <menuBar:Btn Style="{Binding }" /> -->
+                                          <menuBar:Btn 
+                                                       GroupName="MenuGroup"
+                                                       Style="{StaticResource BtnStyle }">
+                                              <Grid >
+                                                  <TextBlock Text="{Binding MenuName}"
+                                                             Style="{StaticResource TextStyle}" />
 
-                                <Grid >
-                                    <TextBlock Text="Home"
-                                               Style="{StaticResource TextStyle}" />
-
-                                </Grid>
-
-                            </menuBar:Btn> 
-                            <menuBar:Btn BorderThickness="1" Style="{StaticResource BtnStyle}"
-                                         Command="{Binding StocksCommand}"
-                            >
-
-                                <Grid>
-
-                                    <TextBlock Text="Stocks"
-                                               Style="{StaticResource TextStyle}" />
-
-                                </Grid>
-
-                            </menuBar:Btn>
-                            
-                            <menuBar:Btn BorderThickness="1" Style="{StaticResource BtnStyle}"
-                                         Command="{Binding TransactionCommand}"
-                            >
-
-                                <Grid>
-
-                                    <TextBlock Text="Transaction"
-                                               Style="{StaticResource TextStyle}" />
-
-                                </Grid>
-
-                            </menuBar:Btn>
-                            
-                            <menuBar:Btn BorderThickness="1" Style="{StaticResource BtnStyle}"
-                                         Command="{Binding HistoryCommand}"
-                                         >
-
-                                <Grid>
-
-                                    <TextBlock Text="History"
-                                               Style="{StaticResource TextStyle}" />
-
-                                </Grid>
-
-                            </menuBar:Btn>
-                            
-                            <menuBar:Btn BorderThickness="1" Style="{StaticResource BtnStyle}"
-                                         Command="{Binding AboutCommand}"
-                            >
-
-                                <Grid>
-
-                                    <TextBlock Text="About"
-                                               Style="{StaticResource TextStyle}" />
-
-                                </Grid>
-
-                            </menuBar:Btn>
-
+                                              </Grid>
+                                          </menuBar:Btn>
+                                      </StackPanel>
+                                  </DataTemplate>
+                              </ItemsControl.ItemTemplate>
+                          </ItemsControl>
                         </StackPanel>
                         <StackPanel Grid.Row="2">
                             <Border CornerRadius="0,10,0,0"
@@ -159,7 +113,7 @@
                   <StackPanel Grid.Row="0">
                   </StackPanel>
                   <StackPanel Grid.Row="1">
-                      <ContentControl x:Name="ContentControl" Content="{Binding CurrentView}"/>
+                      <!-- <ContentControl x:Name="ContentControl" Content="{Binding CurrentView}"/> -->
                   </StackPanel>
               </Grid>
         </Grid>

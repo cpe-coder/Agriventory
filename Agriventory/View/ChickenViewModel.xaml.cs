@@ -2,9 +2,9 @@ using System.Windows.Controls;
 
 namespace Agriventory.View;
 
-public partial class HistoryView : UserControl
+public partial class ChickenViewModel : UserControl
 {
-    public HistoryView()
+    public ChickenViewModel()
     {
         InitializeComponent();
     }
