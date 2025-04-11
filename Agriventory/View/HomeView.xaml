@@ -14,6 +14,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0">
+            <TextBlock FontWeight="Bold" FontSize="20" Text="Dashboard" Foreground="White" />
+        </StackPanel>
     </Grid>
 </UserControl>
