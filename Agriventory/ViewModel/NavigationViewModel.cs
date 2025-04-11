@@ -18,11 +18,11 @@ public class NavigationViewModel : INotifyPropertyChanged
     {
         ObservableCollection<MenuItems> menuItems = new ObservableCollection<MenuItems>
         {
-            new MenuItems { MenuName = "Home" },
-            new MenuItems { MenuName = "Chicken" },
-            new MenuItems { MenuName = "Pig" },
-            new MenuItems { MenuName = "Transaction" },
-            new MenuItems { MenuName = "About" }
+            new() { MenuName = "Home" },
+            new() { MenuName = "Chicken" },
+            new() { MenuName = "Pig" },
+            new() { MenuName = "Transaction" },
+            new() { MenuName = "About" }
         };
 
 
@@ -33,19 +33,19 @@ public class NavigationViewModel : INotifyPropertyChanged
 
     }
     
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
     private void OnPropertyChanged(string propName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
     }
 
-    private string filterText;
+    private string _filterText;
     public string FilterText
     {
-        get => filterText;
+        get => _filterText;
         set
         {
-            filterText = value;
+            _filterText = value;
             MenuItemsCollection.View.Refresh();
             OnPropertyChanged("FilterText");
         }
@@ -59,8 +59,9 @@ public class NavigationViewModel : INotifyPropertyChanged
             return;
         }
 
-        MenuItems _items = e.Item as MenuItems;
-        if (_items.MenuName.ToUpper().Contains(FilterText.ToUpper()))
+        MenuItems? items = e.Item as MenuItems;
+        if (items == null) throw new ArgumentNullException(nameof(items));
+        if (items.MenuName.ToUpper().Contains(FilterText.ToUpper()))
         {
             e.Accepted = true;
         }
@@ -76,8 +77,8 @@ public class NavigationViewModel : INotifyPropertyChanged
         get => _selectedViewModel;
         set { _selectedViewModel = value; OnPropertyChanged("SelectedViewModel"); }
     }
-    
-    public void SwitchViews(object parameter)
+
+    private void SwitchViews(object parameter)
     {
         switch(parameter)
         {

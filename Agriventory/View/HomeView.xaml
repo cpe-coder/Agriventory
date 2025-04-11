@@ -6,10 +6,7 @@
              xmlns:vm="clr-namespace:Agriventory.ViewModel"
              mc:Ignorable="d"
              d:DesignHeight="550" d:DesignWidth="800">
-    
-    <UserControl.DataContext>
-        <vm:HomeViewModel/>
-    </UserControl.DataContext>
+
     
     <Grid Background="#161622">
         <Border HorizontalAlignment="Center" VerticalAlignment="Center">

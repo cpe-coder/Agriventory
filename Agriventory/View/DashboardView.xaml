@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:vm="clr-namespace:Agriventory.ViewModel"
         xmlns:menuBar="clr-namespace:Agriventory.Utils"
+        xmlns:view="clr-namespace:Agriventory.View"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
@@ -20,6 +21,33 @@
     <Window.DataContext>
         <vm:NavigationViewModel/>
     </Window.DataContext>
+    
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:HomeViewModel}">
+            <view:HomeView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:ChickenViewModel}">
+            <view:ChickenView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:PigViewModel}">
+            <view:PigView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:TransactionViewModel}">
+            <view:TransactionView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:AboutViewModel}">
+            <view:AboutView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:StartupViewModel}">
+            <TextBlock Text="Welcome to Agriventory!" Foreground="White" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </DataTemplate>
+    </Window.Resources>
+
     
     <Border CornerRadius="12" 
             MouseDown="Background_MouseDown"
@@ -60,6 +88,8 @@
                                           <!-- <menuBar:Btn Style="{Binding }" /> -->
                                           <menuBar:Btn 
                                                        GroupName="MenuGroup"
+                                                       CommandParameter="{Binding MenuName}"
+                                                       Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}, Path=DataContext.MenuCommand}"
                                                        Style="{StaticResource BtnStyle }">
                                               <Grid >
                                                   <TextBlock Text="{Binding MenuName}"
@@ -113,7 +143,8 @@
                   <StackPanel Grid.Row="0">
                   </StackPanel>
                   <StackPanel Grid.Row="1">
-                      <!-- <ContentControl x:Name="ContentControl" Content="{Binding CurrentView}"/> -->
+                      <ContentControl x:Name="Pages"
+                                      Content="{Binding SelectedViewModel}"/>
                   </StackPanel>
               </Grid>
         </Grid>
