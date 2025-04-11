@@ -126,7 +126,7 @@
                       <RowDefinition Height="*"/>
                   </Grid.RowDefinitions>
                   <Border Grid.Row="0"
-                          CornerRadius="0,0,10,10"
+                          CornerRadius="0,12,10,10"
                           Background="#222236"
                           Margin="2,0,00,0">
                       <Grid Background="Transparent" >
