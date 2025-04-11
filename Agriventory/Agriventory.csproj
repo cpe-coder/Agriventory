@@ -24,6 +24,20 @@
       <Resource Include="Assets\dashboardLogo.png" />
       <None Remove="Images\icon_home.png" />
       <None Remove="Images\user.svg" />
+      <None Remove="Assets\about.png" />
+      <Resource Include="Assets\about.png" />
+      <None Remove="Assets\chicken.png" />
+      <Resource Include="Assets\chicken.png" />
+      <None Remove="Assets\home.png" />
+      <Resource Include="Assets\home.png" />
+      <None Remove="Assets\pig.png" />
+      <Resource Include="Assets\pig.png" />
+      <None Remove="Assets\transaction.png" />
+      <Resource Include="Assets\transaction.png" />
+      <None Remove="Assets\user.png" />
+      <Resource Include="Assets\user.png" />
+      <None Remove="Assets\logout.png" />
+      <Resource Include="Assets\logout.png" />
     </ItemGroup>
 
     <ItemGroup>

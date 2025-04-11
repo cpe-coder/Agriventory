@@ -1,6 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-     <Style x:Key="BtnStyle"
+     <Style x:Key="LogoutButtonStyle"
            TargetType="RadioButton">
 
         <Setter Property="HorizontalAlignment"
@@ -33,7 +33,6 @@
                                     Width="4"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
-                                    Background="#ff5757"
                                     Visibility="Collapsed"
                                     CornerRadius="2" />
 
@@ -68,18 +67,6 @@
                             </BeginStoryboard>
                             
                         </EventTrigger>
-                        <Trigger Property="IsChecked"
-                                 Value="True">
-
-                            <Setter Property="Background"
-                                    TargetName="border"
-                                    Value="#111315" />
-
-                            <Setter Property="Visibility"
-                                    TargetName="Indicator"
-                                    Value="Visible" />
-
-                        </Trigger>
                         
                     </ControlTemplate.Triggers>
                     

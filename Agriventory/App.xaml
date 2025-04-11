@@ -11,6 +11,7 @@
                 <ResourceDictionary Source="Styles/Text.xaml" />
                 <ResourceDictionary Source="Styles/Button.xaml" />
                 <ResourceDictionary Source="Styles/Image.xaml" />
+                <ResourceDictionary Source="Styles/LogoutButton.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <SolidColorBrush x:Key="PrimaryColor" Color="#ff5757"/>
             <SolidColorBrush x:Key="BackgroundDark" Color="#161622"/>

@@ -91,6 +91,7 @@
                                                        Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}, Path=DataContext.MenuCommand}"
                                                        Style="{StaticResource BtnStyle }">
                                               <Grid >
+                                                  <Image Source="{Binding MenuImage}" Style="{StaticResource ImageStyle}" />
                                                   <TextBlock Text="{Binding MenuName}"
                                                              Style="{StaticResource TextStyle}" />
 
@@ -103,11 +104,14 @@
                         </StackPanel>
                         <StackPanel Grid.Row="2">
                             <Border CornerRadius="0,10,0,0"
+                                    
                                     BorderBrush="#161622"
                                     BorderThickness="0,5,0,0" 
                                     Padding="0,0,0,10">
-                              <menuBar:Btn Style="{StaticResource BtnStyle}" >
+                              <menuBar:Btn Click="ButtonBase_OnClick"
+                                  Style="{StaticResource LogoutButtonStyle}" >
                                   <Grid>
+                                      <Image Source="/Assets/logout.png" Style="{StaticResource ImageStyle}"/>
                                       <TextBlock Text="Log Out" Style="{StaticResource TextStyle}" />
                                   </Grid>
                               </menuBar:Btn>
