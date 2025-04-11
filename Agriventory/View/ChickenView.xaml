@@ -11,37 +11,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-        <TextBlock Text="Chicken Feed Management" Style="{StaticResource SectionHeader}" />
-
-        <Border Grid.Row="1" Background="{StaticResource BackgroundMedium}" CornerRadius="8" Padding="10">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <!-- Add/Edit Form -->
-                <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
-                    <TextBox Width="200" Text="hello" Margin="5"/>
-                    <TextBox Width="100" Margin="5" />
-                    <Button Content="Add" Background="{StaticResource PrimaryColor}" Foreground="White" Width="80" Margin="5"/>
-                    <Button Content="Edit" Background="#444" Foreground="White" Width="80" Margin="5"/>
-                    <Button Content="Delete" Background="#333" Foreground="White" Width="80" Margin="5"/>
-                </StackPanel>
-
-                <!-- Data Grid -->
-                <DataGrid Grid.Row="1"
-                          AutoGenerateColumns="False"
-                          Background="Transparent"
-                          HeadersVisibility="Column"
-                          Margin="0,10,0,0">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Feed Name" Binding="{Binding FeedName}"/>
-                        <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </Grid>
-        </Border>
+        
     </Grid>
 </UserControl>
