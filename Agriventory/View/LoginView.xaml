@@ -13,11 +13,11 @@
         MouseDown="LoginView_OnMouseDown"
         Background="Transparent"
         AllowsTransparency="True"
-        Icon="/Images/logo.ico"
+        Icon="/Assets/logo.ico"
         >
     <Border CornerRadius="12">
         <Border.Background>
-            <ImageBrush ImageSource="/Images/bg.jpg" Stretch="Fill"></ImageBrush>
+            <ImageBrush ImageSource="/Assets/bg.jpg" Stretch="Fill"></ImageBrush>
         </Border.Background>
         
         <Border CornerRadius="10"
@@ -63,7 +63,7 @@
                         BorderThickness="1.5"
                     >
                        <Border.Background>
-                           <ImageBrush ImageSource="/Images/bg2.jpg" />
+                           <ImageBrush ImageSource="/Assets/bg2.jpg" />
                        </Border.Background>
                     </Border>
               <StackPanel Orientation="Vertical" 
@@ -71,7 +71,7 @@
                           Margin="0, 0,0,0" 
                           Width="300" 
                           Grid.Column="1">
-                 <Image Source="/Images/dashboardLogo.png" 
+                 <Image Source="/Assets/dashboardLogo.png" 
                         Width="150"
                         Height="100"/>
                   <Grid HorizontalAlignment="Center" 

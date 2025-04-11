@@ -3,17 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="View/DashboardView.xaml">
     <Application.Resources>
+        
         <ResourceDictionary>
 
             <ResourceDictionary.MergedDictionaries>
-
                 <ResourceDictionary Source="Styles/Page.xaml" />
                 <ResourceDictionary Source="Styles/Text.xaml" />
                 <ResourceDictionary Source="Styles/Button.xaml" />
                 <ResourceDictionary Source="Styles/Image.xaml" />
-
             </ResourceDictionary.MergedDictionaries>
-            
+            <SolidColorBrush x:Key="PrimaryColor" Color="#ff5757"/>
+            <SolidColorBrush x:Key="BackgroundDark" Color="#161622"/>
+            <SolidColorBrush x:Key="BackgroundMedium" Color="#222236"/>
+            <Style x:Key="SectionHeader" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="24"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Margin" Value="10"/>
+            </Style>
         </ResourceDictionary>
+        
     </Application.Resources>
 </Application>

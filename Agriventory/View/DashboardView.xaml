@@ -15,7 +15,7 @@
         ResizeMode="CanResizeWithGrip"
         Background="Transparent"
         AllowsTransparency="True"
-        Icon="/Images/logo.ico"
+        Icon="/Assets/logo.ico"
         MinWidth="1000">
     
     <Window.DataContext>
@@ -44,7 +44,7 @@
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type viewModel:StartupViewModel}">
-            <TextBlock Text="Welcome to Agriventory!" Foreground="White" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <view:StartupView></view:StartupView>
         </DataTemplate>
     </Window.Resources>
    
@@ -68,14 +68,14 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
-                            <RowDefinition Height="75"/>
+                            <RowDefinition Height="95"/>
                         </Grid.RowDefinitions>
                         <Border Grid.Row="0"
                                   CornerRadius="0,0,10,0"
                                   BorderBrush="#161622"
                                   Padding="0,0,0,15"
                                   BorderThickness="0,0,0,5">
-                            <Image Source="/Images/dashboardLogo.png"
+                            <Image Source="/Assets/dashboardLogo.png"
                                    Height="50"
                                    Margin="0,20,0,0"/>
                         </Border>
@@ -105,30 +105,12 @@
                             <Border CornerRadius="0,10,0,0"
                                     BorderBrush="#161622"
                                     BorderThickness="0,5,0,0" 
-                                    Padding="0,10,0,10">
-                                <Button Content="Logout"
-                                        VerticalAlignment="Center"
-                                        FontWeight="Bold"
-                                        Height="30"
-                                        Width="100"
-                                        Click="Logout_Method"
-                                        Cursor="Hand"
-                                        BorderBrush="Transparent"
-                                        Background="Transparent"
-                                        Foreground="White">
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border CornerRadius="5" 
-                                                    BorderThickness="1"
-                                                    Margin="0,0,0,0"
-                                                    Height="30"
-                                                    Width="100"
-                                                    Background="#ff5757">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
+                                    Padding="0,0,0,10">
+                              <menuBar:Btn Style="{StaticResource BtnStyle}" >
+                                  <Grid>
+                                      <TextBlock Text="Log Out" Style="{StaticResource TextStyle}" />
+                                  </Grid>
+                              </menuBar:Btn>
                             </Border>
                         </StackPanel>
                     </Grid>
@@ -139,8 +121,10 @@
                       <RowDefinition Height="60"/>
                       <RowDefinition Height="*"/>
                   </Grid.RowDefinitions>
-                  <StackPanel Grid.Row="0">
-                  </StackPanel>
+                  <Grid Grid.Row="0">
+                     
+                          <Image Source="/Assets/logo.png" Height="50" />
+                  </Grid>
                   <StackPanel Grid.Row="1">
                       <ContentControl  x:Name="Pages"
                                       Content="{Binding SelectedViewModel}"/>

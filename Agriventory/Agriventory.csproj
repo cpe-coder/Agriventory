@@ -10,19 +10,20 @@
 
     <ItemGroup>
       <None Remove="images\bg.jpg" />
-      <Resource Include="Images\bg.jpg" />
+      <Resource Include="Assets\bg.jpg" />
       <None Remove="images\agrilogo.png" />
       <None Remove="Images\logo.png" />
-      <Resource Include="Images\logo.png" />
+      <Resource Include="Assets\logo.png" />
       <None Remove="Images\loginlogo.png" />
-      <Resource Include="Images\loginlogo.png" />
+      <Resource Include="Assets\loginlogo.png" />
       <None Remove="Images\bg2.jpg" />
-      <Resource Include="Images\bg2.jpg" />
+      <Resource Include="Assets\bg2.jpg" />
       <None Remove="Images\logo.ico" />
-      <Resource Include="Images\logo.ico" />
+      <Resource Include="Assets\logo.ico" />
       <None Remove="Images\dashboardLogo.png" />
-      <Resource Include="Images\dashboardLogo.png" />
+      <Resource Include="Assets\dashboardLogo.png" />
       <None Remove="Images\icon_home.png" />
+      <None Remove="Images\user.svg" />
     </ItemGroup>
 
     <ItemGroup>
