@@ -16,11 +16,11 @@ public class NavigationViewModel : INotifyPropertyChanged
     {
         ObservableCollection<MenuItems> menuItems = new ObservableCollection<MenuItems>
         {
-            new MenuItems { MenuName = "Dashboard" , MenuImage = "/Assets/home.png"},
-            new MenuItems { MenuName = "Chicken", MenuImage = "/Assets/chicken.png"},
-            new MenuItems { MenuName = "Pig", MenuImage = "/Assets/pig.png"},
-            new MenuItems { MenuName = "Transaction", MenuImage = "/Assets/transaction.png"},
-            new MenuItems { MenuName = "About", MenuImage = "/Assets/user.png"}
+            new MenuItems { MenuName = "Dashboard" , MenuImage = @"/Assets/home.png"},
+            new MenuItems { MenuName = "Chicken", MenuImage = @"/Assets/chicken.png"},
+            new MenuItems { MenuName = "Pig", MenuImage = @"/Assets/pig.png"},
+            new MenuItems { MenuName = "Transaction", MenuImage = @"/Assets/transaction.png"},
+            new MenuItems { MenuName = "About", MenuImage = @"/Assets/user.png"}
         };
 
 
