@@ -8,13 +8,152 @@
 
 
 
- 
+ <UserControl.Resources>
+        <SolidColorBrush x:Key="PrimaryColor" Color="#ff5757"/>
+        <SolidColorBrush x:Key="BackgroundDark" Color="#161622"/>
+        <SolidColorBrush x:Key="BackgroundMedium" Color="#222236"/>
+        <SolidColorBrush x:Key="TextColor" Color="White"/>
+
+        <Style TargetType="DataGrid">
+            <Setter Property="Background" Value="{StaticResource BackgroundMedium}"/>
+            <Setter Property="Foreground" Value="{StaticResource BackgroundDark}"/>
+            <Setter Property="RowBackground" Value="{StaticResource BackgroundMedium}"/>
+            <Setter Property="AlternatingRowBackground" Value="{StaticResource BackgroundDark}"/>
+            <Setter Property="GridLinesVisibility" Value="None"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="#333"/>
+            <Setter Property="VerticalGridLinesBrush" Value="#333"/>
+        </Style>
+
+    </UserControl.Resources>
+    
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Content="Deliver"
+                        Width="80"
+                        Margin="0,0,0,10"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        FontWeight="Bold"
+                        Height="35"
+                        Cursor="Hand"
+                        BorderBrush="#ff5757"
+                        Background="Transparent"
+                        Foreground="White">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="5" 
+                                    BorderThickness="1"
+                                    Margin="0,0,0,0"
+                                    Height="35"
+                                    Background="#222236">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button> <Button Grid.Column="1" Content="Add New"
+                        Width="80"
+                        Margin="0,0,0,10"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        FontWeight="Bold"
+                        Height="35"
+                        Cursor="Hand"
+                        BorderBrush="Transparent"
+                        Background="Transparent"
+                        Foreground="White">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="5" 
+                                    BorderThickness="1"
+                                    Margin="0,0,0,0"
+                                    Height="35"
+                                    Background="#ff5757">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+        </Grid>
+        <Border CornerRadius="10" Grid.Row="1">
+            
+        <DataGrid x:Name="FeedsDataGrid" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn Foreground="White" Header="#" Binding="{Binding Number}" Width="40"/>
+                <DataGridTextColumn Foreground="White" Header="Products" Binding="{Binding Product}" Width="*"/>
+                <DataGridTextColumn Foreground="White" Header="Stocks" Binding="{Binding Stocks}" Width="80"/>
+                <DataGridTextColumn Foreground="White" Header="Category" Binding="{Binding Category}" Width="*"/>
+                <DataGridTextColumn Foreground="White" Header="Date Imported" Binding="{Binding DateImported}" Width="*"/>
+
+                <DataGridTemplateColumn Header="Actions" Width="150">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Content="Edit"
+                                        Width="60"
+                                        VerticalAlignment="Center"
+                                        FontWeight="Bold"
+                                        Height="30"
+                                        Cursor="Hand"
+                                        BorderBrush="Transparent"
+                                        Background="Transparent"
+                                        Foreground="White">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border CornerRadius="5" 
+                                                    BorderThickness="1"
+                                                    Margin="0,0,0,0"
+                                                    Height="30"
+                                                    Background="#ff5757">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                                <Button Content="Delete"
+                                        Width="70"
+                                        VerticalAlignment="Center"
+                                        FontWeight="Bold"
+                                        Height="30"
+                                        Cursor="Hand"
+                                        BorderBrush="Transparent"
+                                        Background="Transparent"
+                                        Foreground="White">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border CornerRadius="5" 
+                                                    BorderThickness="1"
+                                                    Margin="0,0,0,0"
+                                                    Height="30"
+                                                    Background="#ff5757">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+        </Border>
     </Grid>
 
 </UserControl>
