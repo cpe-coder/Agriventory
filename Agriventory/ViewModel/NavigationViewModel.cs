@@ -20,7 +20,6 @@ public class NavigationViewModel : INotifyPropertyChanged
             new MenuItems { MenuName = "Chicken", MenuImage = @"/Assets/chicken.png"},
             new MenuItems { MenuName = "Pig", MenuImage = @"/Assets/pig.png"},
             new MenuItems { MenuName = "Transaction", MenuImage = @"/Assets/transaction.png"},
-            new MenuItems { MenuName = "About", MenuImage = @"/Assets/user.png"}
         };
 
 
@@ -90,9 +89,6 @@ public class NavigationViewModel : INotifyPropertyChanged
                 break;
             case "Transaction":
                 SelectedViewModel = new TransactionViewModel();
-                break;
-            case "About":
-                SelectedViewModel = new AboutViewModel();
                 break;
             default:
                 SelectedViewModel = new HomeViewModel();

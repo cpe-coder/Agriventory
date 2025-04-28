@@ -39,16 +39,12 @@
             <view:TransactionView/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type viewModel:AboutViewModel}">
-            <view:AboutView/>
-        </DataTemplate>
-
         <DataTemplate DataType="{x:Type viewModel:StartupViewModel}">
             <view:StartupView></view:StartupView>
         </DataTemplate>
     </Window.Resources>
    
-      <Border CornerRadius="12" 
+      <Border  CornerRadius="12" 
             MouseDown="Background_MouseDown"
             MouseLeftButtonDown="OnMouseLeftButtonDown"
             BorderBrush="#ff5757"
@@ -84,7 +80,6 @@
                               <ItemsControl.ItemTemplate>
                                   <DataTemplate>
                                       <StackPanel>
-                                          <!-- <menuBar:Btn Style="{Binding }" /> -->
                                           <menuBar:Btn 
                                                        GroupName="MenuGroup"
                                                        CommandParameter="{Binding MenuName}"

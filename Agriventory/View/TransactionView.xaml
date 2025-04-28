@@ -8,11 +8,29 @@
 
     
    
-    <Grid Margin="10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <Grid Margin="20">
         
+        <StackPanel>
+
+            <StackPanel Grid.Row="0" Margin="0,0,0,10" >
+                <TextBlock Text="Transaction History" Foreground="#ff5757" Margin="0,5,0,0" FontSize="30" FontWeight="Bold"/>
+            </StackPanel>
+
+            <DataGrid x:Name="TransactionDataGrid"
+                      AutoGenerateColumns="False"
+                      HeadersVisibility="Column"
+                      CanUserAddRows="False"
+                      SelectionMode="Single">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="#" Binding="{Binding Number}" Width="40"/>
+                    <DataGridTextColumn Header="Product" Binding="{Binding Product}" Width="*"/>
+                    <DataGridTextColumn Header="Stocks" Binding="{Binding Stocks}" Width="80"/>
+                    <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="100"/>
+                    <DataGridTextColumn Header="Brand" Binding="{Binding Brand}" Width="150"/>
+                    <DataGridTextColumn Header="Date Delivered" Binding="{Binding DateDelivered}" Width="150"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </StackPanel>
     </Grid>
 </UserControl>
