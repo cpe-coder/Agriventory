@@ -9,9 +9,10 @@
 
 
  
-    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-        
-    <Grid Margin="20">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="20">
+            
+    <Grid >
         
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -22,10 +23,10 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Margin="0,0,0,10" >
+        <StackPanel Grid.Row="0" Margin="0,0,0,5" >
             <TextBlock Text="Dashboard" Foreground="#ff5757" Margin="0,5,0,0" FontSize="30" FontWeight="Bold"/>
         </StackPanel>
-        <Grid Grid.Row="1" Margin="0,20,0,0">
+        <Grid Grid.Row="1" Margin="0,5,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -80,7 +81,7 @@
         <StackPanel HorizontalAlignment="Center" Grid.Row="2" >
                 <TextBlock Text="Available for Chicken" Foreground="#ff5757" Margin="0,5,0,0" FontSize="20" FontWeight="Bold"/>
         </StackPanel>
-        <Grid Grid.Row="3" Margin="0,20,0,0">
+        <Grid Grid.Row="3" Margin="0,5,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -122,8 +123,10 @@
             <TextBlock Text="Available for Pig" Foreground="#ff5757" Margin="0,5,0,0" FontSize="20" FontWeight="Bold"/>
         </StackPanel>
         
-        <Grid Grid.Row="5" Margin="0,20,0,0">
+        <Grid Grid.Row="5" Margin="0,5,0,0">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -164,21 +167,21 @@
                         <TextBlock Text="100" Foreground="#ff5757" FontSize="30" FontWeight="Bold" Margin="0,10,0,0"/>
                     </StackPanel>
                 </Border> 
-                <Border Grid.Row="1" Background="{StaticResource BackgroundMedium}" 
+                <Border Grid.Row="0" Background="{StaticResource BackgroundMedium}" 
                     Margin="10" 
                     Padding="20" 
                     CornerRadius="10" 
-                    Grid.Column="0">
+                    Grid.Column="3">
                     <StackPanel >
                         <TextBlock Text="Feedpro" Foreground="White" FontSize="20"/>
                         <TextBlock Text="200" Foreground="#ff5757" FontSize="30" FontWeight="Bold" Margin="0,10,0,0"/>
                     </StackPanel>
                 </Border>
-                <Border Grid.Row="1" Background="{StaticResource BackgroundMedium}" 
+                <Border Grid.Row="0" Background="{StaticResource BackgroundMedium}" 
                     Margin="10" 
                     Padding="20" 
                     CornerRadius="10" 
-                    Grid.Column="1">
+                    Grid.Column="4">
                     <StackPanel >
                         <TextBlock Text="Uhanco" Foreground="White" FontSize="20"/>
                         <TextBlock Text="200" Foreground="#ff5757" FontSize="30" FontWeight="Bold" Margin="0,10,0,0"/>
@@ -188,17 +191,17 @@
                     Margin="10" 
                     Padding="20" 
                     CornerRadius="10" 
-                    Grid.Column="2">
+                    Grid.Column="0">
                     <StackPanel >
                         <TextBlock Text="Uno Feeds" Foreground="White" FontSize="20"/>
                         <TextBlock Text="300" Foreground="#ff5757" FontSize="30" FontWeight="Bold" Margin="0,10,0,0"/>
                     </StackPanel>
                 </Border> 
-                <Border Grid.Row="2" Background="{StaticResource BackgroundMedium}" 
+                <Border Grid.Row="1" Background="{StaticResource BackgroundMedium}" 
                     Margin="10" 
                     Padding="20" 
                     CornerRadius="10" 
-                    Grid.Column="0">
+                    Grid.Column="1">
                     <StackPanel >
                         <TextBlock Text="Premium" Foreground="White" FontSize="20"/>
                         <TextBlock Text="600" Foreground="#ff5757" FontSize="30" FontWeight="Bold" Margin="0,10,0,0"/>
@@ -206,5 +209,6 @@
                 </Border>
         </Grid>
     </Grid>
+        </StackPanel>
     </ScrollViewer>
 </UserControl>
