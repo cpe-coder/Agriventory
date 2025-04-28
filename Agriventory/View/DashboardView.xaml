@@ -11,7 +11,7 @@
         WindowStyle="None"
         MouseDown="DashboardView_OnMouseDown"
         Title="Dashboard" 
-        MinHeight="600" 
+        MinHeight="650" 
         ResizeMode="CanResizeWithGrip"
         Background="Transparent"
         AllowsTransparency="True"

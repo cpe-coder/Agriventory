@@ -9,13 +9,195 @@
 
 
  
-    <Grid Margin="10">
+    <Grid Margin="20">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0">
-            <TextBlock FontWeight="Bold" FontSize="20" Text="Dashboard" Foreground="White" />
+
+        <Grid Grid.Row="0" Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" 
+                    Background="{StaticResource BackgroundMedium}" 
+                    Margin="10" 
+                    Padding="20" 
+                    CornerRadius="10"
+                >
+                <StackPanel >
+                    <TextBlock Text="Total Stocks" Foreground="White" FontSize="20"/>
+                    <TextBlock Text="600" Foreground="White" FontSize="30" FontWeight="Bold" Margin="0,10,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <Border Background="{StaticResource BackgroundMedium}" 
+                    Margin="10" 
+                    Padding="20" 
+                    CornerRadius="10" 
+                    Grid.Column="1">
+                <StackPanel >
+                    <TextBlock Text="Total Transactions" Foreground="White" FontSize="20"/>
+                    <TextBlock Text="3,400" Foreground="White" FontSize="30" FontWeight="Bold" Margin="0,10,0,0"/>
+                </StackPanel>
+            </Border>  
+            <Border Background="{StaticResource BackgroundMedium}" 
+                    Margin="10" 
+                    Padding="20" 
+                    CornerRadius="10" 
+                    Grid.Column="2">
+                <StackPanel >
+                    <TextBlock Text="Total Pig Category" Foreground="White" FontSize="20"/>
+                    <TextBlock Text="6" Foreground="White" FontSize="30" FontWeight="Bold" Margin="0,10,0,0"/>
+                </StackPanel>
+            </Border>  
+            <Border Background="{StaticResource BackgroundMedium}" 
+                    Margin="10" 
+                    Padding="20" 
+                    CornerRadius="10" 
+                    Grid.Column="3">
+                <StackPanel >
+                    <TextBlock Text="Total Chicken Category" Foreground="White" FontSize="20"/>
+                    <TextBlock Text="3" Foreground="White" FontSize="30" FontWeight="Bold" Margin="0,10,0,0"/>
+                </StackPanel>
+            </Border>
+
+        </Grid>
+        <StackPanel Grid.Row="1" >
+                <TextBlock Text="Available for Chicken" Foreground="White" Margin="0,5,0,0" FontSize="25" FontWeight="Bold"/>
         </StackPanel>
+        <Grid Grid.Row="2" Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+                <Border Background="{StaticResource BackgroundMedium}" 
+                        Margin="10" 
+                        Padding="20" 
+                        CornerRadius="10" 
+                        Grid.Column="0">
+                    <StackPanel >
+                        <TextBlock Text="Sarimanok" Foreground="White" FontSize="20"/>
+                        <TextBlock Text="500" Foreground="White" FontSize="30" FontWeight="Bold" Margin="0,10,0,0"/>
+                    </StackPanel>
+                </Border> 
+                <Border Background="{StaticResource BackgroundMedium}" 
+                        Margin="10" 
+                        Padding="20" 
+                        CornerRadius="10" 
+                        Grid.Column="1">
+                    <StackPanel >
+                        <TextBlock Text="Kalmback" Foreground="White" FontSize="20"/>
+                        <TextBlock Text="300" Foreground="White" FontSize="30" FontWeight="Bold" Margin="0,10,0,0"/>
+                    </StackPanel>
+                </Border> 
+                <Border Background="{StaticResource BackgroundMedium}" 
+                        Margin="10" 
+                        Padding="20" 
+                        CornerRadius="10" 
+                        Grid.Column="2">
+                    <StackPanel >
+                        <TextBlock Text="Vienovo" Foreground="White" FontSize="20"/>
+                        <TextBlock Text="200" Foreground="White" FontSize="30" FontWeight="Bold" Margin="0,10,0,0"/>
+                    </StackPanel>
+                </Border>
+        </Grid>
+        
+        <StackPanel Grid.Row="3">
+            <TextBlock Text="Available for Pig" Foreground="White" Margin="0,5,0,0" FontSize="25" FontWeight="Bold"/>
+        </StackPanel>
+        
+        <Grid Grid.Row="4" Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+                <Border Grid.Row="0" Background="{StaticResource BackgroundMedium}" 
+                        Margin="10" 
+                        Padding="20" 
+                        CornerRadius="10" 
+                        Grid.Column="0">
+                    <StackPanel >
+                        <TextBlock Text="Vienovo" Foreground="White" FontSize="20"/>
+                        <TextBlock Text="700" Foreground="White" FontSize="30" FontWeight="Bold" Margin="0,10,0,0"/>
+                    </StackPanel>
+                </Border> 
+                <Border Grid.Row="0" Background="{StaticResource BackgroundMedium}" 
+                        Margin="10" 
+                        Padding="20" 
+                        CornerRadius="10" 
+                        Grid.Column="1">
+                    <StackPanel >
+                        <TextBlock Text="Pilmico" Foreground="White" FontSize="20"/>
+                        <TextBlock Text="50" Foreground="White" FontSize="30" FontWeight="Bold" Margin="0,10,0,0"/>
+                    </StackPanel>
+                </Border> 
+                <Border Grid.Row="0" Background="{StaticResource BackgroundMedium}" 
+                        Margin="10" 
+                        Padding="20" 
+                        CornerRadius="10" 
+                        Grid.Column="2">
+                    <StackPanel >
+                        <TextBlock Text="Cargill" Foreground="White" FontSize="20"/>
+                        <TextBlock Text="100" Foreground="White" FontSize="30" FontWeight="Bold" Margin="0,10,0,0"/>
+                    </StackPanel>
+                </Border> 
+                <Border Grid.Row="1" Background="{StaticResource BackgroundMedium}" 
+                    Margin="10" 
+                    Padding="20" 
+                    CornerRadius="10" 
+                    Grid.Column="0">
+                    <StackPanel >
+                        <TextBlock Text="Feedpro" Foreground="White" FontSize="20"/>
+                        <TextBlock Text="200" Foreground="White" FontSize="30" FontWeight="Bold" Margin="0,10,0,0"/>
+                    </StackPanel>
+                </Border>
+                <Border Grid.Row="1" Background="{StaticResource BackgroundMedium}" 
+                    Margin="10" 
+                    Padding="20" 
+                    CornerRadius="10" 
+                    Grid.Column="1">
+                    <StackPanel >
+                        <TextBlock Text="Uhanco" Foreground="White" FontSize="20"/>
+                        <TextBlock Text="200" Foreground="White" FontSize="30" FontWeight="Bold" Margin="0,10,0,0"/>
+                    </StackPanel>
+                </Border>
+                <Border Grid.Row="1" Background="{StaticResource BackgroundMedium}" 
+                    Margin="10" 
+                    Padding="20" 
+                    CornerRadius="10" 
+                    Grid.Column="2">
+                    <StackPanel >
+                        <TextBlock Text="Uno Feeds" Foreground="White" FontSize="20"/>
+                        <TextBlock Text="300" Foreground="White" FontSize="30" FontWeight="Bold" Margin="0,10,0,0"/>
+                    </StackPanel>
+                </Border> 
+                <Border Grid.Row="2" Background="{StaticResource BackgroundMedium}" 
+                    Margin="10" 
+                    Padding="20" 
+                    CornerRadius="10" 
+                    Grid.Column="0">
+                    <StackPanel >
+                        <TextBlock Text="Premium" Foreground="White" FontSize="20"/>
+                        <TextBlock Text="600" Foreground="White" FontSize="30" FontWeight="Bold" Margin="0,10,0,0"/>
+                    </StackPanel>
+                </Border>
+        </Grid>
     </Grid>
 </UserControl>
