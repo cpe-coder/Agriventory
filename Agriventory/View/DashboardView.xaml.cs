@@ -21,7 +21,21 @@ public partial class DashboardView : Window
 
     private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
     {
-        Application.Current.Shutdown();
+        string messageBoxDescription = "Are you sure you want to Logout?";
+        string caption  = "Confirmation";
+        MessageBoxButton button = MessageBoxButton.YesNo;
+        MessageBoxImage icon = MessageBoxImage.Question;
+        MessageBoxResult result = MessageBox.Show(messageBoxDescription, caption, button, icon);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            MessageBox.Show("Action confirmed!", "Confirm", MessageBoxButton.OK, MessageBoxImage.Information);
+            Application.Current.Shutdown();
+        }else if (result == MessageBoxResult.No)
+        {
+            MessageBox.Show("Action cancelled!", "Cancel", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        
     }
 
 
