@@ -13,6 +13,6 @@ public class MongoDBService
 
     public IMongoCollection<User> GetUsersCollection()
     {
-        return _database.GetCollection<User>("user");
+        return _database.GetCollection<User>("admin");
     }
 }

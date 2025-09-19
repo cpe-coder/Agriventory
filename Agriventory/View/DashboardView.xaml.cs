@@ -21,10 +21,10 @@ public partial class DashboardView : Window
 
     private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
     {
-        string messageBoxDescription = "Are you sure you want to Logout?";
-        string caption  = "Confirmation";
-        MessageBoxButton button = MessageBoxButton.YesNo;
-        MessageBoxImage icon = MessageBoxImage.Question;
+        const string messageBoxDescription = "Are you sure you want to Logout?";
+        const string caption  = "Confirmation";
+        const MessageBoxButton button = MessageBoxButton.YesNo;
+        const MessageBoxImage icon = MessageBoxImage.Question;
         MessageBoxResult result = MessageBox.Show(messageBoxDescription, caption, button, icon);
 
         if (result == MessageBoxResult.Yes)
@@ -68,8 +68,4 @@ public partial class DashboardView : Window
         }
     }
 
-    private void Logout_Method(object sender, RoutedEventArgs e)
-    {
-        Application.Current.Shutdown();
-    }
 }
