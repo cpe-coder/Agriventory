@@ -75,4 +75,11 @@ public partial class LoginView : Window
         }
        
     }
+
+    private void GetSignInAsCashier_Checked(object sender, RoutedEventArgs e)
+    {
+        bool? isChecked = myCheckBox.IsChecked;
+        
+       
+    }
 }
