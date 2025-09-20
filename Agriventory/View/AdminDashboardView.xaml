@@ -19,7 +19,7 @@
         MinWidth="1000">
     
     <Window.DataContext>
-        <viewModel:NavigationViewModel/>
+        <viewModel:AdminNavigationViewModel/>
     </Window.DataContext>
     
     <Window.Resources>

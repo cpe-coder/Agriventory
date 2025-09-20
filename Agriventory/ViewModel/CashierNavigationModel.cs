@@ -1,0 +1,110 @@
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Windows;
+using System.Windows.Data;
+using System.Windows.Input;
+using Agriventory.Model;
+
+namespace Agriventory.ViewModel;
+
+public class CashierNavigationViewModel : INotifyPropertyChanged
+{
+    private CollectionViewSource MenuItemsCollection;
+
+    public ICollectionView SourceCollection => MenuItemsCollection.View;
+    
+
+    public CashierNavigationViewModel()
+    {
+        ObservableCollection<MenuItems> cashierMenuItems = new ObservableCollection<MenuItems>
+        {
+            new MenuItems { MenuName = "Dashboard" , MenuImage = @"/Assets/home.png"},
+            new MenuItems { MenuName = "Chicken", MenuImage = @"/Assets/chicken.png"},
+            new MenuItems { MenuName = "Pig", MenuImage = @"/Assets/pig.png"},
+        };
+
+        MenuItemsCollection = new CollectionViewSource { Source = cashierMenuItems };
+        MenuItemsCollection.Filter += MenuItems_Filter;
+
+        SelectedViewModel = new StartupViewModel();
+
+    }
+    
+    public event PropertyChangedEventHandler PropertyChanged;
+    private void OnPropertyChanged(string propName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+    }
+
+    private string filterText;
+    public string FilterText
+    {
+        get => filterText;
+        set
+        {
+            filterText = value;
+            MenuItemsCollection.View.Refresh();
+            OnPropertyChanged("FilterText");
+        }
+    }
+
+    private void MenuItems_Filter(object sender, FilterEventArgs e)
+    {
+        if (string.IsNullOrEmpty(FilterText))
+        {
+            e.Accepted = true;
+            return;
+        }
+
+        MenuItems _items = e.Item as MenuItems;
+        if (_items.MenuName.ToUpper().Contains(FilterText.ToUpper()))
+        {
+            e.Accepted = true;
+        }
+        else
+        {
+            e.Accepted = false;
+        }
+    }
+    
+    private object _selectedViewModel;
+    public object SelectedViewModel
+    {
+        get => _selectedViewModel;
+        set { _selectedViewModel = value; OnPropertyChanged("SelectedViewModel"); }
+    }
+    
+    public void SwitchViews(object parameter)
+    {
+        switch(parameter)
+        {
+            case "Home":
+                SelectedViewModel = new HomeViewModel();
+                break;
+            case "Chicken":
+                SelectedViewModel = new ChickenViewModel();
+                break;
+            case "Pig":
+                SelectedViewModel = new PigViewModel();
+                break;
+            default:
+                SelectedViewModel = new HomeViewModel();
+                break;
+        }
+    }
+    
+    private ICommand _menucommand;
+    public ICommand MenuCommand
+    {
+        get
+        {
+            if (_menucommand == null)
+            {
+                _menucommand = new RelayCommand(param => SwitchViews(param));
+            }
+            return _menucommand;
+        }
+    }
+    
+
+}

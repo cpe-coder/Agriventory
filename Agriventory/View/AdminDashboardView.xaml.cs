@@ -29,11 +29,7 @@ public partial class AdminDashboardView : Window
 
         if (result == MessageBoxResult.Yes)
         {
-            MessageBox.Show("Action confirmed!", "Confirm", MessageBoxButton.OK, MessageBoxImage.Information);
             Application.Current.Shutdown();
-        }else if (result == MessageBoxResult.No)
-        {
-            MessageBox.Show("Action cancelled!", "Cancel", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         
     }

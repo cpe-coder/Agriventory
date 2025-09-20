@@ -1,29 +1,33 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using Agriventory.Model;
 
 namespace Agriventory.ViewModel;
 
-public class NavigationViewModel : INotifyPropertyChanged
+public class AdminNavigationViewModel : INotifyPropertyChanged
 {
     private CollectionViewSource MenuItemsCollection;
 
     public ICollectionView SourceCollection => MenuItemsCollection.View;
+    
 
-    public NavigationViewModel()
+    public AdminNavigationViewModel()
     {
-        ObservableCollection<MenuItems> menuItems = new ObservableCollection<MenuItems>
+        
+        ObservableCollection<MenuItems> adminMenuItems = new ObservableCollection<MenuItems>
         {
             new MenuItems { MenuName = "Dashboard" , MenuImage = @"/Assets/home.png"},
             new MenuItems { MenuName = "Chicken", MenuImage = @"/Assets/chicken.png"},
             new MenuItems { MenuName = "Pig", MenuImage = @"/Assets/pig.png"},
             new MenuItems { MenuName = "Transaction", MenuImage = @"/Assets/transaction.png"},
         };
+        
 
+        MenuItemsCollection = new CollectionViewSource { Source = adminMenuItems };
 
-        MenuItemsCollection = new CollectionViewSource { Source = menuItems };
         MenuItemsCollection.Filter += MenuItems_Filter;
 
         SelectedViewModel = new StartupViewModel();

@@ -7,9 +7,9 @@ namespace Agriventory.View;
 
 public partial class LoginView : Window
 {
-    
+
     private bool? _isAdmin = false;
-    private string _role;
+    private string _role = "admin";
     
     private readonly MongoDBService _mongoService;
     public LoginView()
@@ -74,11 +74,6 @@ public partial class LoginView : Window
                 }
             }
 
-            if (_isAdmin != null && _isAdmin.Value != false && user?.Username == username && user?.Password == password && user.Role != "admin" )
-            {
-                
-            }
-            
             MessageBox.Show("Invalid username or password!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             LoginButton.Content = "Login";
             LoginButton.IsEnabled = true;
@@ -96,5 +91,13 @@ public partial class LoginView : Window
     {
         _isAdmin = myCheckBox.IsChecked;
         _role = _isAdmin == true ? "cashier" : "admin";
+        var roles = new Roles
+        {
+            Role = _role
+        };
+
+        MessageBox.Show($"Role: {roles.Role}", "", MessageBoxButton.OK, MessageBoxImage.Information);
+
+
     }
 }
