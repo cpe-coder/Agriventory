@@ -3,9 +3,9 @@ using System.Windows.Input;
 
 namespace Agriventory.View;
 
-public partial class DashboardView : Window
+public partial class AdminDashboardView : Window
 {
-    public DashboardView()
+    public AdminDashboardView()
     {
         InitializeComponent();
     }

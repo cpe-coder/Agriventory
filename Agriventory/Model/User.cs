@@ -5,11 +5,12 @@ namespace Agriventory.Model;
 
 public class User
 {
-    public User(string id, string username, string password)
+    public User(string id, string username, string password, string role)
     {
         Id = id;
         Username = username;
         Password = password;
+        Role = role;
     }
 
     [BsonId]
@@ -21,4 +22,7 @@ public class User
 
     [BsonElement("password")]
     public string Password { get; set; }
+    
+    [BsonElement("role")]
+    public string Role { get; set; }
 }
