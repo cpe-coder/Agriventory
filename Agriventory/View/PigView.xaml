@@ -101,7 +101,7 @@
                 <DataGridTextColumn Foreground="White" Header="#" Binding="{Binding Number}" Width="40"/>
                 <DataGridTextColumn Foreground="White" Header="Products" Binding="{Binding Product}" Width="*"/>
                 <DataGridTextColumn Foreground="White" Header="Stocks" Binding="{Binding Stocks}" Width="80"/>
-                <DataGridTextColumn Foreground="White" Header="Brands" Binding="{Binding Brands}" Width="*"/>
+                <DataGridTextColumn Foreground="White" Header="Brands" Binding="{Binding Brand}" Width="*"/>
                 <DataGridTextColumn Foreground="White" Header="Date Imported" Binding="{Binding DateImported}" Width="*"/>
 
                 <DataGridTemplateColumn Header="Actions" Width="150">
