@@ -15,10 +15,10 @@ public partial class PigView : UserControl
     {
         var items = new List<PigItem>
         {
-            new PigItem { Number = 1, Product = "Sample A", Stocks = 100, Category = "Uno feeds", DateImported = DateTime.Now },
-            new PigItem { Number = 2, Product = "Sample B", Stocks = 80, Category = "Uhanco", DateImported = DateTime.Now },
-            new PigItem { Number = 3, Product = "Sample C", Stocks = 60, Category = "Cargill", DateImported = DateTime.Now.AddDays(-1) },
-            new PigItem { Number = 4, Product = "Sample D", Stocks = 150, Category = "Feedpro", DateImported = DateTime.Now.AddDays(-2) }
+            new PigItem { Number = 1, Product = "Sample A", Stocks = 100, Brand = "Uno feeds", DateImported = DateTime.Now },
+            new PigItem { Number = 2, Product = "Sample B", Stocks = 80, Brand = "Uhanco", DateImported = DateTime.Now },
+            new PigItem { Number = 3, Product = "Sample C", Stocks = 60, Brand = "Cargill", DateImported = DateTime.Now.AddDays(-1) },
+            new PigItem { Number = 4, Product = "Sample D", Stocks = 150, Brand = "Feedpro", DateImported = DateTime.Now.AddDays(-2) }
         };
 
         FeedsDataGrid.ItemsSource = items;

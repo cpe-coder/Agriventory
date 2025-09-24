@@ -23,8 +23,9 @@
                       SelectionMode="Single">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="#" Binding="{Binding Number}" Width="40"/>
-                    <DataGridTextColumn Header="Product" Binding="{Binding Product}" Width="*"/>
-                    <DataGridTextColumn Header="Stocks" Binding="{Binding Stocks}" Width="80"/>
+                    <DataGridTextColumn Header="Names" Binding="{Binding Names}" Width="*"/>
+                    <DataGridTextColumn Header="Products" Binding="{Binding Product}" Width="*"/>
+                    <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="80"/>
                     <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="100"/>
                     <DataGridTextColumn Header="Brand" Binding="{Binding Brand}" Width="150"/>
                     <DataGridTextColumn Header="Date Delivered" Binding="{Binding DateDelivered}" Width="150"/>

@@ -101,7 +101,7 @@
                 <DataGridTextColumn Foreground="White" Header="#" Binding="{Binding Number}" Width="40"/>
                 <DataGridTextColumn Foreground="White" Header="Products" Binding="{Binding Product}" Width="*"/>
                 <DataGridTextColumn Foreground="White" Header="Stocks" Binding="{Binding Stocks}" Width="80"/>
-                <DataGridTextColumn Foreground="White" Header="Category" Binding="{Binding Category}" Width="*"/>
+                <DataGridTextColumn Foreground="White" Header="Brands" Binding="{Binding Brands}" Width="*"/>
                 <DataGridTextColumn Foreground="White" Header="Date Imported" Binding="{Binding DateImported}" Width="*"/>
 
                 <DataGridTemplateColumn Header="Actions" Width="150">
@@ -122,8 +122,7 @@
                                             <Border CornerRadius="5" 
                                                     BorderThickness="1"
                                                     Margin="0,0,0,0"
-                                                    Height="30"
-                                                    Background="#ff5757">
+                                                    Height="30">
                                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
                                             </Border>
                                         </ControlTemplate>
@@ -143,8 +142,7 @@
                                             <Border CornerRadius="5" 
                                                     BorderThickness="1"
                                                     Margin="0,0,0,0"
-                                                    Height="30"
-                                                    Background="#ff5757">
+                                                    Height="30">
                                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
                                             </Border>
                                         </ControlTemplate>

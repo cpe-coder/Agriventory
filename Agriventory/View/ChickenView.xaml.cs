@@ -15,10 +15,10 @@ public partial class ChickenView : UserControl
     {
         var items = new List<ChickenItem>
         {
-            new ChickenItem { Number = 1, Product = "Sample A", Stocks = 100, Category = "Sarimanok", DateImported = DateTime.Now },
-            new ChickenItem { Number = 2, Product = "Sample B", Stocks = 80, Category = "Kalmback", DateImported = DateTime.Now },
-            new ChickenItem { Number = 3, Product = "Sample C", Stocks = 60, Category = "Vienovo", DateImported = DateTime.Now.AddDays(-1) },
-            new ChickenItem { Number = 4, Product = "Sample D", Stocks = 150, Category = "Kalmback", DateImported = DateTime.Now.AddDays(-2) }
+            new ChickenItem { Number = 1, Product = "Sample A", Stocks = 100, Brand = "Sarimanok", DateImported = DateTime.Now },
+            new ChickenItem { Number = 2, Product = "Sample B", Stocks = 80, Brand = "Kalmback", DateImported = DateTime.Now },
+            new ChickenItem { Number = 3, Product = "Sample C", Stocks = 60, Brand = "Vienovo", DateImported = DateTime.Now.AddDays(-1) },
+            new ChickenItem { Number = 4, Product = "Sample D", Stocks = 150, Brand = "Kalmback", DateImported = DateTime.Now.AddDays(-2) }
         };
 
         FeedsDataGrid.ItemsSource = items;
