@@ -13,7 +13,7 @@
         <SolidColorBrush x:Key="BackgroundMedium" Color="#222236"/>
         <SolidColorBrush x:Key="TextColor" Color="White"/>
 
-        <Style TargetType="DataGrid">
+        <Style TargetType="DataGrid"> 
             <Setter Property="Background" Value="{StaticResource BackgroundMedium}"/>
             <Setter Property="Foreground" Value="{StaticResource BackgroundDark}"/>
             <Setter Property="RowBackground" Value="{StaticResource BackgroundMedium}"/>

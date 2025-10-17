@@ -3,35 +3,53 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:utils="clr-namespace:Agriventory.Utils"
              mc:Ignorable="d"
              d:DesignHeight="550" d:DesignWidth="800">
-
     
-   
-    <Grid Margin="20">
-        
-        <StackPanel>
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="PrimaryColor" Color="#ff5757"/>
+        <SolidColorBrush x:Key="BackgroundDark" Color="#161622"/>
+        <SolidColorBrush x:Key="BackgroundMedium" Color="#222236"/>
+        <SolidColorBrush x:Key="TextColor" Color="White"/>
 
-            <StackPanel Grid.Row="0" Margin="0,0,0,10" >
-                <TextBlock Text="Transaction History" Foreground="#ff5757" Margin="0,5,0,0" FontSize="30" FontWeight="Bold"/>
-            </StackPanel>
-            
-            <DataGrid x:Name="TransactionDataGrid"
-                      AutoGenerateColumns="False"
-                      HeadersVisibility="Column"
-                      CanUserAddRows="False"
-                      SelectionMode="Single">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="#" Binding="{Binding Number}" Width="40"/>
-                    <DataGridTextColumn Header="Names" Binding="{Binding Names}" Width="*"/>
-                    <DataGridTextColumn Header="Products" Binding="{Binding Product}" Width="*"/>
-                    <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="80"/>
-                    <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="100"/>
-                    <DataGridTextColumn Header="Brand" Binding="{Binding Brand}" Width="150"/>
-                    <DataGridTextColumn Header="Date Delivered" Binding="{Binding DateDelivered}" Width="150"/>
-                </DataGrid.Columns>
-            </DataGrid>
+        <Style TargetType="DataGrid"> 
+            <Setter Property="Background" Value="{StaticResource BackgroundMedium}"/>
+            <Setter Property="Foreground" Value="{StaticResource BackgroundDark}"/>
+            <Setter Property="RowBackground" Value="{StaticResource BackgroundMedium}"/>
+            <Setter Property="AlternatingRowBackground" Value="{StaticResource BackgroundDark}"/>
+            <Setter Property="GridLinesVisibility" Value="None"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="#333"/>
+            <Setter Property="VerticalGridLinesBrush" Value="#333"/>
+        </Style>
 
+    </UserControl.Resources>
+    
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Margin="0,0,0,10" >
+            <TextBlock Text="Transaction" Foreground="#ff5757" Margin="0,5,0,0" FontSize="30" FontWeight="Bold"/>
         </StackPanel>
+        <Border CornerRadius="10" Grid.Row="2">
+        <DataGrid x:Name="TransactionDataGrid" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn Foreground="White" Header="#" Binding="{Binding Number}" Width="40"/>
+                <DataGridTextColumn Foreground="White" Header="Names" Binding="{Binding Names}" Width="*"/>
+                <DataGridTextColumn Foreground="White" Header="Products" Binding="{Binding Products}" Width="80"/>
+                <DataGridTextColumn Foreground="White" Header="Quantity" Binding="{Binding Quantity}" Width="*"/>
+                <DataGridTextColumn Foreground="White" Header="Category" Binding="{Binding Category}" Width="*"/>
+                <DataGridTextColumn Foreground="White" Header="Brand" Binding="{Binding Brand}" Width="*"/>
+                <DataGridTextColumn Foreground="White" Header="Date Delivered" Binding="{Binding DateDelivered}" Width="*"/>
+               
+
+            </DataGrid.Columns>
+        </DataGrid>
+        </Border>
     </Grid>
 </UserControl>
