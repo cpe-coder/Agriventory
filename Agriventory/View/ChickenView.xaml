@@ -78,6 +78,7 @@
                         Cursor="Hand"
                         BorderBrush="Transparent"
                         Background="Transparent"
+                        Click="AddNewButton_Click"
                         Foreground="White">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
@@ -156,5 +157,76 @@
             </DataGrid.Columns>
         </DataGrid>
         </Border>
+        
+        <Grid x:Name="AddProductModal"
+              Background="#80000000"
+              Visibility="Collapsed"
+              Grid.RowSpan="3">
+            <Border Background="{StaticResource BackgroundMedium}"
+                    CornerRadius="10"
+                    Padding="20"
+                    Width="400"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    BorderBrush="{StaticResource PrimaryColor}"
+                    BorderThickness="2">
+                <StackPanel>
+                    <TextBlock Text="Add New Product"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               Foreground="{StaticResource PrimaryColor}"
+                               Margin="0,0,0,15"
+                               HorizontalAlignment="Center"/>
+
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Product Name" Foreground="White"/>
+                        <TextBox x:Name="ProductNameTextBox"
+                                 Background="#333"
+                                 Foreground="White"
+                                 BorderBrush="{StaticResource PrimaryColor}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Stocks" Foreground="White"/>
+                        <TextBox x:Name="StocksTextBox"
+                                 Background="#333"
+                                 Foreground="White"
+                                 BorderBrush="{StaticResource PrimaryColor}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Brand" Foreground="White"/>
+                        <TextBox x:Name="BrandTextBox"
+                                 Background="#333"
+                                 Foreground="White"
+                                 BorderBrush="{StaticResource PrimaryColor}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,0,0,15">
+                        <TextBlock Text="Date Imported" Foreground="White"/>
+                        <DatePicker x:Name="DateImportedPicker"
+                                    Background="#333"
+                                    Foreground="White"
+                                    BorderBrush="{StaticResource PrimaryColor}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="Cancel"
+                                Width="80"
+                                Background="Transparent"
+                                Foreground="White"
+                                BorderBrush="{StaticResource PrimaryColor}"
+                                Click="CancelModal_Click"/>
+                        <Button Content="Save"
+                                Width="80"
+                                Background="{StaticResource PrimaryColor}"
+                                Foreground="White"
+                                BorderBrush="Transparent"
+                                Click="SaveProduct_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+        
     </Grid>
 </UserControl>
