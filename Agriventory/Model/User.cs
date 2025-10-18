@@ -12,7 +12,7 @@ public class User
         Password = password;
         Role = role;
     }
-
+    
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
     public string Id { get; set; }

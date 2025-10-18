@@ -28,13 +28,13 @@ public partial class PigView : UserControl
     {
         var button = sender as Button;
         var selectedItem = (ChickenItem)((FrameworkElement)button).DataContext;
-        MessageBox.Show($"You can now edit {selectedItem.Product}");
+        MessageBox.Show($"You can now edit {selectedItem.ProductName}");
     }
 
     private void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
         var button = sender as Button;
         var selectedItem = (ChickenItem)((FrameworkElement)button).DataContext;
-        MessageBox.Show($"Are you sure you want to delete {selectedItem.Product}?");
+        MessageBox.Show($"Are you sure you want to delete {selectedItem.ProductName}?");
     }
 }

@@ -39,12 +39,12 @@
         <Border CornerRadius="10" Grid.Row="2">
         <DataGrid x:Name="TransactionDataGrid" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False" SelectionMode="Single">
             <DataGrid.Columns>
-                <DataGridTextColumn Foreground="White" Header="#" Binding="{Binding Number}" Width="40"/>
+                <DataGridTextColumn Foreground="White" Header="#" Binding="{Binding number}" Width="40"/>
                 <DataGridTextColumn Foreground="White" Header="Names" Binding="{Binding Names}" Width="*"/>
                 <DataGridTextColumn Foreground="White" Header="Products" Binding="{Binding Products}" Width="80"/>
                 <DataGridTextColumn Foreground="White" Header="Quantity" Binding="{Binding Quantity}" Width="*"/>
                 <DataGridTextColumn Foreground="White" Header="Category" Binding="{Binding Category}" Width="*"/>
-                <DataGridTextColumn Foreground="White" Header="Brand" Binding="{Binding Brand}" Width="*"/>
+                <DataGridTextColumn Foreground="White" Header="Brand" Binding="{Binding brand}" Width="*"/>
                 <DataGridTextColumn Foreground="White" Header="Date Delivered" Binding="{Binding DateDelivered}" Width="*"/>
                
 
