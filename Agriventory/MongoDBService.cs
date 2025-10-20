@@ -20,16 +20,6 @@ public class MongoDBService
         return _database.GetCollection<User>("admin");
     }
 
-    /*public IMongoCollection<ChickenItem> GetChickenItemsCollection()
-    {
-        return _database.GetCollection<ChickenItem>("chickens");
-    }
-
-    public async Task AddChickenItem(ChickenItem item)
-    {
-        await _database.GetCollection<ChickenItem>("chickens").InsertOneAsync(item);
-    }*/
-
     public async Task AddChickenAsync(ChickenItem chicken)
     {
         await _chickenCollection.InsertOneAsync(chicken);

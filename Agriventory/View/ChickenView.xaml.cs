@@ -9,30 +9,17 @@ namespace Agriventory.View;
 public partial class ChickenView : UserControl
 {
 
-    public ObservableCollection<ChickenItem> ChickensData { get; set; }
     private readonly MongoDBService _mongoService;
+    private readonly ChickenViewModel _viewModel;
     public ChickenView()
     {
         InitializeComponent();
-        _ = LoadChickensDataAsync();
         _mongoService = new MongoDBService();
-        ChickensData = new ObservableCollection<ChickenItem>();
-        DataContext = new ChickenViewModel();
+        _viewModel = new ChickenViewModel();
+        DataContext = _viewModel;
 
     }
-    private async Task LoadChickensDataAsync()
-    {
-        var list = await _mongoService.GetAllChickensAsync();
-        
-        ChickensData.Clear();
-
-        foreach (var item in list)
-        {
-            ChickensData.Add(item);
-            MessageBox.Show(item.ProductName);
-        }
-        
-    }
+   
 
     private void EditButton_Click(object sender, RoutedEventArgs e)
     {
@@ -109,7 +96,6 @@ public partial class ChickenView : UserControl
         AddProductModal.Visibility = Visibility.Collapsed;
 
         // Optional: reload data if you want to refresh the grid
-        await LoadChickensDataAsync();
     }
 }
    
