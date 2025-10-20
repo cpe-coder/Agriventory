@@ -5,24 +5,16 @@ namespace Agriventory.Model;
 
 public class ChickenItem
 {
-
-
-    public ChickenItem(int number, string productName, int stocks, string brand, DateTime dateImported)
-    {
-        Number = number;
-        ProductName = productName;
-        Stocks = stocks;
-        Brand = brand;
-        DateImported = dateImported;
-    }
-
- 
-
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
-    public int Number { get; set; }
+    public string Id { get; set; }
+    
+    [BsonElement("productName")]
     public string ProductName { get; set; }
+    [BsonElement("stocks")]
     public int Stocks { get; set; }
+    [BsonElement("brand")]
     public string Brand { get; set; }
+    [BsonElement("dateImported")]
     public DateTime DateImported { get; set; }
 }

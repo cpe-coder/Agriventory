@@ -6,6 +6,7 @@
         xmlns:menuBar="clr-namespace:Agriventory.Utils"
         xmlns:viewModel="clr-namespace:Agriventory.ViewModel"
         xmlns:view="clr-namespace:Agriventory.View"
+        xmlns:agriventory="clr-namespace:Agriventory"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"

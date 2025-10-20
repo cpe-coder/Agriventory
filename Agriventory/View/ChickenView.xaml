@@ -96,8 +96,8 @@
         </Grid>
         <Border CornerRadius="10" Grid.Row="2">
             
-        <DataGrid x:Name="FeedsDataGrid" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False" SelectionMode="Single">
-            <DataGrid.Columns>
+        <DataGrid x:Name="FeedsDataGrid" ItemsSource="{Binding Chickens}" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False" SelectionMode="Single">
+            <DataGrid.Columns >
                 <DataGridTextColumn Foreground="White" Header="#" Binding="{Binding number}" Width="40"/>
                 <DataGridTextColumn Foreground="White" Header="Products" Binding="{Binding productName}" Width="*"/>
                 <DataGridTextColumn Foreground="White" Header="Stocks" Binding="{Binding stocks}" Width="80"/>
@@ -158,7 +158,7 @@
         </DataGrid>
         </Border>
         
-        <Grid x:Name="AddProductModal"
+        <Grid Grid.Row='0' x:Name="AddProductModal"
               Background="#80000000"
               Visibility="Collapsed"
               Grid.RowSpan="3">
@@ -181,44 +181,60 @@
                     <StackPanel Margin="0,0,0,10">
                         <TextBlock Text="Product Name" Foreground="White"/>
                         <TextBox x:Name="ProductNameTextBox"
-                                 Background="#333"
-                                 Foreground="White"
+                                 Height="30"
+                                 FontSize="12"
+                                 VerticalContentAlignment="Center"
+                                 Background="White"
+                                 Foreground="{StaticResource BackgroundMedium}"
                                  BorderBrush="{StaticResource PrimaryColor}"/>
                     </StackPanel>
 
                     <StackPanel Margin="0,0,0,10">
                         <TextBlock Text="Stocks" Foreground="White"/>
                         <TextBox x:Name="StocksTextBox"
-                                 Background="#333"
-                                 Foreground="White"
+                                 Height="30"
+                                 FontSize="12"
+                                 VerticalContentAlignment="Center"
+                                 Background="White"
+                                 Foreground="{StaticResource BackgroundMedium}"
                                  BorderBrush="{StaticResource PrimaryColor}"/>
                     </StackPanel>
 
                     <StackPanel Margin="0,0,0,10">
                         <TextBlock Text="Brand" Foreground="White"/>
                         <TextBox x:Name="BrandTextBox"
-                                 Background="#333"
-                                 Foreground="White"
+                                 Height="30"
+                                 FontSize="12"
+                                 VerticalContentAlignment="Center"
+                                 Background="White"
+                                 Foreground="{StaticResource BackgroundMedium}"
                                  BorderBrush="{StaticResource PrimaryColor}"/>
                     </StackPanel>
 
                     <StackPanel Margin="0,0,0,15">
                         <TextBlock Text="Date Imported" Foreground="White"/>
                         <DatePicker x:Name="DateImportedPicker"
-                                    Background="#333"
-                                    Foreground="White"
+                                    Height="30"
+                                    FontSize="12"
+                                    VerticalContentAlignment="Center"
+                                    Background="White"
+                                    Foreground="{StaticResource BackgroundMedium}"
                                     BorderBrush="{StaticResource PrimaryColor}"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button Content="Cancel"
                                 Width="80"
+                                Height="30"
+                                VerticalContentAlignment="Center"
                                 Background="Transparent"
                                 Foreground="White"
                                 BorderBrush="{StaticResource PrimaryColor}"
                                 Click="CancelModal_Click"/>
                         <Button Content="Save"
                                 Width="80"
+                                Height="30"
+                                VerticalContentAlignment="Center"
                                 Background="{StaticResource PrimaryColor}"
                                 Foreground="White"
                                 BorderBrush="Transparent"

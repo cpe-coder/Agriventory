@@ -20,7 +20,6 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-
         var login = new LoginView();
         login.Show();
         this.Close();
