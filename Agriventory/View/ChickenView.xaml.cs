@@ -68,6 +68,7 @@ public partial class ChickenView : UserControl
             return;
         }
 
+
         // ✅ Create a ChickenItem object from the modal fields
         var newChicken = new ChickenItem
         {
@@ -86,7 +87,7 @@ public partial class ChickenView : UserControl
         {
             MessageBox.Show($"Error saving product: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
-        }
+        }  
 
         // ✅ Clear fields and close modal
         ProductNameTextBox.Clear();
