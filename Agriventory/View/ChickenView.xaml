@@ -96,7 +96,7 @@
         </Grid>
         <Border CornerRadius="10" Grid.Row="2">
             
-        <DataGrid x:Name="FeedsDataGrid" ItemsSource="{Binding Chickens}" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False" SelectionMode="Single">
+        <DataGrid x:Name="FeedsDataGrid" ItemsSource="{Binding ChickenData}" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False" SelectionMode="Single">
             <DataGrid.Columns >
                 <DataGridTextColumn Foreground="White" Header="#" Binding="{Binding number}" Width="40"/>
                 <DataGridTextColumn Foreground="White" Header="Products" Binding="{Binding productName}" Width="*"/>

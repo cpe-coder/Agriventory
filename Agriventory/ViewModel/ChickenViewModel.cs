@@ -8,8 +8,8 @@ namespace Agriventory.ViewModel;
 public class ChickenViewModel : BaseViewModel
 {
     private readonly MongoDBService _mongoService = new();
-    
-    public ObservableCollection<ChickenItemDisplay> ChickenData { get; set; }
+
+    public ObservableCollection<ChickenItemDisplay> ChickenData { get; set; } = new();
 
     private int _totalCount;
 
@@ -18,6 +18,7 @@ public class ChickenViewModel : BaseViewModel
         get => _totalCount;
         set {_totalCount = value; OnPropertyChanged(); }
     }
+    
 
     private string _productName = null!;
     private int _stocks;
@@ -49,40 +50,51 @@ public class ChickenViewModel : BaseViewModel
     }
 
     public ICommand AddChickenCommand { get; }
+    public RelayCommand LoadChickensCommand { get; }
 
     public ChickenViewModel()
     {
-        AddChickenCommand = new RelayCommand(async void () => await AddProductAsync());
         _mongoService = new MongoDBService();
+        AddChickenCommand = new RelayCommand(async void () => await AddProductAsync());
         ChickenData = new ObservableCollection<ChickenItemDisplay>();
+        LoadChickensCommand = new RelayCommand(async () => await LoadChickenAsync());
         _ = LoadChickenAsync();
     }
 
-    public async Task LoadChickenAsync()
+    private async Task LoadChickenAsync()
     {
-        var list = await _mongoService.GetAllChickensAsync();
-        
-        ChickenData.Clear();
-
-        int index = 1;
-        foreach (var item in list)
+        try
         {
-            ChickenData.Add(new ChickenItemDisplay
+            var list = await _mongoService.GetAllChickensAsync() ?? Enumerable.Empty<ChickenItem>().ToList();
+
+            ChickenData.Clear();
+
+            int idx = 1;
+            foreach (var item in list.OrderBy(x => x.DateImported))
             {
-                Number = index++,
-                ProductName = item.ProductName,
-                Stocks = item.Stocks,
-                Brand = item.Brand,
-                DateImported = item.DateImported,
-            });
+                ChickenData.Add(new ChickenItemDisplay
+                {
+                    Number = idx++,
+                    Id = item.Id,
+                    ProductName = item.ProductName,
+                    Stocks = item.Stocks,
+                    Brand = item.Brand,
+                    DateImported = item.DateImported
+                });
+            }
+
+            TotalCount = ChickenData.Count;
         }
-        
-        TotalCount = ChickenData.Count;
-        
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Error loading chickens: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
+
     public class ChickenItemDisplay
     {
         public int Number { get; set; }
+        public string Id { get; set; }
         public string ProductName { get; set; }
         public int Stocks { get; set; }
         public string Brand { get; set; }
