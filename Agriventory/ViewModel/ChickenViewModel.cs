@@ -61,40 +61,33 @@ public class ChickenViewModel : BaseViewModel
         _ = LoadChickenAsync();
     }
 
-    private async Task LoadChickenAsync()
+    public async Task LoadChickenAsync()
     {
-        try
+        var list = await _mongoService.GetAllChickensAsync();
+        ChickenData.Clear();
+
+        int index = 1;
+        foreach (var item in list.OrderBy(c => c.DateImported))
         {
-            var list = await _mongoService.GetAllChickensAsync() ?? Enumerable.Empty<ChickenItem>().ToList();
-
-            ChickenData.Clear();
-
-            int idx = 1;
-            foreach (var item in list.OrderBy(x => x.DateImported))
+            ChickenData.Add(new ChickenItemDisplay
             {
-                ChickenData.Add(new ChickenItemDisplay
-                {
-                    Number = idx++,
-                    Id = item.Id,
-                    ProductName = item.ProductName,
-                    Stocks = item.Stocks,
-                    Brand = item.Brand,
-                    DateImported = item.DateImported
-                });
-            }
+                Id = index++,
+                Number = index++,
+                ProductName = item.ProductName,
+                Stocks = item.Stocks,
+                Brand = item.Brand,
+                DateImported = item.DateImported
+            });
+        }
 
-            TotalCount = ChickenData.Count;
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Error loading chickens: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
+        TotalCount = ChickenData.Count;
     }
 
     public class ChickenItemDisplay
     {
+        
+        public int Id { get; set; }
         public int Number { get; set; }
-        public string Id { get; set; }
         public string ProductName { get; set; }
         public int Stocks { get; set; }
         public string Brand { get; set; }

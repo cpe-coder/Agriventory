@@ -10,17 +10,21 @@ public partial class ChickenView : UserControl
 {
 
     private readonly MongoDBService _mongoService;
-    private readonly ChickenViewModel _viewModel;
+    private readonly ChickenViewModel _viewModel = new();
     public ChickenView()
     {
         InitializeComponent();
         _mongoService = new MongoDBService();
         _viewModel = new ChickenViewModel();
         DataContext = _viewModel;
-
+        
     }
    
-
+    private void RefreshButton_Click(object sender, RoutedEventArgs e)
+    {
+        FeedsDataGrid.Items.Refresh();
+    }
+    
     private void EditButton_Click(object sender, RoutedEventArgs e)
     {
         var button = sender as Button;
@@ -77,6 +81,8 @@ public partial class ChickenView : UserControl
             Brand = brand,
             DateImported = dateImported.Value
         };
+        
+       
 
         try
         {
@@ -95,6 +101,8 @@ public partial class ChickenView : UserControl
         BrandTextBox.Clear();
         DateImportedPicker.SelectedDate = DateTime.Now;
         AddProductModal.Visibility = Visibility.Collapsed;
+        
+         RefreshButton_Click(sender, e);
 
         // Optional: reload data if you want to refresh the grid
     }

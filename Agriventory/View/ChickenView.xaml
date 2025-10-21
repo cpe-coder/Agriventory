@@ -98,11 +98,11 @@
             
         <DataGrid x:Name="FeedsDataGrid" ItemsSource="{Binding ChickenData}" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False" SelectionMode="Single">
             <DataGrid.Columns >
-                <DataGridTextColumn Foreground="White" Header="#" Binding="{Binding number}" Width="40"/>
-                <DataGridTextColumn Foreground="White" Header="Products" Binding="{Binding productName}" Width="*"/>
-                <DataGridTextColumn Foreground="White" Header="Stocks" Binding="{Binding stocks}" Width="80"/>
-                <DataGridTextColumn Foreground="White" Header="Brands" Binding="{Binding brand}" Width="*"/>
-                <DataGridTextColumn Foreground="White" Header="Date Imported" Binding="{Binding dateImported}" Width="*"/>
+                <DataGridTextColumn Header="#" Binding="{Binding number}" Width="40"/>
+                <DataGridTextColumn Header="Products" Binding="{Binding productName}" Width="*"/>
+                <DataGridTextColumn Header="Stocks" Binding="{Binding stocks}" Width="80"/>
+                <DataGridTextColumn Header="Brands" Binding="{Binding brand}" Width="*"/>
+                <DataGridTextColumn Header="Date Imported" Binding="{Binding dateImported}" Width="*"/>
 
                 <DataGridTemplateColumn Header="Actions" Width="150">
                     <DataGridTemplateColumn.CellTemplate>
