@@ -12,7 +12,7 @@ public class ChickenItem
     [BsonElement("productName")]
     public string ProductName { get; set; } = string.Empty;
     [BsonElement("stocks")]
-    public int Stocks { get; set; }
+    public int Stocks { get; set; } 
     [BsonElement("brand")]
     public string Brand { get; set; } = string.Empty;
     [BsonElement("dateImported")]

@@ -67,20 +67,19 @@ public class ChickenViewModel : BaseViewModel
         ChickenData.Clear();
 
         int index = 1;
-        foreach (var item in list.OrderBy(c => c.DateImported))
-        {
-            ChickenData.Add(new ChickenItemDisplay
-            {
-                Id = index++,
-                Number = index++,
-                ProductName = item.ProductName,
-                Stocks = item.Stocks,
-                Brand = item.Brand,
-                DateImported = item.DateImported
-            });
-        }
+        foreach (var item in list.Select(x => new ChickenItemDisplay()
+                 {
+                     Number = index++,
+                     ProductName = x.ProductName,
+                     Stocks = x.Stocks,
+                     Brand = x.Brand,
+                     DateImported = x.DateImported,
+                 }).ToList()
+    )
+            
+            ChickenData.Add(item);
 
-        TotalCount = ChickenData.Count;
+    TotalCount = ChickenData.Count;
     }
 
     public class ChickenItemDisplay
