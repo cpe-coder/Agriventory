@@ -45,8 +45,36 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="Deliver"
+                <Button Grid.Column="0" Content="Refresh"
+                        Width="80"
+                        Margin="0,0,0,10"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        FontWeight="Bold"
+                        Height="35"
+                        Cursor="Hand"
+                        Background="Transparent"
+                        Foreground="White"
+                        Command="{Binding LoadChickensCommand}"
+                        >
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="5" 
+                                    BorderBrush="#ff5757"
+                                    BorderThickness="1"
+                                    Margin="0,0,0,0"
+                                    Height="35"
+                                    Background="#222236">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                    
+                </Button>
+
+                <Button Grid.Column="1" Content="Deliver"
                         Width="80"
                         Margin="0,0,0,10"
                         VerticalAlignment="Center"
@@ -55,7 +83,7 @@
                         Height="35"
                         Cursor="Hand"
                         BorderBrush="#ff5757"
-                        Background="Transparent"
+                        Background="#222236"
                         Foreground="White">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
@@ -68,7 +96,7 @@
                             </Border>
                         </ControlTemplate>
                     </Button.Template>
-                </Button> <Button Grid.Column="1" Content="Add New"
+                </Button> <Button Grid.Column="2" Content="Add New"
                         Width="80"
                         Margin="0,0,0,10"
                         VerticalAlignment="Center"
@@ -96,7 +124,7 @@
         </Grid>
         <Border CornerRadius="10" Grid.Row="2">
             
-        <DataGrid x:Name="FeedsDataGrid" ItemsSource="{Binding ChickenData}" VerticalContentAlignment="Center" IsReadOnly="True" IsHitTestVisible="False" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False">
+        <DataGrid x:Name="FeedsDataGrid" ItemsSource="{Binding ChickenData}" VerticalContentAlignment="Center" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False">
             <DataGrid.Resources>
                 <Style TargetType="DataGridCell">
                     <Setter Property="VerticalAlignment" Value="Center"/>
@@ -104,7 +132,7 @@
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns >
-                <DataGridTextColumn FontSize="14" Foreground="White" Header="#" Binding="{Binding Number}" Width="40"/>
+                <DataGridTextColumn FontSize="14" Foreground="White" Header="#" Binding="{Binding Number}"  Width="40"/>
                 <DataGridTextColumn FontSize="14" Foreground="White" Header="Products" Binding="{Binding ProductName}" Width="*"/>
                 <DataGridTextColumn FontSize="14" Foreground="White" Header="Stocks" Binding="{Binding Stocks}" Width="80"/>
                 <DataGridTextColumn FontSize="14" Foreground="White" Header="Brands" Binding="{Binding Brand}" Width="*"/>
@@ -116,49 +144,17 @@
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Button Content="Edit"
                                         Width="60"
-                                        VerticalAlignment="Center"
-                                        FontWeight="Medium"
                                         Height="30"
-                                        Cursor="Hand"
+                                        Margin="5,0,5,0"
                                         FontSize="10"
-                                        VerticalContentAlignment="Center"
-                                        BorderBrush="Transparent"
-                                        Background="Transparent"
-                                        ForceCursor="False"
-                                        Foreground="DodgerBlue">
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border CornerRadius="5" 
-                                                    BorderThickness="1"
-                                                    Margin="0,0,0,0"
-                                                    Height="30">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
+                                        Foreground="DodgerBlue"
+                                        Click="EditProduct_Click"/>
                                 <Button Content="Delete"
-                                        Width="70"
-                                        VerticalAlignment="Center"
-                                        FontWeight="Bold"
+                                        Width="60"
                                         Height="30"
                                         FontSize="10"
-                                        Cursor="Hand"
-                                        VerticalContentAlignment="Center"
-                                        BorderBrush="Transparent"
-                                        Background="Transparent"
-                                        Foreground="Red">
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border CornerRadius="5" 
-                                                    BorderThickness="1"
-                                                    Margin="0,0,0,0"
-                                                    Height="30">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
+                                        Foreground="Red"
+                                        Click="DeleteProduct_Click"/>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -242,14 +238,102 @@
                                 Foreground="White"
                                 BorderBrush="{StaticResource PrimaryColor}"
                                 Click="CancelModal_Click"/>
-                        <Button Content="Save"
+                        <Button x:Name="SaveProductButton"
+                                Content="{Binding SaveButtonText}"
                                 Width="80"
                                 Height="30"
-                                VerticalContentAlignment="Center"
                                 Background="{StaticResource PrimaryColor}"
                                 Foreground="White"
                                 BorderBrush="Transparent"
                                 Click="SaveProduct_Click"/>
+
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+        <Grid Grid.Row='0' x:Name="EditProductModal"
+              Background="#80000000"
+              Visibility="Collapsed"
+              Grid.RowSpan="3">
+            <Border Background="{StaticResource BackgroundMedium}"
+                    CornerRadius="10"
+                    Padding="20"
+                    Width="400"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    BorderBrush="{StaticResource PrimaryColor}"
+                    BorderThickness="2">
+                <StackPanel>
+                    <TextBlock Text="Edit Product"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               Foreground="{StaticResource PrimaryColor}"
+                               Margin="0,0,0,15"
+                               HorizontalAlignment="Center"/>
+
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Product Name" Foreground="White"/>
+                        <TextBox x:Name="EditProductNameInput"
+                                 Height="30"
+                                 FontSize="12"
+                                 VerticalContentAlignment="Center"
+                                 Background="White"
+                                 Foreground="{StaticResource BackgroundMedium}"
+                                 BorderBrush="{StaticResource PrimaryColor}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Stocks" Foreground="White"/>
+                        <TextBox x:Name="EditStocksInput"
+                                 Height="30"
+                                 FontSize="12"
+                                 VerticalContentAlignment="Center"
+                                 Background="White"
+                                 Foreground="{StaticResource BackgroundMedium}"
+                                 BorderBrush="{StaticResource PrimaryColor}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Brand" Foreground="White"/>
+                        <TextBox x:Name="EditBrandInput"
+                                 Height="30"
+                                 FontSize="12"
+                                 VerticalContentAlignment="Center"
+                                 Background="White"
+                                 Foreground="{StaticResource BackgroundMedium}"
+                                 BorderBrush="{StaticResource PrimaryColor}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,0,0,15">
+                        <TextBlock Text="Date Imported" Foreground="White"/>
+                        <DatePicker x:Name="EditDateImportedInput"
+                                    Height="30"
+                                    FontSize="12"
+                                    VerticalContentAlignment="Center"
+                                    Background="White"
+                                    Foreground="{StaticResource BackgroundMedium}"
+                                    BorderBrush="{StaticResource PrimaryColor}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="Cancel"
+                                Width="80"
+                                Height="30"
+                                Margin="0,0,5,0"
+                                VerticalContentAlignment="Center"
+                                Background="Transparent"
+                                Foreground="White"
+                                BorderBrush="{StaticResource PrimaryColor}"
+                                Click="CancelEdit_Click"/>
+                        <Button 
+                                Content="{Binding Update}"
+                                Width="80"
+                                Height="30"
+                                Background="{StaticResource PrimaryColor}"
+                                Foreground="White"
+                                BorderBrush="Transparent"
+                                Click="UpdateProduct_Click"/>
+
                     </StackPanel>
                 </StackPanel>
             </Border>

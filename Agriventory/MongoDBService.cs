@@ -2,6 +2,7 @@ using Agriventory.Model;
 using MongoDB.Driver;
 using System.Threading.Tasks;
 using Agriventory.Model;
+using MongoDB.Bson;
 
 public class MongoDBService
 {
@@ -19,7 +20,7 @@ public class MongoDBService
     {
         return _database.GetCollection<User>("admin");
     }
-
+    
     public async Task AddChickenAsync(ChickenItem chicken)
     {
         await _chickenCollection.InsertOneAsync(chicken);
@@ -31,6 +32,33 @@ public class MongoDBService
         return await _chickenCollection.Find(_ => true).Sort(sortDefinition).ToListAsync();
     }
 
-    
+    public async Task UpdateChickenAsync(ChickenItem item)
+    {
+        var filter = Builders<ChickenItem>.Filter.Eq("_id", ObjectId.Parse(item.Id));
+        var update = Builders<ChickenItem>.Update
+            .Set(x => x.ProductName, item.ProductName)
+            .Set(x => x.Stocks, item.Stocks)
+            .Set(x => x.Brand, item.Brand)
+            .Set(x => x.DateImported, item.DateImported);
+
+        var result = await _chickenCollection.UpdateOneAsync(filter, update);
+
+        if (result.MatchedCount == 0)
+        {
+            throw new Exception("No record found to update.");
+        }
+    }
+
+    // ✅ Delete (fixed)
+    public async Task DeleteChickenAsync(string id)
+    {
+        var filter = Builders<ChickenItem>.Filter.Eq("_id", ObjectId.Parse(id));
+        var result = await _chickenCollection.DeleteOneAsync(filter);
+
+        if (result.DeletedCount == 0)
+        {
+            throw new Exception("No record found to delete.");
+        }
+    }
     
 }

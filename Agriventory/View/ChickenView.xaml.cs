@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Agriventory.Model;
 using Agriventory.ViewModel;
+using MongoDB.Driver;
 
 namespace Agriventory.View;
 
@@ -11,6 +12,9 @@ public partial class ChickenView : UserControl
 
     private readonly MongoDBService _mongoService;
     private readonly ChickenViewModel _viewModel = new();
+    private readonly IMongoCollection<ChickenItem> _chickenCollection;
+    private ObservableCollection<ChickenItem> _chickens;
+    private ChickenItem _selectedProduct;
     public ChickenView()
     {
         InitializeComponent();
@@ -18,6 +22,22 @@ public partial class ChickenView : UserControl
         _viewModel = new ChickenViewModel();
         DataContext = _viewModel;
         
+        LoadProducts();
+        
+    }
+    
+  
+    private async void LoadProducts()
+    {
+        try
+        {
+            var items = await _mongoService.GetAllChickensAsync();
+            FeedsDataGrid.ItemsSource = new ObservableCollection<ChickenItem>(items);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Database Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
    
     private void RefreshButton_Click(object sender, RoutedEventArgs e)
@@ -49,6 +69,7 @@ public partial class ChickenView : UserControl
     {
         AddProductModal.Visibility = Visibility.Collapsed;
     }
+    
 
     private async void SaveProduct_Click(object sender, RoutedEventArgs e)
     {
@@ -81,7 +102,6 @@ public partial class ChickenView : UserControl
             Brand = brand,
             DateImported = dateImported.Value
         };
-        
        
 
         try
@@ -106,6 +126,65 @@ public partial class ChickenView : UserControl
 
         // Optional: reload data if you want to refresh the grid
     }
+    
+    private void EditProduct_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.DataContext is ChickenItem selectedProduct)
+            {
+                _selectedProduct = selectedProduct;
+
+                // Fill modal with existing data
+                EditProductNameInput.Text = selectedProduct.ProductName;
+                EditStocksInput.Text = selectedProduct.Stocks.ToString();
+                EditBrandInput.Text = selectedProduct.Brand;
+                EditDateImportedInput.SelectedDate = selectedProduct.DateImported;
+
+                EditProductModal.Visibility = Visibility.Visible;
+            }
+        }
+
+    private void CancelEdit_Click(object sender, RoutedEventArgs e)
+    {
+        EditProductModal.Visibility = Visibility.Collapsed;
+    }
+
+    private void UpdateProduct_Click(object sender, RoutedEventArgs e)
+    {
+        if (_selectedProduct == null) return;
+
+        var filter = Builders<ChickenItem>.Filter.Eq(x => x.Id, _selectedProduct.Id);
+
+        var update = Builders<ChickenItem>.Update
+            .Set(x => x.ProductName, EditProductNameInput.Text)
+            .Set(x => x.Stocks, int.Parse(EditStocksInput.Text))
+            .Set(x => x.Brand, EditBrandInput.Text)
+            .Set(x => x.DateImported, EditDateImportedInput.SelectedDate ?? DateTime.Now);
+
+        _chickenCollection.UpdateOne(filter, update);
+        LoadProducts();
+
+        EditProductModal.Visibility = Visibility.Collapsed;
+        _selectedProduct = null;
+    }
+
+    private void DeleteProduct_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is Button button && button.DataContext is ChickenItem selectedProduct)
+        {
+            var result = MessageBox.Show($"Are you sure you want to delete '{selectedProduct.ProductName}'?",
+                                         "Confirm Delete",
+                                         MessageBoxButton.YesNo,
+                                         MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                var filter = Builders<ChickenItem>.Filter.Eq(x => x.Id, selectedProduct.Id);
+                _chickenCollection.DeleteOne(filter);
+                LoadProducts();
+            }
+        }
+    }
+    
 }
    
 
