@@ -96,13 +96,19 @@
         </Grid>
         <Border CornerRadius="10" Grid.Row="2">
             
-        <DataGrid x:Name="FeedsDataGrid" ItemsSource="{Binding ChickenData}" IsHitTestVisible="False" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False">
+        <DataGrid x:Name="FeedsDataGrid" ItemsSource="{Binding ChickenData}" VerticalContentAlignment="Center" IsReadOnly="True" IsHitTestVisible="False" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                </Style>
+            </DataGrid.Resources>
             <DataGrid.Columns >
-                <DataGridTextColumn FontSize="14" Header="#" Binding="{Binding number}" Width="40"/>
-                <DataGridTextColumn FontSize="14" Header="Products" Binding="{Binding productName}" Width="*"/>
-                <DataGridTextColumn FontSize="14" Header="Stocks" Binding="{Binding stocks}" Width="80"/>
-                <DataGridTextColumn FontSize="14" Header="Brands" Binding="{Binding brand}" Width="*"/>
-                <DataGridTextColumn FontSize="14" Header="Date Imported" Binding="{Binding dateImported}" Width="*"/>
+                <DataGridTextColumn FontSize="14" Foreground="White" Header="#" Binding="{Binding Number}" Width="40"/>
+                <DataGridTextColumn FontSize="14" Foreground="White" Header="Products" Binding="{Binding ProductName}" Width="*"/>
+                <DataGridTextColumn FontSize="14" Foreground="White" Header="Stocks" Binding="{Binding Stocks}" Width="80"/>
+                <DataGridTextColumn FontSize="14" Foreground="White" Header="Brands" Binding="{Binding Brand}" Width="*"/>
+                <DataGridTextColumn FontSize="14" Foreground="White" Header="Date Imported" Binding="{Binding DateImported}" Width="*"/>
 
                 <DataGridTemplateColumn Header="Actions" Width="150">
                     <DataGridTemplateColumn.CellTemplate>

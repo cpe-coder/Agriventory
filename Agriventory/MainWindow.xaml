@@ -8,11 +8,4 @@
         Background="Transparent"
         Icon="/Assets/logo.ico"
         Width="800" >
-        
-        <Border Background="#111315" 
-                BorderThickness="1"
-                BorderBrush="DodgerBlue"
-                CornerRadius="12">
-            <Image Width="150" Height="150" Source="Assets/logo.png"/>
-        </Border>
 </Window>
