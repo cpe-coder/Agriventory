@@ -11,7 +11,6 @@ public class ChickenViewModel : BaseViewModel
     private readonly MongoDBService _mongoService = new();
 
     public ObservableCollection<ChickenItemDisplay> ChickenData { get; set; } = new();
-    
 
     private int _totalCount;
 

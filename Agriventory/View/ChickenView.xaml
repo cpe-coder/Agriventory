@@ -55,6 +55,7 @@
                         FontWeight="Bold"
                         Height="35"
                         Cursor="Hand"
+                        Click="RefreshButton_Click"
                         Background="Transparent"
                         Foreground="White"
                         Command="{Binding LoadChickensCommand}"
@@ -244,7 +245,7 @@
                                 BorderBrush="{StaticResource PrimaryColor}"
                                 Click="CancelModal_Click"/>
                         <Button x:Name="SaveProductButton"
-                                Content="{Binding SaveButtonText}"
+                                Content="Save"
                                 Width="80"
                                 Height="30"
                                 Foreground="#ff222236"
@@ -331,10 +332,10 @@
                                 BorderBrush="{StaticResource PrimaryColor}"
                                 Click="CancelEdit_Click"/>
                         <Button 
-                                Content="{Binding Update}"
+                                Content="Update"
                                 Width="80"
                                 Height="30"
-                                Foreground="#ff222236"
+                                Foreground="Black"
                                 Background="{StaticResource PrimaryColor}"
                                 BorderBrush="Transparent"
                                 Click="UpdateProduct_Click"/>

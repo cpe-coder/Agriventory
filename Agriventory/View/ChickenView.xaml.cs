@@ -23,8 +23,9 @@ public partial class ChickenView : UserControl
         DataContext = _viewModel;
         
         LoadProducts();
-        
     }
+    
+
     
   
     private async void LoadProducts()
