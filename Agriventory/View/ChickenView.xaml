@@ -124,7 +124,7 @@
         </Grid>
         <Border CornerRadius="10" Grid.Row="2">
             
-        <DataGrid x:Name="FeedsDataGrid" ItemsSource="{Binding ChickenData}" VerticalContentAlignment="Center" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False">
+        <DataGrid x:Name="FeedsDataGrid" ItemsSource="{Binding }" VerticalContentAlignment="Center" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False">
             <DataGrid.Resources>
                 <Style TargetType="DataGridCell">
                     <Setter Property="VerticalAlignment" Value="Center"/>
@@ -132,11 +132,10 @@
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns >
-                <DataGridTextColumn FontSize="14" Foreground="White" Header="#" Binding="{Binding Number}"  Width="40"/>
-                <DataGridTextColumn FontSize="14" Foreground="White" Header="Products" Binding="{Binding ProductName}" Width="*"/>
-                <DataGridTextColumn FontSize="14" Foreground="White" Header="Stocks" Binding="{Binding Stocks}" Width="80"/>
-                <DataGridTextColumn FontSize="14" Foreground="White" Header="Brands" Binding="{Binding Brand}" Width="*"/>
-                <DataGridTextColumn FontSize="14" Foreground="White" Header="Date Imported" Binding="{Binding DateImported}" Width="*"/>
+                <DataGridTextColumn FontSize="14" Foreground="White" IsReadOnly="True" Header="Products" Binding="{Binding ProductName}" Width="*"/>
+                <DataGridTextColumn FontSize="14" Foreground="White" IsReadOnly="True" Header="Stocks" Binding="{Binding Stocks}" Width="80"/>
+                <DataGridTextColumn FontSize="14" Foreground="White" IsReadOnly="True" Header="Brands" Binding="{Binding Brand}" Width="*"/>
+                <DataGridTextColumn FontSize="14" Foreground="White" IsReadOnly="True" Header="Date Imported" Binding="{Binding DateImported}" Width="*"/>
 
                 <DataGridTemplateColumn Header="Actions" Width="150">
                     <DataGridTemplateColumn.CellTemplate>
@@ -147,13 +146,19 @@
                                         Height="30"
                                         Margin="5,0,5,0"
                                         FontSize="10"
+                                        Tag="{Binding}"
+                                        BorderThickness="0"
+                                        Background="Transparent"
                                         Foreground="DodgerBlue"
                                         Click="EditProduct_Click"/>
                                 <Button Content="Delete"
                                         Width="60"
                                         Height="30"
                                         FontSize="10"
+                                        Background="Transparent"
+                                        BorderThickness="0"
                                         Foreground="Red"
+                                        Tag="{Binding}"
                                         Click="DeleteProduct_Click"/>
                             </StackPanel>
                         </DataTemplate>
@@ -242,8 +247,8 @@
                                 Content="{Binding SaveButtonText}"
                                 Width="80"
                                 Height="30"
+                                Foreground="#ff222236"
                                 Background="{StaticResource PrimaryColor}"
-                                Foreground="White"
                                 BorderBrush="Transparent"
                                 Click="SaveProduct_Click"/>
 
@@ -273,7 +278,7 @@
 
                     <StackPanel Margin="0,0,0,10">
                         <TextBlock Text="Product Name" Foreground="White"/>
-                        <TextBox x:Name="EditProductNameInput"
+                        <TextBox x:Name="EditProductName"
                                  Height="30"
                                  FontSize="12"
                                  VerticalContentAlignment="Center"
@@ -284,7 +289,7 @@
 
                     <StackPanel Margin="0,0,0,10">
                         <TextBlock Text="Stocks" Foreground="White"/>
-                        <TextBox x:Name="EditStocksInput"
+                        <TextBox x:Name="EditStocks"
                                  Height="30"
                                  FontSize="12"
                                  VerticalContentAlignment="Center"
@@ -295,7 +300,7 @@
 
                     <StackPanel Margin="0,0,0,10">
                         <TextBlock Text="Brand" Foreground="White"/>
-                        <TextBox x:Name="EditBrandInput"
+                        <TextBox x:Name="EditBrand"
                                  Height="30"
                                  FontSize="12"
                                  VerticalContentAlignment="Center"
@@ -306,7 +311,7 @@
 
                     <StackPanel Margin="0,0,0,15">
                         <TextBlock Text="Date Imported" Foreground="White"/>
-                        <DatePicker x:Name="EditDateImportedInput"
+                        <DatePicker x:Name="EditDateImported"
                                     Height="30"
                                     FontSize="12"
                                     VerticalContentAlignment="Center"
@@ -329,8 +334,8 @@
                                 Content="{Binding Update}"
                                 Width="80"
                                 Height="30"
+                                Foreground="#ff222236"
                                 Background="{StaticResource PrimaryColor}"
-                                Foreground="White"
                                 BorderBrush="Transparent"
                                 Click="UpdateProduct_Click"/>
 

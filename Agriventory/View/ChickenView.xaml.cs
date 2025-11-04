@@ -127,66 +127,82 @@ public partial class ChickenView : UserControl
         // Optional: reload data if you want to refresh the grid
     }
     
-    private void EditProduct_Click(object sender, RoutedEventArgs e)
+        private void EditProduct_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button && button.DataContext is ChickenItem selectedProduct)
+            _selectedProduct = (sender as Button)?.Tag as ChickenItem;
+
+            if (_selectedProduct == null)
             {
-                _selectedProduct = selectedProduct;
-
-                // Fill modal with existing data
-                EditProductNameInput.Text = selectedProduct.ProductName;
-                EditStocksInput.Text = selectedProduct.Stocks.ToString();
-                EditBrandInput.Text = selectedProduct.Brand;
-                EditDateImportedInput.SelectedDate = selectedProduct.DateImported;
-
-                EditProductModal.Visibility = Visibility.Visible;
+                MessageBox.Show("Please select a product to edit.");
+                return;
             }
+
+            // Populate modal
+            EditProductName.Text = _selectedProduct.ProductName;
+            EditStocks.Text = _selectedProduct.Stocks.ToString();
+            EditBrand.Text = _selectedProduct.Brand;
+            EditDateImported.SelectedDate = _selectedProduct.DateImported;
+
+            EditProductModal.Visibility = Visibility.Visible;
         }
 
-    private void CancelEdit_Click(object sender, RoutedEventArgs e)
-    {
-        EditProductModal.Visibility = Visibility.Collapsed;
-    }
-
-    private void UpdateProduct_Click(object sender, RoutedEventArgs e)
-    {
-        if (_selectedProduct == null) return;
-
-        var filter = Builders<ChickenItem>.Filter.Eq(x => x.Id, _selectedProduct.Id);
-
-        var update = Builders<ChickenItem>.Update
-            .Set(x => x.ProductName, EditProductNameInput.Text)
-            .Set(x => x.Stocks, int.Parse(EditStocksInput.Text))
-            .Set(x => x.Brand, EditBrandInput.Text)
-            .Set(x => x.DateImported, EditDateImportedInput.SelectedDate ?? DateTime.Now);
-
-        _chickenCollection.UpdateOne(filter, update);
-        LoadProducts();
-
-        EditProductModal.Visibility = Visibility.Collapsed;
-        _selectedProduct = null;
-    }
-
-    private void DeleteProduct_Click(object sender, RoutedEventArgs e)
-    {
-        if (sender is Button button && button.DataContext is ChickenItem selectedProduct)
+        private async void UpdateProduct_Click(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show($"Are you sure you want to delete '{selectedProduct.ProductName}'?",
-                                         "Confirm Delete",
-                                         MessageBoxButton.YesNo,
-                                         MessageBoxImage.Warning);
-
-            if (result == MessageBoxResult.Yes)
+            if (_selectedProduct == null)
             {
-                var filter = Builders<ChickenItem>.Filter.Eq(x => x.Id, selectedProduct.Id);
-                _chickenCollection.DeleteOne(filter);
+                MessageBox.Show("No product selected.");
+                return;
+            }
+
+            try
+            {
+                _selectedProduct.ProductName = EditProductName.Text;
+                _selectedProduct.Stocks = int.Parse(EditStocks.Text);
+                _selectedProduct.Brand = EditBrand.Text;
+                _selectedProduct.DateImported = EditDateImported.SelectedDate ?? DateTime.Now;
+
+                await _mongoService.UpdateChickenAsync(_selectedProduct);
                 LoadProducts();
+
+                EditProductModal.Visibility = Visibility.Collapsed;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error updating product: {ex.Message}");
             }
         }
-    }
+
+        private void CancelEdit_Click(object sender, RoutedEventArgs e)
+        {
+            EditProductModal.Visibility = Visibility.Collapsed;
+        }
+
+        private async void DeleteProduct_Click(object sender, RoutedEventArgs e)
+        {
+            var product = (sender as Button)?.Tag as ChickenItem;
+
+            if (product == null)
+            {
+                MessageBox.Show("Please select a product to delete.");
+                return;
+            }
+
+            if (MessageBox.Show("Are you sure you want to delete this product?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    await _mongoService.DeleteChickenAsync(product.Id);
+                    LoadProducts();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error deleting product: {ex.Message}");
+                }
+            }
+        }
     
 }
-   
+
 
 
 

@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 using Agriventory.Model;
+using MongoDB.Bson;
 
 namespace Agriventory.ViewModel;
 
