@@ -7,7 +7,7 @@ public class ChickenItem
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
-    public string? Id { get; set; } = string.Empty;
+    public string? Id { get; init; } = string.Empty;
     
     [BsonElement("productName")]
     public string? ProductName { get; set; } = string.Empty;
