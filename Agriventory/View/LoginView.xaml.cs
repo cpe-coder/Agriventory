@@ -11,11 +11,11 @@ public partial class LoginView : Window
     private bool? _isAdmin = false;
     private string _role = "admin";
     
-    private readonly MongoDBService _mongoService;
+    private readonly MongoDbService _mongoService;
     public LoginView()
     {
         InitializeComponent();
-        _mongoService = new MongoDBService();
+        _mongoService = new MongoDbService();
     }
     
   

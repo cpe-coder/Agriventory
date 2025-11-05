@@ -5,7 +5,7 @@ using Agriventory.Model;
 namespace Agriventory.ViewModel;
 public class PigViewModel : BaseViewModel
 {
-    private readonly MongoDBService _mongoService;
+    private readonly MongoDbService _mongoService;
     private ObservableCollection<PigItemDisplay> PigData { get; }
 
     private int _totalCount;
@@ -68,7 +68,7 @@ public class PigViewModel : BaseViewModel
     }   
     public PigViewModel()
     {
-        _mongoService = new MongoDBService();
+        _mongoService = new MongoDbService();
         new RelayCommand(async void () => await AddProductAsync());
         new RelayCommand(async void () => await DeliveryProductAsync());
         PigData = new ObservableCollection<PigItemDisplay>();

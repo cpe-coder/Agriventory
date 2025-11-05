@@ -5,7 +5,7 @@ using Agriventory.Model;
 namespace Agriventory.ViewModel;
 public class ChickenViewModel : BaseViewModel
 {
-    private readonly MongoDBService _mongoService;
+    private readonly MongoDbService _mongoService;
     private ObservableCollection<ChickenItemDisplay> ChickenData { get; }
 
     private int _totalCount;
@@ -68,7 +68,7 @@ public class ChickenViewModel : BaseViewModel
     }   
     public ChickenViewModel()
     {
-        _mongoService = new MongoDBService();
+        _mongoService = new MongoDbService();
         new RelayCommand(async void () => await AddProductAsync());
         new RelayCommand(async void () => await DeliveryProductAsync());
         ChickenData = new ObservableCollection<ChickenItemDisplay>();

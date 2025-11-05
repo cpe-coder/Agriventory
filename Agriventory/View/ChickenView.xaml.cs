@@ -8,13 +8,12 @@ namespace Agriventory.View;
 
 public partial class ChickenView
 {
-
-    private readonly MongoDBService _mongoService;
+    private readonly MongoDbService _mongoService;
     private ChickenItem? _selectedProduct;
     public ChickenView( )
     {
         InitializeComponent();
-        _mongoService = new MongoDBService();
+        _mongoService = new MongoDbService();
         var viewModel = new ChickenViewModel();
         DataContext = viewModel;
         
@@ -38,7 +37,6 @@ public partial class ChickenView
             MessageBox.Show(ex.Message, "Database Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
- 
     private void AddNewButton_Click(object sender, RoutedEventArgs e)
     {
         AddProductModal.Visibility = Visibility.Visible;
@@ -104,7 +102,6 @@ public partial class ChickenView
         LoadProducts();
 
     }
-
     private void EditProduct_Click(object sender, RoutedEventArgs e)
         {
             _selectedProduct = (sender as Button)?.Tag as ChickenItem;
@@ -121,7 +118,6 @@ public partial class ChickenView
 
             EditProductModal.Visibility = Visibility.Visible;
         }
-
         private async void UpdateProduct_Click(object sender, RoutedEventArgs e)
         {
             if (_selectedProduct == null)
@@ -159,7 +155,6 @@ public partial class ChickenView
                 MessageBox.Show($"Error updating product: {ex.Message}");
             }
         }
-
         private void CancelEdit_Click(object sender, RoutedEventArgs e)
         {
             EditProductModal.Visibility = Visibility.Collapsed;
@@ -175,21 +170,18 @@ public partial class ChickenView
                 return;
             }
 
-            if (MessageBox.Show("Are you sure you want to delete this product?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            if (MessageBox.Show("Are you sure you want to delete this product?", "Confirm", MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning) != MessageBoxResult.Yes) return;
+            try
             {
-                try
-                {
-                    await _mongoService.DeleteChickenAsync(product.Id);
-                    LoadProducts();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error deleting product: {ex.Message}");
-                }
+                await _mongoService.DeleteChickenAsync(product.Id);
+                LoadProducts();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error deleting product: {ex.Message}");
             }
         }
-
-     
         private void CancelDeliver_Click(object sender, RoutedEventArgs e)
         {
             DeliveryProductModal.Visibility = Visibility.Hidden;
@@ -277,9 +269,6 @@ public partial class ChickenView
             LoadProducts();
             
         }
-        
-     
-        
 }
 
 

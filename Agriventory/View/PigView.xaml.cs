@@ -8,13 +8,12 @@ namespace Agriventory.View;
 
 public partial class PigView
 {
-
-    private readonly MongoDBService _mongoService;
+    private readonly MongoDbService _mongoService;
     private PigItem? _selectedProduct;
     public PigView( )
     {
         InitializeComponent();
-        _mongoService = new MongoDBService();
+        _mongoService = new MongoDbService();
         var viewModel = new PigViewModel();
         DataContext = viewModel;
         
@@ -104,7 +103,6 @@ public partial class PigView
         LoadProducts();
 
     }
-
     private void EditProduct_Click(object sender, RoutedEventArgs e)
         {
             _selectedProduct = (sender as Button)?.Tag as PigItem;
@@ -121,7 +119,6 @@ public partial class PigView
 
             EditProductModal.Visibility = Visibility.Visible;
         }
-
         private async void UpdateProduct_Click(object sender, RoutedEventArgs e)
         {
             if (_selectedProduct == null)
@@ -159,15 +156,13 @@ public partial class PigView
                 MessageBox.Show($"Error updating product: {ex.Message}");
             }
         }
-
         private void CancelEdit_Click(object sender, RoutedEventArgs e)
         {
             EditProductModal.Visibility = Visibility.Collapsed;
         }
-
         private async void DeleteProduct_Click(object sender, RoutedEventArgs e)
         {
-            var product = (sender as Button)?.Tag as ChickenItem;
+            var product = (sender as Button)?.Tag as PigItem;
 
             if (product == null)
             {
@@ -175,21 +170,19 @@ public partial class PigView
                 return;
             }
 
-            if (MessageBox.Show("Are you sure you want to delete this product?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            if (MessageBox.Show("Are you sure you want to delete this product?", "Confirm", MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning) != MessageBoxResult.Yes) return;
+            try
             {
-                try
-                {
-                    await _mongoService.DeletePigAsync(product.Id);
-                    LoadProducts();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error deleting product: {ex.Message}");
-                }
+                await _mongoService.DeletePigAsync(product.Id);
+                LoadProducts();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error deleting product: {ex.Message}");
             }
         }
 
-     
         private void CancelDeliver_Click(object sender, RoutedEventArgs e)
         {
             DeliveryProductModal.Visibility = Visibility.Hidden;
@@ -214,7 +207,6 @@ public partial class PigView
                 MessageBox.Show($"Error loading products: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
         private async void ProductNameComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ProductNameComboBox.SelectedItem is not string selectedProduct) return;
@@ -225,7 +217,6 @@ public partial class PigView
                 .Distinct()
                 .ToList();
         }
-        
            private async void SaveDelivery_Click(object sender, RoutedEventArgs e)
         {
             var customerName = CustomersName.Text;
@@ -277,9 +268,6 @@ public partial class PigView
             LoadProducts();
             
         }
-        
-     
-        
 }
 
 

@@ -1,20 +1,23 @@
 using Agriventory.Model;
-using MongoDB.Driver;
 using MongoDB.Bson;
+using MongoDB.Driver;
 
-public class MongoDBService
+namespace Agriventory;
+
+public class MongoDbService
 {
     private readonly IMongoDatabase _database;
     private readonly IMongoCollection<ChickenItem> _chickenCollection;
     private readonly IMongoCollection<PigItem> _pigCollection;
     private readonly IMongoCollection<DeliveryChickenItem> _deliveryChickenCollection;
     private readonly IMongoCollection<DeliveryPigItem> _deliveryPigCollection;
-    public MongoDBService()
+    public MongoDbService()
     {
         var client = new MongoClient("mongodb://127.0.0.1:27017");
         _database = client.GetDatabase("agriventory");
         _chickenCollection = _database.GetCollection<ChickenItem>("chickens");
         _pigCollection = _database.GetCollection<PigItem>("pigs");
+        _deliveryPigCollection =  _database.GetCollection<DeliveryPigItem>("deliveryPigs");
         _deliveryChickenCollection = _database.GetCollection<DeliveryChickenItem>("deliveryChickens");
     }
     public IMongoCollection<User> GetUsersCollection()
@@ -106,6 +109,4 @@ public class MongoDBService
     {
         await _deliveryPigCollection.InsertOneAsync(deliveryPig);
     }
-    
-    
 }
