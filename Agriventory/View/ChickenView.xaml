@@ -108,7 +108,8 @@
                 <DataGridTextColumn FontSize="14" Foreground="White" IsReadOnly="True" Header="Stocks" Binding="{Binding Stocks}" Width="80"/>
                 <DataGridTextColumn FontSize="14" Foreground="White" IsReadOnly="True" Header="Brands" Binding="{Binding Brand}" Width="*"/>
                 <DataGridTextColumn FontSize="14" Foreground="White" IsReadOnly="True" Header="Date Imported" Binding="{Binding DateImported}" Width="*"/>
-
+                <DataGridTextColumn FontSize="14" Foreground="White" IsReadOnly="True" Header="Date Updated" Binding="{Binding DateUpdated}" Width="*"/>
+                
                 <DataGridTemplateColumn Header="Actions" Width="150">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -219,7 +220,7 @@
                                 Content="Save"
                                 Width="80"
                                 Height="30"
-                                Foreground="#ff222236"
+                                Foreground="White"
                                 Background="{StaticResource PrimaryColor}"
                                 BorderBrush="Transparent"
                                 Click="SaveProduct_Click"/>
@@ -306,7 +307,7 @@
                                 Content="Update"
                                 Width="80"
                                 Height="30"
-                                Foreground="Black"
+                                Foreground="White"
                                 Background="{StaticResource PrimaryColor}"
                                 BorderBrush="Transparent"
                                 Click="UpdateProduct_Click"/>
@@ -316,7 +317,7 @@
             </Border>
         </Grid>
         
-         <Grid Grid.Row='0' x:Name=""
+         <Grid Grid.Row='0' x:Name="DeliveryProductModal"
               Background="#80000000"
               Visibility="Collapsed"
               Grid.RowSpan="3">
@@ -329,7 +330,7 @@
                     BorderBrush="{StaticResource PrimaryColor}"
                     BorderThickness="2">
                 <StackPanel>
-                    <TextBlock Text="Deliver"
+                    <TextBlock Text="Delivery Product"
                                FontSize="20"
                                FontWeight="Bold"
                                Foreground="{StaticResource PrimaryColor}"
@@ -349,37 +350,36 @@
 
                     <StackPanel Margin="0,0,0,10">
                         <TextBlock Text="Product Name" Foreground="White"/>
-                        <TextBox x:Name="ProductName"
-                                 Height="30"
-                                 FontSize="12"
-                                 VerticalContentAlignment="Center"
-                                 Background="White"
-                                 Foreground="{StaticResource BackgroundMedium}"
-                                 BorderBrush="{StaticResource PrimaryColor}"/>
+                        <ComboBox x:Name="ProductNameComboBox"
+                                  Height="30"
+                                  FontSize="12"
+                                  Background="White"
+                                  Foreground="{StaticResource BackgroundMedium}"
+                                  BorderBrush="{StaticResource PrimaryColor}"
+                                  SelectionChanged="ProductNameComboBox_SelectionChanged"/>
                     </StackPanel>
+
                     <StackPanel Margin="0,0,0,10">
-                        <TextBlock Text="Category" Foreground="White"/>
-                        <TextBox x:Name="Category"
-                                 Height="30"
-                                 FontSize="12"
-                                 VerticalContentAlignment="Center"
-                                 Background="White"
-                                 Foreground="{StaticResource BackgroundMedium}"
-                                 BorderBrush="{StaticResource PrimaryColor}"/>
+                        <TextBlock Text="Quantity" Foreground="White"/>
+                        <TextBox x:Name="QuantityTextBox"
+                                  Height="30"
+                                  FontSize="12"
+                                  Background="White"
+                                  Foreground="{StaticResource BackgroundMedium}"
+                                  BorderBrush="{StaticResource PrimaryColor}"/>
                     </StackPanel>
                     <StackPanel Margin="0,0,0,10">
                         <TextBlock Text="Brand" Foreground="White"/>
-                        <TextBox x:Name="Brand"
-                                 Height="30"
-                                 FontSize="12"
-                                 VerticalContentAlignment="Center"
-                                 Background="White"
-                                 Foreground="{StaticResource BackgroundMedium}"
-                                 BorderBrush="{StaticResource PrimaryColor}"/>
+                        <ComboBox x:Name="BrandComboBox"
+                                  Height="30"
+                                  FontSize="12"
+                                  Background="White"
+                                  Foreground="{StaticResource BackgroundMedium}"
+                                  BorderBrush="{StaticResource PrimaryColor}"/>
                     </StackPanel>
                     <StackPanel Margin="0,0,0,15">
-                        <TextBlock Text="Date Delivered" Foreground="White"/>
-                        <DatePicker x:Name="DateDelivered"
+                        <TextBlock Text="Date Delivery" Foreground="White"/>
+                        <DatePicker x:Name="DateDelivery"
                                     Height="30"
                                     FontSize="12"
                                     VerticalContentAlignment="Center"
@@ -402,10 +402,10 @@
                                 Content="Save"
                                 Width="80"
                                 Height="30"
-                                Foreground="Black"
+                                Foreground="White"
                                 Background="{StaticResource PrimaryColor}"
                                 BorderBrush="Transparent"
-                                Click="SaveDeliver_Click"/>
+                                Click="SaveDelivery_Click"/>
 
                     </StackPanel>
                 </StackPanel>

@@ -15,10 +15,21 @@ public class ChickenViewModel : BaseViewModel
         set {_totalCount = value; OnPropertyChanged(); }
     }
 
+    private string _customerName = null!;
     private string _productName = null!;
     private int _stocks;
+    private int _quantity;
     private string _brand = null!;
     private DateTime _dateImported = DateTime.Now;
+    private DateTime _dateUpdated = DateTime.Now;
+    private DateTime _dateDelivery = DateTime.Now;
+
+    private string CustomerName
+    {
+        get => _customerName;
+        set { _productName = value; OnPropertyChanged(); }
+    }
+
     private string ProductName
     {
         get => _productName;
@@ -28,6 +39,11 @@ public class ChickenViewModel : BaseViewModel
     {
         get => _stocks;
         set { _stocks = value; OnPropertyChanged(); }
+    }
+    private int Quantity
+    {
+        get => _quantity;
+        set { _quantity = value; OnPropertyChanged(); }
     }
     private string Brand
     {
@@ -39,10 +55,22 @@ public class ChickenViewModel : BaseViewModel
         get => _dateImported;
         set { _dateImported = value; OnPropertyChanged(); }
     }
+    private DateTime DateUpdated
+    {
+        get => _dateUpdated;
+        set { _dateUpdated = value; OnPropertyChanged(); }
+    }
+    
+    private DateTime DateDelivery
+    {
+        get => _dateDelivery;
+        set { _dateDelivery = value; OnPropertyChanged(); }
+    }   
     public ChickenViewModel()
     {
         _mongoService = new MongoDBService();
         new RelayCommand(async void () => await AddProductAsync());
+        new RelayCommand(async void () => await DeliveryProductAsync());
         ChickenData = new ObservableCollection<ChickenItemDisplay>();
         new RelayCommand(async () => await LoadChickenAsync());
         new RelayCommand(async (obj) => await EditChickenAsync(obj));
@@ -62,6 +90,7 @@ public class ChickenViewModel : BaseViewModel
                      Stocks = x.Stocks,
                      Brand = x.Brand,
                      DateImported = x.DateImported,
+                     DateUpdated = x.DateUpdated,
                  }).ToList()
     )
             
@@ -77,6 +106,7 @@ public class ChickenViewModel : BaseViewModel
         public int Stocks { get; set; }
         public string? Brand { get; set; }
         public DateTime DateImported { get; set; }
+        public DateTime DateUpdated { get; set; }
     }
     private async Task AddProductAsync()
     {
@@ -90,7 +120,8 @@ public class ChickenViewModel : BaseViewModel
             ProductName = ProductName,
             Stocks = Stocks,
             Brand = Brand,
-            DateImported = DateImported
+            DateImported = DateTime.Now,
+            DateUpdated = DateTime.Now,
         };
         await _mongoService.AddChickenAsync(newChicken);
 
@@ -99,7 +130,10 @@ public class ChickenViewModel : BaseViewModel
         ProductName = string.Empty;
         Stocks = 0;
         Brand = string.Empty;
-        DateImported = DateTime.Now;
+        DateImported = TimeZoneInfo.ConvertTime(DateTime.Now,
+            TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time"));
+        DateUpdated = TimeZoneInfo.ConvertTime(DateTime.Now,
+            TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time"));
     }
     private async Task EditChickenAsync(object parameter)
     {
@@ -110,13 +144,16 @@ public class ChickenViewModel : BaseViewModel
 
         selected.Stocks += 5;
 
+        var manilaTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time");
+        var manilaDate = TimeZoneInfo.ConvertTime(selected.DateImported, manilaTimeZone);
         var updated = new ChickenItem
         {
             Id = selected.Id,
             ProductName = selected.ProductName,
             Stocks = selected.Stocks,
             Brand = selected.Brand,
-            DateImported = selected.DateImported
+            DateImported = manilaDate,
+            DateUpdated = manilaDate
         };
 
         await _mongoService.UpdateChickenAsync(updated);
@@ -139,5 +176,32 @@ public class ChickenViewModel : BaseViewModel
         await _mongoService.DeleteChickenAsync(selected.Id);
         MessageBox.Show("Product deleted successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         await LoadChickenAsync();
+    }
+    
+    
+    private async Task DeliveryProductAsync()
+    {
+        if (string.IsNullOrWhiteSpace(ProductName) || string.IsNullOrWhiteSpace(Brand) || Stocks <= 0)
+        {
+            MessageBox.Show("Please fill out all fields correctly.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+        var newDelivery = new DeliveryChickenItem
+        {
+            CustomerName = CustomerName,
+            ProductName = ProductName,
+            Quantity = Quantity,
+            Brand = Brand,
+            DateDelivery = DateTime.Now
+        };
+        await _mongoService.DeliveryChickenAsync(newDelivery);
+
+        MessageBox.Show("Product saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+        CustomerName = string.Empty;
+        ProductName = string.Empty;
+        Quantity = 0;
+        Brand = string.Empty;
+        DateDelivery = DateTime.Now;
     }
 }

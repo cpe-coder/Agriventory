@@ -3,22 +3,21 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Agriventory.Model;
 
-public class ChickenItem
+public class DeliveryChickenItem
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
     public string? Id { get; init; } = string.Empty;
-    
+    [BsonElement("customerName")]                            
+    public string? CustomerName { get; set; } = string.Empty;
     [BsonElement("productName")]
     public string? ProductName { get; set; } = string.Empty;
-    [BsonElement("stocks")]
-    public int Stocks { get; set; } 
+    
+    [BsonElement("quantity")]
+    public int Quantity { get; set; } 
+    
     [BsonElement("brand")]
     public string? Brand { get; set; } = string.Empty;
-    [BsonElement("dateImported")]
-    public DateTime DateImported { get; set; }
-    
-    [BsonElement("dateUpdated")]
-    public DateTime DateUpdated { get; set; }
-     
+    [BsonElement("dateDelivery")]
+    public DateTime DateDelivery { get; set; }
 }

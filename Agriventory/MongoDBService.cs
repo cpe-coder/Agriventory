@@ -6,11 +6,13 @@ public class MongoDBService
 {
     private readonly IMongoDatabase _database;
     private readonly IMongoCollection<ChickenItem> _chickenCollection;
+    private readonly IMongoCollection<DeliveryChickenItem> _deliveryChickenCollection;
     public MongoDBService()
     {
         var client = new MongoClient("mongodb://127.0.0.1:27017");
         _database = client.GetDatabase("agriventory");
         _chickenCollection = _database.GetCollection<ChickenItem>("chickens");
+        _deliveryChickenCollection = _database.GetCollection<DeliveryChickenItem>("deliveryChickens");
     }
     public IMongoCollection<User> GetUsersCollection()
     {
@@ -50,6 +52,11 @@ public class MongoDBService
         {
             throw new Exception("No record found to delete.");
         }
+    }
+    
+    public async Task DeliveryChickenAsync(DeliveryChickenItem deliveryChicken)
+    {
+        await _deliveryChickenCollection.InsertOneAsync(deliveryChicken);
     }
     
 }

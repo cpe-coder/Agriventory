@@ -24,7 +24,12 @@ public partial class ChickenView
     {
         try
         {
+            var manila = TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time");
             var items = await _mongoService.GetAllChickensAsync();
+            foreach (var item in items)
+            {
+                item.DateImported = TimeZoneInfo.ConvertTime(item.DateImported, manila);
+            }
             FeedsDataGrid.ItemsSource = new ObservableCollection<ChickenItem>(items);
         }
         catch (Exception ex)
@@ -63,13 +68,20 @@ public partial class ChickenView
             MessageBox.Show("Stocks must be a number.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
+        
+        var manilaTz = TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time");
+        DateTime manilaDateTime = TimeZoneInfo.ConvertTime(
+            dateImported.Value.Date.Add(DateTime.Now.TimeOfDay),
+            manilaTz
+        );
 
         var newChicken = new ChickenItem
         {
             ProductName = productName,
             Stocks = stockValue,
             Brand = brand,
-            DateImported = dateImported.Value
+            DateImported = manilaDateTime,
+            DateUpdated = manilaDateTime
         };
 
         try
@@ -85,12 +97,13 @@ public partial class ChickenView
         ProductNameTextBox.Clear();
         StocksTextBox.Clear();
         BrandTextBox.Clear();
-        DateImportedPicker.SelectedDate = DateTime.Now;
+        DateImportedPicker.SelectedDate = null;
         AddProductModal.Visibility = Visibility.Collapsed;
         
         LoadProducts();
 
     }
+    
         private void EditProduct_Click(object sender, RoutedEventArgs e)
         {
             _selectedProduct = (sender as Button)?.Tag as ChickenItem;
@@ -100,7 +113,6 @@ public partial class ChickenView
                 MessageBox.Show("Please select a product to edit.");
                 return;
             }
-
             EditProductName.Text = _selectedProduct.ProductName!;
             EditStocks.Text = _selectedProduct.Stocks.ToString();
             EditBrand.Text = _selectedProduct.Brand!;
@@ -116,13 +128,25 @@ public partial class ChickenView
                 MessageBox.Show("No product selected.");
                 return;
             }
-
+          
             try
             {
+                var manilaTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time");
+                var selectedDate = EditDateImported.SelectedDate ?? DateTime.Now;
+                var currentManilaTime = TimeZoneInfo.ConvertTime(DateTime.Now, manilaTimeZone).TimeOfDay;
+                var combinedDateTime = new DateTime(
+                    selectedDate.Year,
+                    selectedDate.Month,
+                    selectedDate.Day,
+                    currentManilaTime.Hours,
+                    currentManilaTime.Minutes,
+                    currentManilaTime.Seconds,
+                    DateTimeKind.Unspecified
+                );
                 _selectedProduct.ProductName = EditProductName.Text;
                 _selectedProduct.Stocks = int.Parse(EditStocks.Text);
                 _selectedProduct.Brand = EditBrand.Text;
-                _selectedProduct.DateImported = EditDateImported.SelectedDate ?? DateTime.Now;
+                _selectedProduct.DateImported = TimeZoneInfo.ConvertTime( combinedDateTime, manilaTimeZone);
 
                 await _mongoService.UpdateChickenAsync(_selectedProduct);
                 LoadProducts();
@@ -164,20 +188,97 @@ public partial class ChickenView
             }
         }
 
+     
         private void CancelDeliver_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            DeliveryProductModal.Visibility = Visibility.Hidden;
+        }
+        private async void DeliverButton_Click(object sender, RoutedEventArgs e)
+        {
+            DeliveryProductModal.Visibility = Visibility.Visible;
+            try
+            {
+                // Load distinct product names for dropdown
+                var chickens = await _mongoService.GetAllChickensAsync();
+                ProductNameComboBox.ItemsSource = chickens
+                    .Select(c => c.ProductName)
+                    .Distinct()
+                    .ToList();
+
+                ProductNameComboBox.SelectedIndex = -1;
+                BrandComboBox.ItemsSource = null;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading products: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        private void SaveDeliver_Click(object sender, RoutedEventArgs e)
+        private async void ProductNameComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            if (ProductNameComboBox.SelectedItem is not string selectedProduct) return;
+            var chickens = await _mongoService.GetAllChickensAsync();
+            BrandComboBox.ItemsSource = chickens
+                .Where(c => c.ProductName == selectedProduct)
+                .Select(c => c.Brand)
+                .Distinct()
+                .ToList();
         }
+        
+           private async void SaveDelivery_Click(object sender, RoutedEventArgs e)
+        {
+            var customerName = CustomersName.Text;
+            var productName = ProductNameComboBox.Text;
+            var quantity = QuantityTextBox.Text;
+            var brand = BrandComboBox.Text;
+            var dateDelivery = DateDelivery.SelectedDate;
+            
+            if (string.IsNullOrWhiteSpace(customerName) ||
+                string.IsNullOrWhiteSpace(productName) ||
+                string.IsNullOrWhiteSpace(quantity) ||
+                string.IsNullOrWhiteSpace(brand) ||
+                !dateDelivery.HasValue)
+            {
+                MessageBox.Show($"Please fill out all fields.{customerName}, {productName}, {quantity}, {brand}, {dateDelivery}", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
-        private void DeliverButton_Click(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
+            if (!int.TryParse(quantity, out int quantityValue))
+            {
+                MessageBox.Show("Quantity must be a number.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            var newDelivery = new DeliveryChickenItem
+            {
+                CustomerName = customerName,
+                ProductName = productName,
+                Quantity = quantityValue,
+                Brand = brand,
+                DateDelivery = DateTime.Now
+            };
+
+            try
+            {
+                await _mongoService.DeliveryChickenAsync(newDelivery);
+                MessageBox.Show("Delivery saved successfully!:", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error saving delivery: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }  
+            CustomersName.Clear();
+            QuantityTextBox.Clear();
+            DateDelivery.SelectedDate = DateTime.Now;
+            DeliveryProductModal.Visibility = Visibility.Collapsed;
+        
+            LoadProducts();
+            
         }
+        
+     
+        
 }
 
 
