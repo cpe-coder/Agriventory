@@ -20,10 +20,6 @@ public partial class ChickenView
         
         LoadProducts();
     }
-    
-
-    
-  
     private async void LoadProducts()
     {
         try
@@ -36,13 +32,7 @@ public partial class ChickenView
             MessageBox.Show(ex.Message, "Database Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
-   
-    private void RefreshButton_Click(object sender, RoutedEventArgs e)
-    {
-        FeedsDataGrid.Items.Refresh();
-    }
-
-
+ 
     private void AddNewButton_Click(object sender, RoutedEventArgs e)
     {
         AddProductModal.Visibility = Visibility.Visible;
@@ -52,14 +42,12 @@ public partial class ChickenView
     {
         AddProductModal.Visibility = Visibility.Collapsed;
     }
-    
-
     private async void SaveProduct_Click(object sender, RoutedEventArgs e)
     {
-        string productName = ProductNameTextBox.Text;
-        string stocks = StocksTextBox.Text;
-        string brand = BrandTextBox.Text;
-        DateTime? dateImported = DateImportedPicker.SelectedDate;
+        var productName = ProductNameTextBox.Text;
+        var stocks = StocksTextBox.Text;
+        var brand = BrandTextBox.Text;
+        var dateImported = DateImportedPicker.SelectedDate;
 
         if (string.IsNullOrWhiteSpace(productName) ||
             string.IsNullOrWhiteSpace(stocks) ||
@@ -76,8 +64,6 @@ public partial class ChickenView
             return;
         }
 
-
-        // ✅ Create a ChickenItem object from the modal fields
         var newChicken = new ChickenItem
         {
             ProductName = productName,
@@ -85,7 +71,6 @@ public partial class ChickenView
             Brand = brand,
             DateImported = dateImported.Value
         };
-       
 
         try
         {
@@ -97,19 +82,15 @@ public partial class ChickenView
             MessageBox.Show($"Error saving product: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }  
-
-        // ✅ Clear fields and close modal
         ProductNameTextBox.Clear();
         StocksTextBox.Clear();
         BrandTextBox.Clear();
         DateImportedPicker.SelectedDate = DateTime.Now;
         AddProductModal.Visibility = Visibility.Collapsed;
         
-         RefreshButton_Click(sender, e);
+        LoadProducts();
 
-        // Optional: reload data if you want to refresh the grid
     }
-    
         private void EditProduct_Click(object sender, RoutedEventArgs e)
         {
             _selectedProduct = (sender as Button)?.Tag as ChickenItem;
@@ -120,10 +101,9 @@ public partial class ChickenView
                 return;
             }
 
-            // Populate modal
-            EditProductName.Text = _selectedProduct.ProductName;
+            EditProductName.Text = _selectedProduct.ProductName!;
             EditStocks.Text = _selectedProduct.Stocks.ToString();
-            EditBrand.Text = _selectedProduct.Brand;
+            EditBrand.Text = _selectedProduct.Brand!;
             EditDateImported.SelectedDate = _selectedProduct.DateImported;
 
             EditProductModal.Visibility = Visibility.Visible;
@@ -183,7 +163,21 @@ public partial class ChickenView
                 }
             }
         }
-    
+
+        private void CancelDeliver_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SaveDeliver_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void DeliverButton_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
 }
 
 

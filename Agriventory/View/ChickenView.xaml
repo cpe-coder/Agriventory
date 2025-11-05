@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:utils="clr-namespace:Agriventory.Utils"
              mc:Ignorable="d"
              d:DesignHeight="550" d:DesignWidth="800">
     
@@ -11,7 +10,6 @@
         <SolidColorBrush x:Key="PrimaryColor" Color="#ff5757"/>
         <SolidColorBrush x:Key="BackgroundDark" Color="#161622"/>
         <SolidColorBrush x:Key="BackgroundMedium" Color="#222236"/>
-        <SolidColorBrush x:Key="TextColor" Color="White"/>
 
         <Style TargetType="DataGrid"> 
             <Setter Property="Background" Value="{StaticResource BackgroundMedium}"/>
@@ -47,34 +45,6 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="Refresh"
-                        Width="80"
-                        Margin="0,0,0,10"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Right"
-                        FontWeight="Bold"
-                        Height="35"
-                        Cursor="Hand"
-                        Click="RefreshButton_Click"
-                        Background="Transparent"
-                        Foreground="White"
-                        Command="{Binding LoadChickensCommand}"
-                        >
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border CornerRadius="5" 
-                                    BorderBrush="#ff5757"
-                                    BorderThickness="1"
-                                    Margin="0,0,0,0"
-                                    Height="35"
-                                    Background="#222236">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                    
-                </Button>
-
                 <Button Grid.Column="1" Content="Deliver"
                         Width="80"
                         Margin="0,0,0,10"
@@ -83,6 +53,7 @@
                         FontWeight="Bold"
                         Height="35"
                         Cursor="Hand"
+                        Click="DeliverButton_Click"
                         BorderBrush="#ff5757"
                         Background="#222236"
                         Foreground="White">
@@ -339,6 +310,102 @@
                                 Background="{StaticResource PrimaryColor}"
                                 BorderBrush="Transparent"
                                 Click="UpdateProduct_Click"/>
+
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+        
+         <Grid Grid.Row='0' x:Name=""
+              Background="#80000000"
+              Visibility="Collapsed"
+              Grid.RowSpan="3">
+            <Border Background="{StaticResource BackgroundMedium}"
+                    CornerRadius="10"
+                    Padding="20"
+                    Width="400"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    BorderBrush="{StaticResource PrimaryColor}"
+                    BorderThickness="2">
+                <StackPanel>
+                    <TextBlock Text="Deliver"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               Foreground="{StaticResource PrimaryColor}"
+                               Margin="0,0,0,15"
+                               HorizontalAlignment="Center"/>
+
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Customers Name" Foreground="White"/>
+                        <TextBox x:Name="CustomersName"
+                                 Height="30"
+                                 FontSize="12"
+                                 VerticalContentAlignment="Center"
+                                 Background="White"
+                                 Foreground="{StaticResource BackgroundMedium}"
+                                 BorderBrush="{StaticResource PrimaryColor}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Product Name" Foreground="White"/>
+                        <TextBox x:Name="ProductName"
+                                 Height="30"
+                                 FontSize="12"
+                                 VerticalContentAlignment="Center"
+                                 Background="White"
+                                 Foreground="{StaticResource BackgroundMedium}"
+                                 BorderBrush="{StaticResource PrimaryColor}"/>
+                    </StackPanel>
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Category" Foreground="White"/>
+                        <TextBox x:Name="Category"
+                                 Height="30"
+                                 FontSize="12"
+                                 VerticalContentAlignment="Center"
+                                 Background="White"
+                                 Foreground="{StaticResource BackgroundMedium}"
+                                 BorderBrush="{StaticResource PrimaryColor}"/>
+                    </StackPanel>
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Brand" Foreground="White"/>
+                        <TextBox x:Name="Brand"
+                                 Height="30"
+                                 FontSize="12"
+                                 VerticalContentAlignment="Center"
+                                 Background="White"
+                                 Foreground="{StaticResource BackgroundMedium}"
+                                 BorderBrush="{StaticResource PrimaryColor}"/>
+                    </StackPanel>
+                    <StackPanel Margin="0,0,0,15">
+                        <TextBlock Text="Date Delivered" Foreground="White"/>
+                        <DatePicker x:Name="DateDelivered"
+                                    Height="30"
+                                    FontSize="12"
+                                    VerticalContentAlignment="Center"
+                                    Background="White"
+                                    Foreground="{StaticResource BackgroundMedium}"
+                                    BorderBrush="{StaticResource PrimaryColor}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="Cancel"
+                                Width="80"
+                                Height="30"
+                                Margin="0,0,5,0"
+                                VerticalContentAlignment="Center"
+                                Background="Transparent"
+                                Foreground="White"
+                                BorderBrush="{StaticResource PrimaryColor}"
+                                Click="CancelDeliver_Click"/>
+                        <Button 
+                                Content="Save"
+                                Width="80"
+                                Height="30"
+                                Foreground="Black"
+                                Background="{StaticResource PrimaryColor}"
+                                BorderBrush="Transparent"
+                                Click="SaveDeliver_Click"/>
 
                     </StackPanel>
                 </StackPanel>
