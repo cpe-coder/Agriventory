@@ -190,7 +190,8 @@ public class PigViewModel : BaseViewModel
             ProductName = ProductName,
             Quantity = Quantity,
             Brand = Brand,
-            DateDelivery = DateTime.Now
+            Category = "Pig",
+            DateOfDelivery = DateTime.Now
         };
         await _mongoService.DeliveryPigAsync(newDelivery);
 

@@ -18,6 +18,9 @@ public class DeliveryChickenItem
     
     [BsonElement("brand")]
     public string? Brand { get; set; } = string.Empty;
-    [BsonElement("dateDelivery")]
-    public DateTime DateDelivery { get; set; }
+    
+    [BsonElement("category")]
+    public string? Category { get; set; } = string.Empty;
+    [BsonElement("dateOfDelivery")]
+    public DateTime DateOfDelivery { get; set; }
 }

@@ -45,7 +45,7 @@
                 <DataGridTextColumn Foreground="White" Header="Quantity" Binding="{Binding Quantity}" Width="*"/>
                 <DataGridTextColumn Foreground="White" Header="Category" Binding="{Binding Category}" Width="*"/>
                 <DataGridTextColumn Foreground="White" Header="Brand" Binding="{Binding brand}" Width="*"/>
-                <DataGridTextColumn Foreground="White" Header="Date Delivered" Binding="{Binding DateDelivered}" Width="*"/>
+                <DataGridTextColumn Foreground="White" Header="Date Of Delivery" Binding="{Binding DateOfDelivery}" Width="*"/>
                
 
             </DataGrid.Columns>

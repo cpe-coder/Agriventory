@@ -247,7 +247,8 @@ public partial class PigView
                 ProductName = productName,
                 Quantity = quantityValue,
                 Brand = brand,
-                DateDelivery = DateTime.Now
+                Category = "Pig",
+                DateOfDelivery = DateTime.Now
             };
 
             try

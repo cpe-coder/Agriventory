@@ -1,6 +1,7 @@
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
+
+namespace Agriventory.Helper;
 
 public static class VisualTreeHelperExtensions
 {

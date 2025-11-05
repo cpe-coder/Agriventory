@@ -248,7 +248,8 @@ public partial class ChickenView
                 ProductName = productName,
                 Quantity = quantityValue,
                 Brand = brand,
-                DateDelivery = DateTime.Now
+                Category = "Chicken",
+                DateOfDelivery = DateTime.Now
             };
 
             try

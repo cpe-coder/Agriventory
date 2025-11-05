@@ -190,7 +190,8 @@ public class ChickenViewModel : BaseViewModel
             ProductName = ProductName,
             Quantity = Quantity,
             Brand = Brand,
-            DateDelivery = DateTime.Now
+            Category = "Chicken",
+            DateOfDelivery = DateTime.Now
         };
         await _mongoService.DeliveryChickenAsync(newDelivery);
 
