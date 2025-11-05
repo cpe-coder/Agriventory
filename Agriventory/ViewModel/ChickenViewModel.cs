@@ -144,14 +144,14 @@ public class ChickenViewModel : BaseViewModel
         selected.Stocks += 5;
 
         var manilaTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time");
-        var manilaDate = TimeZoneInfo.ConvertTime(selected.DateImported, manilaTimeZone);
+        var manilaDate = TimeZoneInfo.ConvertTime(selected.DateUpdated, manilaTimeZone);
         var updated = new ChickenItem
         {
             Id = selected.Id,
             ProductName = selected.ProductName,
             Stocks = selected.Stocks,
             Brand = selected.Brand,
-            DateImported = manilaDate,
+            DateUpdated = manilaDate,
         };
 
         await _mongoService.UpdateChickenAsync(updated);

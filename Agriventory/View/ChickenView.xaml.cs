@@ -117,7 +117,7 @@ public partial class ChickenView
             EditProductName.Text = _selectedProduct.ProductName!;
             EditStocks.Text = _selectedProduct.Stocks.ToString();
             EditBrand.Text = _selectedProduct.Brand!;
-            EditDateImported.SelectedDate = _selectedProduct.DateImported;
+            EditDateImported.SelectedDate = _selectedProduct.DateUpdated;
 
             EditProductModal.Visibility = Visibility.Visible;
         }
@@ -147,7 +147,7 @@ public partial class ChickenView
                 _selectedProduct.ProductName = EditProductName.Text;
                 _selectedProduct.Stocks = int.Parse(EditStocks.Text);
                 _selectedProduct.Brand = EditBrand.Text;
-                _selectedProduct.DateImported = TimeZoneInfo.ConvertTime( combinedDateTime, manilaTimeZone);
+                _selectedProduct.DateUpdated = TimeZoneInfo.ConvertTime( combinedDateTime, manilaTimeZone);
 
                 await _mongoService.UpdateChickenAsync(_selectedProduct);
                 LoadProducts();

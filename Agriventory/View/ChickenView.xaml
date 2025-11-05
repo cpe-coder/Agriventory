@@ -283,7 +283,7 @@
                     </StackPanel>
 
                     <StackPanel Margin="0,0,0,15">
-                        <TextBlock Text="Date Imported" Foreground="White"/>
+                        <TextBlock Text="Date Updated" Foreground="White"/>
                         <DatePicker x:Name="EditDateImported"
                                     Height="30"
                                     FontSize="12"

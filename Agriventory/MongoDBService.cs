@@ -34,7 +34,7 @@ public class MongoDBService
             .Set(x => x.ProductName, item.ProductName)
             .Set(x => x.Stocks, item.Stocks)
             .Set(x => x.Brand, item.Brand)
-            .Set(x => x.DateImported, item.DateImported);
+            .Set(x => x.DateUpdated, item.DateUpdated);
 
         var result = await _chickenCollection.UpdateOneAsync(filter, update);
 
