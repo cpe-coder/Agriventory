@@ -50,7 +50,7 @@ public class MongoDBService
     }
 
     // ✅ Delete (fixed)
-    public async Task DeleteChickenAsync(string id)
+    public async Task DeleteChickenAsync(string? id)
     {
         var filter = Builders<ChickenItem>.Filter.Eq("_id", ObjectId.Parse(id));
         var result = await _chickenCollection.DeleteOneAsync(filter);
