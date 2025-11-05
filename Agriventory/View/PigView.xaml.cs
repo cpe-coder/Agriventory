@@ -1,40 +1,288 @@
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using Agriventory.Model;
+using Agriventory.ViewModel;
 
 namespace Agriventory.View;
 
-public partial class PigView : UserControl
+public partial class PigView
 {
-    public PigView()
+
+    private readonly MongoDBService _mongoService;
+    private PigItem? _selectedProduct;
+    public PigView( )
     {
         InitializeComponent();
-        LoadData();
+        _mongoService = new MongoDBService();
+        var viewModel = new PigViewModel();
+        DataContext = viewModel;
+        
+        LoadProducts();
     }
-    private void LoadData()
+    private async void LoadProducts()
     {
-        var items = new List<PigItem>
+        try
         {
-            new PigItem { Number = 1, Product = "Sample A", Stocks = 100, Brand = "Uno feeds", DateImported = DateTime.Now },
-            new PigItem { Number = 2, Product = "Sample B", Stocks = 80, Brand = "Uhanco", DateImported = DateTime.Now },
-            new PigItem { Number = 3, Product = "Sample C", Stocks = 60, Brand = "Cargill", DateImported = DateTime.Now.AddDays(-1) },
-            new PigItem { Number = 4, Product = "Sample D", Stocks = 150, Brand = "Feedpro", DateImported = DateTime.Now.AddDays(-2) }
+            var manila = TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time");
+            var items = await _mongoService.GetAllPigsAsync();
+            foreach (var item in items)
+            {
+                item.DateImported = TimeZoneInfo.ConvertTime(item.DateImported, manila);
+                item.DateUpdated = TimeZoneInfo.ConvertTime(item.DateUpdated, manila);
+            }
+            FeedsDataGrid.ItemsSource = new ObservableCollection<PigItem>(items);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Database Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+ 
+    private void AddNewButton_Click(object sender, RoutedEventArgs e)
+    {
+        AddProductModal.Visibility = Visibility.Visible;
+    }
+
+    private void CancelModal_Click(object sender, RoutedEventArgs e)
+    {
+        AddProductModal.Visibility = Visibility.Collapsed;
+    }
+    private async void SaveProduct_Click(object sender, RoutedEventArgs e)
+    {
+        var productName = ProductNameTextBox.Text;
+        var stocks = StocksTextBox.Text;
+        var brand = BrandTextBox.Text;
+        var dateImported = DateImportedPicker.SelectedDate;
+
+        if (string.IsNullOrWhiteSpace(productName) ||
+            string.IsNullOrWhiteSpace(stocks) ||
+            string.IsNullOrWhiteSpace(brand) || 
+            !dateImported.HasValue)
+        {
+            MessageBox.Show("Please fill out all fields.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+
+        if (!int.TryParse(stocks, out int stockValue))
+        {
+            MessageBox.Show("Stocks must be a number.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+        
+        var manilaTz = TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time");
+        DateTime manilaDateTime = TimeZoneInfo.ConvertTime(
+            dateImported.Value.Date.Add(DateTime.Now.TimeOfDay),
+            manilaTz
+        );
+      
+        var newPig = new PigItem
+        {
+            ProductName = productName,
+            Stocks = stockValue,
+            Brand = brand,
+            DateImported = manilaDateTime,
+            DateUpdated = manilaDateTime,
         };
 
-        FeedsDataGrid.ItemsSource = items;
+        try
+        {
+            await _mongoService.AddPigAsync(newPig);
+            MessageBox.Show("Product saved successfully!:", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Error saving product: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }  
+        ProductNameTextBox.Clear();
+        StocksTextBox.Clear();
+        BrandTextBox.Clear();
+        DateImportedPicker.SelectedDate = null;
+        AddProductModal.Visibility = Visibility.Collapsed;
+        
+        LoadProducts();
+
     }
 
-    private void EditButton_Click(object sender, RoutedEventArgs e)
-    {
-        var button = sender as Button;
-        var selectedItem = (ChickenItem)((FrameworkElement)button).DataContext;
-        MessageBox.Show($"You can now edit {selectedItem.ProductName}");
-    }
+    private void EditProduct_Click(object sender, RoutedEventArgs e)
+        {
+            _selectedProduct = (sender as Button)?.Tag as PigItem;
 
-    private void DeleteButton_Click(object sender, RoutedEventArgs e)
-    {
-        var button = sender as Button;
-        var selectedItem = (ChickenItem)((FrameworkElement)button).DataContext;
-        MessageBox.Show($"Are you sure you want to delete {selectedItem.ProductName}?");
-    }
+            if (_selectedProduct == null)
+            {
+                MessageBox.Show("Please select a product to edit.");
+                return;
+            }
+            EditProductName.Text = _selectedProduct.ProductName!;
+            EditStocks.Text = _selectedProduct.Stocks.ToString();
+            EditBrand.Text = _selectedProduct.Brand!;
+            EditDateImported.SelectedDate = _selectedProduct.DateUpdated;
+
+            EditProductModal.Visibility = Visibility.Visible;
+        }
+
+        private async void UpdateProduct_Click(object sender, RoutedEventArgs e)
+        {
+            if (_selectedProduct == null)
+            {
+                MessageBox.Show("No product selected.");
+                return;
+            }
+          
+            try
+            {
+                var manilaTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time");
+                var selectedDate = EditDateImported.SelectedDate ?? DateTime.Now;
+                var currentManilaTime = TimeZoneInfo.ConvertTime(DateTime.Now, manilaTimeZone).TimeOfDay;
+                var combinedDateTime = new DateTime(
+                    selectedDate.Year,
+                    selectedDate.Month,
+                    selectedDate.Day,
+                    currentManilaTime.Hours,
+                    currentManilaTime.Minutes,
+                    currentManilaTime.Seconds,
+                    DateTimeKind.Unspecified
+                );
+                _selectedProduct.ProductName = EditProductName.Text;
+                _selectedProduct.Stocks = int.Parse(EditStocks.Text);
+                _selectedProduct.Brand = EditBrand.Text;
+                _selectedProduct.DateUpdated = TimeZoneInfo.ConvertTime( combinedDateTime, manilaTimeZone);
+
+                await _mongoService.UpdatePigAsync(_selectedProduct);
+                LoadProducts();
+
+                EditProductModal.Visibility = Visibility.Collapsed;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error updating product: {ex.Message}");
+            }
+        }
+
+        private void CancelEdit_Click(object sender, RoutedEventArgs e)
+        {
+            EditProductModal.Visibility = Visibility.Collapsed;
+        }
+
+        private async void DeleteProduct_Click(object sender, RoutedEventArgs e)
+        {
+            var product = (sender as Button)?.Tag as ChickenItem;
+
+            if (product == null)
+            {
+                MessageBox.Show("Please select a product to delete.");
+                return;
+            }
+
+            if (MessageBox.Show("Are you sure you want to delete this product?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    await _mongoService.DeletePigAsync(product.Id);
+                    LoadProducts();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error deleting product: {ex.Message}");
+                }
+            }
+        }
+
+     
+        private void CancelDeliver_Click(object sender, RoutedEventArgs e)
+        {
+            DeliveryProductModal.Visibility = Visibility.Hidden;
+        }
+        private async void DeliverButton_Click(object sender, RoutedEventArgs e)
+        {
+            DeliveryProductModal.Visibility = Visibility.Visible;
+            try
+            {
+                // Load distinct product names for dropdown
+                var chickens = await _mongoService.GetAllPigsAsync();
+                ProductNameComboBox.ItemsSource = chickens
+                    .Select(c => c.ProductName)
+                    .Distinct()
+                    .ToList();
+
+                ProductNameComboBox.SelectedIndex = -1;
+                BrandComboBox.ItemsSource = null;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading products: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private async void ProductNameComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ProductNameComboBox.SelectedItem is not string selectedProduct) return;
+            var chickens = await _mongoService.GetAllChickensAsync();
+            BrandComboBox.ItemsSource = chickens
+                .Where(c => c.ProductName == selectedProduct)
+                .Select(c => c.Brand)
+                .Distinct()
+                .ToList();
+        }
+        
+           private async void SaveDelivery_Click(object sender, RoutedEventArgs e)
+        {
+            var customerName = CustomersName.Text;
+            var productName = ProductNameComboBox.Text;
+            var quantity = QuantityTextBox.Text;
+            var brand = BrandComboBox.Text;
+            var dateDelivery = DateDelivery.SelectedDate;
+            
+            if (string.IsNullOrWhiteSpace(customerName) ||
+                string.IsNullOrWhiteSpace(productName) ||
+                string.IsNullOrWhiteSpace(quantity) ||
+                string.IsNullOrWhiteSpace(brand) ||
+                !dateDelivery.HasValue)
+            {
+                MessageBox.Show($"Please fill out all fields.{customerName}, {productName}, {quantity}, {brand}, {dateDelivery}", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (!int.TryParse(quantity, out int quantityValue))
+            {
+                MessageBox.Show("Quantity must be a number.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            var newDelivery = new DeliveryPigItem()
+            {
+                CustomerName = customerName,
+                ProductName = productName,
+                Quantity = quantityValue,
+                Brand = brand,
+                DateDelivery = DateTime.Now
+            };
+
+            try
+            {
+                await _mongoService.DeliveryPigAsync(newDelivery);
+                MessageBox.Show("Delivery saved successfully!:", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error saving delivery: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }  
+            CustomersName.Clear();
+            QuantityTextBox.Clear();
+            DateDelivery.SelectedDate = DateTime.Now;
+            DeliveryProductModal.Visibility = Visibility.Collapsed;
+        
+            LoadProducts();
+            
+        }
+        
+     
+        
 }
+
+
+
+
+

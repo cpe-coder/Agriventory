@@ -12,7 +12,6 @@
         <SolidColorBrush x:Key="PrimaryColor" Color="#ff5757"/>
         <SolidColorBrush x:Key="BackgroundDark" Color="#161622"/>
         <SolidColorBrush x:Key="BackgroundMedium" Color="#222236"/>
-        <SolidColorBrush x:Key="TextColor" Color="White"/>
 
         <Style TargetType="DataGrid">
             <Setter Property="Background" Value="{StaticResource BackgroundMedium}"/>
@@ -28,14 +27,14 @@
 
     </UserControl.Resources>
     
-    <Grid Margin="10">
+      <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Margin="0,0,0,10" >
-            <TextBlock Text="Pig" Foreground="#ff5757" Margin="0,5,0,0" FontSize="30" FontWeight="Bold"/>
+            <TextBlock Text="Chicken" Foreground="#ff5757" Margin="0,5,0,0" FontSize="30" FontWeight="Bold"/>
         </StackPanel>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -46,8 +45,9 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="Deliver"
+                <Button Grid.Column="1" Content="Deliver"
                         Width="80"
                         Margin="0,0,0,10"
                         VerticalAlignment="Center"
@@ -55,8 +55,9 @@
                         FontWeight="Bold"
                         Height="35"
                         Cursor="Hand"
+                        Click="DeliverButton_Click"
                         BorderBrush="#ff5757"
-                        Background="Transparent"
+                        Background="#222236"
                         Foreground="White">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
@@ -69,7 +70,7 @@
                             </Border>
                         </ControlTemplate>
                     </Button.Template>
-                </Button> <Button Grid.Column="1" Content="Add New"
+                </Button> <Button Grid.Column="2" Content="Add New"
                         Width="80"
                         Margin="0,0,0,10"
                         VerticalAlignment="Center"
@@ -79,6 +80,7 @@
                         Cursor="Hand"
                         BorderBrush="Transparent"
                         Background="Transparent"
+                        Click="AddNewButton_Click"
                         Foreground="White">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
@@ -96,58 +98,43 @@
         </Grid>
         <Border CornerRadius="10" Grid.Row="2">
             
-        <DataGrid x:Name="FeedsDataGrid" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False" SelectionMode="Single">
-            <DataGrid.Columns>
-                <DataGridTextColumn Foreground="White" Header="#" Binding="{Binding number}" Width="40"/>
-                <DataGridTextColumn Foreground="White" Header="Products" Binding="{Binding productName}" Width="*"/>
-                <DataGridTextColumn Foreground="White" Header="Stocks" Binding="{Binding stocks}" Width="80"/>
-                <DataGridTextColumn Foreground="White" Header="Brands" Binding="{Binding brand}" Width="*"/>
-                <DataGridTextColumn Foreground="White" Header="Date Imported" Binding="{Binding dateImported}" Width="*"/>
-
+        <DataGrid x:Name="FeedsDataGrid" ItemsSource="{Binding }" VerticalContentAlignment="Center" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns >
+                <DataGridTextColumn FontSize="14" Foreground="White" IsReadOnly="True" Header="Products" Binding="{Binding ProductName}" Width="*"/>
+                <DataGridTextColumn FontSize="14" Foreground="White" IsReadOnly="True" Header="Stocks" Binding="{Binding Stocks}" Width="80"/>
+                <DataGridTextColumn FontSize="14" Foreground="White" IsReadOnly="True" Header="Brands" Binding="{Binding Brand}" Width="*"/>
+                <DataGridTextColumn FontSize="14" Foreground="White" IsReadOnly="True" Header="Date Imported" Binding="{Binding DateImported}" Width="*"/>
+                <DataGridTextColumn FontSize="14" Foreground="White" IsReadOnly="True" Header="Date Updated" Binding="{Binding DateUpdated}" Width="*"/>
+                
                 <DataGridTemplateColumn Header="Actions" Width="150">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Button Content="Edit"
                                         Width="60"
-                                        VerticalAlignment="Center"
-                                        FontWeight="Bold"
                                         Height="30"
-                                        Cursor="Hand"
-                                        BorderBrush="Transparent"
+                                        Margin="5,0,5,0"
+                                        FontSize="10"
+                                        Tag="{Binding}"
+                                        BorderThickness="0"
                                         Background="Transparent"
-                                        Foreground="White">
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border CornerRadius="5" 
-                                                    BorderThickness="1"
-                                                    Margin="0,0,0,0"
-                                                    Height="30">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
+                                        Foreground="DodgerBlue"
+                                        Click="EditProduct_Click"/>
                                 <Button Content="Delete"
-                                        Width="70"
-                                        VerticalAlignment="Center"
-                                        FontWeight="Bold"
+                                        Width="60"
                                         Height="30"
-                                        Cursor="Hand"
-                                        BorderBrush="Transparent"
+                                        FontSize="10"
                                         Background="Transparent"
-                                        Foreground="White">
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border CornerRadius="5" 
-                                                    BorderThickness="1"
-                                                    Margin="0,0,0,0"
-                                                    Height="30">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
+                                        BorderThickness="0"
+                                        Foreground="Red"
+                                        Tag="{Binding}"
+                                        Click="DeleteProduct_Click"/>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -156,6 +143,275 @@
             </DataGrid.Columns>
         </DataGrid>
         </Border>
-    </Grid>
+        
+        <Grid Grid.Row='0' x:Name="AddProductModal"
+              Background="#80000000"
+              Visibility="Collapsed"
+              Grid.RowSpan="3">
+            <Border Background="{StaticResource BackgroundMedium}"
+                    CornerRadius="10"
+                    Padding="20"
+                    Width="400"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    BorderBrush="{StaticResource PrimaryColor}"
+                    BorderThickness="2">
+                <StackPanel>
+                    <TextBlock Text="Add New Product"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               Foreground="{StaticResource PrimaryColor}"
+                               Margin="0,0,0,15"
+                               HorizontalAlignment="Center"/>
 
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Product Name" Foreground="White"/>
+                        <TextBox x:Name="ProductNameTextBox"
+                                 Height="30"
+                                 FontSize="12"
+                                 VerticalContentAlignment="Center"
+                                 Background="White"
+                                 Foreground="{StaticResource BackgroundMedium}"
+                                 BorderBrush="{StaticResource PrimaryColor}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Stocks" Foreground="White"/>
+                        <TextBox x:Name="StocksTextBox"
+                                 Height="30"
+                                 FontSize="12"
+                                 VerticalContentAlignment="Center"
+                                 Background="White"
+                                 Foreground="{StaticResource BackgroundMedium}"
+                                 BorderBrush="{StaticResource PrimaryColor}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Brand" Foreground="White"/>
+                        <TextBox x:Name="BrandTextBox"
+                                 Height="30"
+                                 FontSize="12"
+                                 VerticalContentAlignment="Center"
+                                 Background="White"
+                                 Foreground="{StaticResource BackgroundMedium}"
+                                 BorderBrush="{StaticResource PrimaryColor}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,0,0,15">
+                        <TextBlock Text="Date Imported" Foreground="White"/>
+                        <DatePicker x:Name="DateImportedPicker"
+                                    Height="30"
+                                    FontSize="12"
+                                    VerticalContentAlignment="Center"
+                                    Background="White"
+                                    Foreground="{StaticResource BackgroundMedium}"
+                                    BorderBrush="{StaticResource PrimaryColor}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="Cancel"
+                                Width="80"
+                                Height="30"
+                                Margin="0,0,5,0"
+                                VerticalContentAlignment="Center"
+                                Background="Transparent"
+                                Foreground="White"
+                                BorderBrush="{StaticResource PrimaryColor}"
+                                Click="CancelModal_Click"/>
+                        <Button x:Name="SaveProductButton"
+                                Content="Save"
+                                Width="80"
+                                Height="30"
+                                Foreground="White"
+                                Background="{StaticResource PrimaryColor}"
+                                BorderBrush="Transparent"
+                                Click="SaveProduct_Click"/>
+
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+        <Grid Grid.Row='0' x:Name="EditProductModal"
+              Background="#80000000"
+              Visibility="Collapsed"
+              Grid.RowSpan="3">
+            <Border Background="{StaticResource BackgroundMedium}"
+                    CornerRadius="10"
+                    Padding="20"
+                    Width="400"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    BorderBrush="{StaticResource PrimaryColor}"
+                    BorderThickness="2">
+                <StackPanel>
+                    <TextBlock Text="Edit Product"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               Foreground="{StaticResource PrimaryColor}"
+                               Margin="0,0,0,15"
+                               HorizontalAlignment="Center"/>
+
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Product Name" Foreground="White"/>
+                        <TextBox x:Name="EditProductName"
+                                 Height="30"
+                                 FontSize="12"
+                                 VerticalContentAlignment="Center"
+                                 Background="White"
+                                 Foreground="{StaticResource BackgroundMedium}"
+                                 BorderBrush="{StaticResource PrimaryColor}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Stocks" Foreground="White"/>
+                        <TextBox x:Name="EditStocks"
+                                 Height="30"
+                                 FontSize="12"
+                                 VerticalContentAlignment="Center"
+                                 Background="White"
+                                 Foreground="{StaticResource BackgroundMedium}"
+                                 BorderBrush="{StaticResource PrimaryColor}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Brand" Foreground="White"/>
+                        <TextBox x:Name="EditBrand"
+                                 Height="30"
+                                 FontSize="12"
+                                 VerticalContentAlignment="Center"
+                                 Background="White"
+                                 Foreground="{StaticResource BackgroundMedium}"
+                                 BorderBrush="{StaticResource PrimaryColor}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,0,0,15">
+                        <TextBlock Text="Date Updated" Foreground="White"/>
+                        <DatePicker x:Name="EditDateImported"
+                                    Height="30"
+                                    FontSize="12"
+                                    VerticalContentAlignment="Center"
+                                    Background="White"
+                                    Foreground="{StaticResource BackgroundMedium}"
+                                    BorderBrush="{StaticResource PrimaryColor}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="Cancel"
+                                Width="80"
+                                Height="30"
+                                Margin="0,0,5,0"
+                                VerticalContentAlignment="Center"
+                                Background="Transparent"
+                                Foreground="White"
+                                BorderBrush="{StaticResource PrimaryColor}"
+                                Click="CancelEdit_Click"/>
+                        <Button 
+                                Content="Update"
+                                Width="80"
+                                Height="30"
+                                Foreground="White"
+                                Background="{StaticResource PrimaryColor}"
+                                BorderBrush="Transparent"
+                                Click="UpdateProduct_Click"/>
+
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+        
+         <Grid Grid.Row='0' x:Name="DeliveryProductModal"
+              Background="#80000000"
+              Visibility="Collapsed"
+              Grid.RowSpan="3">
+            <Border Background="{StaticResource BackgroundMedium}"
+                    CornerRadius="10"
+                    Padding="20"
+                    Width="400"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    BorderBrush="{StaticResource PrimaryColor}"
+                    BorderThickness="2">
+                <StackPanel>
+                    <TextBlock Text="Delivery Product"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               Foreground="{StaticResource PrimaryColor}"
+                               Margin="0,0,0,15"
+                               HorizontalAlignment="Center"/>
+
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Customers Name" Foreground="White"/>
+                        <TextBox x:Name="CustomersName"
+                                 Height="30"
+                                 FontSize="12"
+                                 VerticalContentAlignment="Center"
+                                 Background="White"
+                                 Foreground="{StaticResource BackgroundMedium}"
+                                 BorderBrush="{StaticResource PrimaryColor}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Product Name" Foreground="White"/>
+                        <ComboBox x:Name="ProductNameComboBox"
+                                  Height="30"
+                                  FontSize="12"
+                                  Background="White"
+                                  Foreground="{StaticResource BackgroundMedium}"
+                                  BorderBrush="{StaticResource PrimaryColor}"
+                                  SelectionChanged="ProductNameComboBox_SelectionChanged"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Quantity" Foreground="White"/>
+                        <TextBox x:Name="QuantityTextBox"
+                                  Height="30"
+                                  FontSize="12"
+                                  Background="White"
+                                  Foreground="{StaticResource BackgroundMedium}"
+                                  BorderBrush="{StaticResource PrimaryColor}"/>
+                    </StackPanel>
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Brand" Foreground="White"/>
+                        <ComboBox x:Name="BrandComboBox"
+                                  Height="30"
+                                  FontSize="12"
+                                  Background="White"
+                                  Foreground="{StaticResource BackgroundMedium}"
+                                  BorderBrush="{StaticResource PrimaryColor}"/>
+                    </StackPanel>
+                    <StackPanel Margin="0,0,0,15">
+                        <TextBlock Text="Date Delivery" Foreground="White"/>
+                        <DatePicker x:Name="DateDelivery"
+                                    Height="30"
+                                    FontSize="12"
+                                    VerticalContentAlignment="Center"
+                                    Background="White"
+                                    Foreground="{StaticResource BackgroundMedium}"
+                                    BorderBrush="{StaticResource PrimaryColor}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="Cancel"
+                                Width="80"
+                                Height="30"
+                                Margin="0,0,5,0"
+                                VerticalContentAlignment="Center"
+                                Background="Transparent"
+                                Foreground="White"
+                                BorderBrush="{StaticResource PrimaryColor}"
+                                Click="CancelDeliver_Click"/>
+                        <Button 
+                                Content="Save"
+                                Width="80"
+                                Height="30"
+                                Foreground="White"
+                                Background="{StaticResource PrimaryColor}"
+                                BorderBrush="Transparent"
+                                Click="SaveDelivery_Click"/>
+
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
 </UserControl>
