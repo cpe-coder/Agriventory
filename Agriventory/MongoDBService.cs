@@ -24,7 +24,7 @@ public class MongoDBService
     }
     public async Task<List<ChickenItem>> GetAllChickensAsync()
     {
-        var sortDefinition = Builders<ChickenItem>.Sort.Ascending(c => c.DateImported);
+        var sortDefinition = Builders<ChickenItem>.Sort.Ascending(c => c.DateUpdated);
         return await _chickenCollection.Find(_ => true).Sort(sortDefinition).ToListAsync();
     }
     public async Task UpdateChickenAsync(ChickenItem item)

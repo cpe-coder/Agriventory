@@ -121,7 +121,7 @@ public class ChickenViewModel : BaseViewModel
             Stocks = Stocks,
             Brand = Brand,
             DateImported = DateTime.Now,
-            DateUpdated = DateTime.Now,
+            DateUpdated = DateImported,
         };
         await _mongoService.AddChickenAsync(newChicken);
 
@@ -132,8 +132,7 @@ public class ChickenViewModel : BaseViewModel
         Brand = string.Empty;
         DateImported = TimeZoneInfo.ConvertTime(DateTime.Now,
             TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time"));
-        DateUpdated = TimeZoneInfo.ConvertTime(DateTime.Now,
-            TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time"));
+        DateUpdated = DateImported;
     }
     private async Task EditChickenAsync(object parameter)
     {
@@ -153,7 +152,6 @@ public class ChickenViewModel : BaseViewModel
             Stocks = selected.Stocks,
             Brand = selected.Brand,
             DateImported = manilaDate,
-            DateUpdated = manilaDate
         };
 
         await _mongoService.UpdateChickenAsync(updated);

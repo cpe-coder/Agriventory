@@ -11,7 +11,7 @@ public partial class ChickenView
 
     private readonly MongoDBService _mongoService;
     private ChickenItem? _selectedProduct;
-    public ChickenView()
+    public ChickenView( )
     {
         InitializeComponent();
         _mongoService = new MongoDBService();
@@ -29,6 +29,7 @@ public partial class ChickenView
             foreach (var item in items)
             {
                 item.DateImported = TimeZoneInfo.ConvertTime(item.DateImported, manila);
+                item.DateUpdated = TimeZoneInfo.ConvertTime(item.DateUpdated, manila);
             }
             FeedsDataGrid.ItemsSource = new ObservableCollection<ChickenItem>(items);
         }
@@ -56,7 +57,7 @@ public partial class ChickenView
 
         if (string.IsNullOrWhiteSpace(productName) ||
             string.IsNullOrWhiteSpace(stocks) ||
-            string.IsNullOrWhiteSpace(brand) ||
+            string.IsNullOrWhiteSpace(brand) || 
             !dateImported.HasValue)
         {
             MessageBox.Show("Please fill out all fields.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -74,14 +75,14 @@ public partial class ChickenView
             dateImported.Value.Date.Add(DateTime.Now.TimeOfDay),
             manilaTz
         );
-
+      
         var newChicken = new ChickenItem
         {
             ProductName = productName,
             Stocks = stockValue,
             Brand = brand,
             DateImported = manilaDateTime,
-            DateUpdated = manilaDateTime
+            DateUpdated = manilaDateTime,
         };
 
         try
@@ -103,8 +104,8 @@ public partial class ChickenView
         LoadProducts();
 
     }
-    
-        private void EditProduct_Click(object sender, RoutedEventArgs e)
+
+    private void EditProduct_Click(object sender, RoutedEventArgs e)
         {
             _selectedProduct = (sender as Button)?.Tag as ChickenItem;
 
