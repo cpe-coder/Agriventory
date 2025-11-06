@@ -37,15 +37,21 @@
             <TextBlock Text="Transaction" Foreground="#ff5757" Margin="0,5,0,0" FontSize="30" FontWeight="Bold"/>
         </StackPanel>
         <Border CornerRadius="10" Grid.Row="2">
-        <DataGrid x:Name="TransactionDataGrid" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False" SelectionMode="Single">
+        <DataGrid x:Name="TransactionDataGrid" LoadingRow="TransactionGrid_LoadingRow" ItemsSource="{Binding}" VerticalContentAlignment="Center" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                </Style>
+            </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Foreground="White" Header="#" Binding="{Binding number}" Width="40"/>
-                <DataGridTextColumn Foreground="White" Header="Names" Binding="{Binding Names}" Width="*"/>
-                <DataGridTextColumn Foreground="White" Header="Products" Binding="{Binding Products}" Width="80"/>
-                <DataGridTextColumn Foreground="White" Header="Quantity" Binding="{Binding Quantity}" Width="*"/>
-                <DataGridTextColumn Foreground="White" Header="Category" Binding="{Binding Category}" Width="*"/>
-                <DataGridTextColumn Foreground="White" Header="Brand" Binding="{Binding brand}" Width="*"/>
-                <DataGridTextColumn Foreground="White" Header="Date Of Delivery" Binding="{Binding DateOfDelivery}" Width="*"/>
+                <DataGridTextColumn Foreground="White" IsReadOnly="True" Header="No." Binding="{Binding Number}" Width="*"/>
+                <DataGridTextColumn Foreground="White" IsReadOnly="True" Header="Customer Name" Binding="{Binding CustomerName}" Width="*"/>
+                <DataGridTextColumn Foreground="White" IsReadOnly="True" Header="Products" Binding="{Binding ProductName}" Width="*"/>
+                <DataGridTextColumn Foreground="White" IsReadOnly="True" Header="Quantity" Binding="{Binding Quantity}" Width="*"/>
+                <DataGridTextColumn Foreground="White" IsReadOnly="True" Header="Category" Binding="{Binding Category}" Width="*"/>
+                <DataGridTextColumn Foreground="White" IsReadOnly="True" Header="Brand" Binding="{Binding Brand}" Width="*"/>
+                <DataGridTextColumn Foreground="White" IsReadOnly="True" Header="Date Of Delivery" Binding="{Binding DateOfDelivery}" Width="*"/>
                
 
             </DataGrid.Columns>

@@ -8,18 +8,21 @@ public class TransactionItem
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
     public string? Id { get; init; } = string.Empty;
-    [BsonElement("quantity")]
+    [BsonIgnore]
     public int Number { get; set; }
-    [BsonElement("customerName")]
-    public string? CustomerName { get; set; }
+    [BsonElement("customerName")]                            
+    public string? CustomerName { get; set; } = string.Empty;
     [BsonElement("productName")]
     public string? ProductName { get; set; } = string.Empty;
+    
     [BsonElement("quantity")]
-    public string? Quantity { get; set; }
-    [BsonElement("category")]
-    public string? Category { get; set; }
+    public int Quantity { get; set; } 
+    
     [BsonElement("brand")]
-    public string? Brand { get; set; }
+    public string? Brand { get; set; } = string.Empty;
+    
+    [BsonElement("category")]
+    public string? Category { get; set; } = string.Empty;
     [BsonElement("dateOfDelivery")]
     public DateTime DateOfDelivery { get; set; }
 }

@@ -184,7 +184,7 @@ public class PigViewModel : BaseViewModel
             MessageBox.Show("Please fill out all fields correctly.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
-        var newDelivery = new DeliveryPigItem()
+        var newDelivery = new TransactionItem()
         {
             CustomerName = CustomerName,
             ProductName = ProductName,

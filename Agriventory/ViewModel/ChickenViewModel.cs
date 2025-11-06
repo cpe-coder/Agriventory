@@ -184,7 +184,7 @@ public class ChickenViewModel : BaseViewModel
             MessageBox.Show("Please fill out all fields correctly.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
-        var newDelivery = new DeliveryChickenItem
+        var newDelivery = new TransactionItem()
         {
             CustomerName = CustomerName,
             ProductName = ProductName,

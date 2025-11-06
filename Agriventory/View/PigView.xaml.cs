@@ -210,7 +210,7 @@ public partial class PigView
         private async void ProductNameComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ProductNameComboBox.SelectedItem is not string selectedProduct) return;
-            var chickens = await _mongoService.GetAllChickensAsync();
+            var chickens = await _mongoService.GetAllPigsAsync();
             BrandComboBox.ItemsSource = chickens
                 .Where(c => c.ProductName == selectedProduct)
                 .Select(c => c.Brand)
@@ -241,7 +241,7 @@ public partial class PigView
                 return;
             }
 
-            var newDelivery = new DeliveryPigItem()
+            var newDelivery = new TransactionItem()
             {
                 CustomerName = customerName,
                 ProductName = productName,

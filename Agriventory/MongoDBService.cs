@@ -9,16 +9,15 @@ public class MongoDbService
     private readonly IMongoDatabase _database;
     private readonly IMongoCollection<ChickenItem> _chickenCollection;
     private readonly IMongoCollection<PigItem> _pigCollection;
-    private readonly IMongoCollection<DeliveryChickenItem> _deliveryChickenCollection;
-    private readonly IMongoCollection<DeliveryPigItem> _deliveryPigCollection;
+    private readonly IMongoCollection<TransactionItem> _deliveryCollection;
     public MongoDbService()
     {
+        
         var client = new MongoClient("mongodb://127.0.0.1:27017");
         _database = client.GetDatabase("agriventory");
         _chickenCollection = _database.GetCollection<ChickenItem>("chickens");
         _pigCollection = _database.GetCollection<PigItem>("pigs");
-        _deliveryPigCollection =  _database.GetCollection<DeliveryPigItem>("deliveryPigs");
-        _deliveryChickenCollection = _database.GetCollection<DeliveryChickenItem>("deliveryChickens");
+        _deliveryCollection =  _database.GetCollection<TransactionItem>("transactions");
     }
     public IMongoCollection<User> GetUsersCollection()
     {
@@ -61,12 +60,6 @@ public class MongoDbService
         }
     }
     
-    public async Task DeliveryChickenAsync(DeliveryChickenItem deliveryChicken)
-    {
-        await _deliveryChickenCollection.InsertOneAsync(deliveryChicken);
-    }
-    
-    
     public async Task AddPigAsync(PigItem pig)
     {
         await _pigCollection.InsertOneAsync(pig);
@@ -105,8 +98,20 @@ public class MongoDbService
         }
     }
     
-    public async Task DeliveryPigAsync(DeliveryPigItem deliveryPig)
+    public async Task DeliveryPigAsync(TransactionItem deliveryPig)
     {
-        await _deliveryPigCollection.InsertOneAsync(deliveryPig);
+        await _deliveryCollection.InsertOneAsync(deliveryPig);
+    }
+    
+    public async Task DeliveryChickenAsync(TransactionItem deliveryChicken)
+    {
+        await _deliveryCollection.InsertOneAsync(deliveryChicken);
+    }
+
+    
+    public async Task<List<TransactionItem>> GetAllTransactionsAsync()
+    {
+        var sortDefinition = Builders<TransactionItem>.Sort.Ascending(c => c.DateOfDelivery);
+        return await _deliveryCollection.Find(_ => true).Sort(sortDefinition).ToListAsync();
     }
 }

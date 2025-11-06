@@ -242,7 +242,7 @@ public partial class ChickenView
                 return;
             }
 
-            var newDelivery = new DeliveryChickenItem
+            var newDelivery = new TransactionItem()
             {
                 CustomerName = customerName,
                 ProductName = productName,
