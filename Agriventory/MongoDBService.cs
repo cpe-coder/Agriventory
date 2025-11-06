@@ -114,4 +114,106 @@ public class MongoDbService
         var sortDefinition = Builders<TransactionItem>.Sort.Ascending(c => c.DateOfDelivery);
         return await _deliveryCollection.Find(_ => true).Sort(sortDefinition).ToListAsync();
     }
+    
+ public async Task<int> GetTotalStocksAsync()
+    {
+        var chickens = await _chickenCollection.Find(_ => true).ToListAsync();
+        var pigs = await _pigCollection.Find(_ => true).ToListAsync();
+        
+        var chickenStocks = chickens.Sum(c => c.Stocks);
+        var pigStocks = pigs.Sum(p => p.Stocks);
+        
+        return chickenStocks + pigStocks;
+    }
+    
+    public async Task<int> GetTotalTransactionsAsync()
+    {
+        return (int)await _deliveryCollection.CountDocumentsAsync(_ => true);
+    }
+    
+    public async Task<int> GetTotalPigProductsAsync()
+    {
+        return (int)await _pigCollection.CountDocumentsAsync(_ => true);
+    }
+    
+    public async Task<int> GetTotalChickenProductsAsync()
+    {
+        return (int)await _chickenCollection.CountDocumentsAsync(_ => true);
+    }
+    
+    public async Task<Dictionary<string, int>> GetAllBrandsWithCountAsync()
+    {
+        var chickens = await _chickenCollection.Find(_ => true).ToListAsync();
+        var pigs = await _pigCollection.Find(_ => true).ToListAsync();
+        
+        var brandCounts = new Dictionary<string, int>();
+        
+        foreach (var chicken in chickens.Where(chicken => !string.IsNullOrWhiteSpace(chicken.Brand)))
+        {
+            if (brandCounts.ContainsKey(chicken.Brand!))
+                brandCounts[chicken.Brand!]++;
+            else
+                brandCounts[chicken.Brand!] = 1;
+        }
+        
+        foreach (var pig in pigs.Where(pig => !string.IsNullOrWhiteSpace(pig.Brand)))
+        {
+            if (brandCounts.ContainsKey(pig.Brand!))
+                brandCounts[pig.Brand!]++;
+            else
+                brandCounts[pig.Brand!] = 1;
+        }
+        
+        return brandCounts.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+    }
+    
+    public async Task<Dictionary<string, int>> GetChickenBrandsWithStocksAsync()
+    {
+        try
+        {
+            var chickens = await _chickenCollection.Find(_ => true).ToListAsync();
+            
+            var brandStocks = new Dictionary<string, int>();
+            
+            foreach (var chicken in chickens.Where(chicken => !string.IsNullOrWhiteSpace(chicken.Brand)))
+            {
+                if (brandStocks.ContainsKey(chicken.Brand!))
+                    brandStocks[chicken.Brand!] += chicken.Stocks;
+                else
+                    brandStocks[chicken.Brand!] = chicken.Stocks;
+            }
+            
+            return brandStocks.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in GetChickenBrandsWithStocksAsync: {ex.Message}");
+            return new Dictionary<string, int>();
+        }
+    }
+    
+    public async Task<Dictionary<string, int>> GetPigBrandsWithStocksAsync()
+    {
+        try
+        {
+            var pigs = await _pigCollection.Find(_ => true).ToListAsync();
+            
+            var brandStocks = new Dictionary<string, int>();
+            
+            foreach (var pig in pigs.Where(pig => !string.IsNullOrWhiteSpace(pig.Brand)))
+            {
+                if (brandStocks.ContainsKey(pig.Brand!))
+                    brandStocks[pig.Brand!] += pig.Stocks;
+                else
+                    brandStocks[pig.Brand!] = pig.Stocks;
+            }
+            
+            return brandStocks.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in GetPigBrandsWithStocksAsync: {ex.Message}");
+            return new Dictionary<string, int>();
+        }
+    }
 }
