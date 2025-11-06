@@ -262,7 +262,31 @@ public partial class ChickenView
 
             try
             {
+                
                 await _mongoService.DeliveryChickenAsync(newDelivery);
+                var chickens = await _mongoService.GetAllChickensAsync();
+                var chickenToUpdate = chickens.FirstOrDefault(c => c.ProductName == productName && c.Brand == brand);
+                if (chickenToUpdate == null)
+                {
+                    MessageBox.Show("Selected product not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                if (chickenToUpdate.Stocks <= 0)
+                {
+                    MessageBox.Show("This product is out of stock and cannot be delivered.", "Out of Stock", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                if (quantityValue > chickenToUpdate.Stocks)
+                {
+                    MessageBox.Show($"Cannot deliver {quantityValue} items. Only {chickenToUpdate.Stocks} in stock.", "Insufficient Stock", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                chickenToUpdate!.Stocks -= quantityValue; 
+                chickenToUpdate.DateUpdated = DateTime.Now;
+                await _mongoService.UpdateChickenAsync(chickenToUpdate);
                 MessageBox.Show("Delivery saved successfully!:", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)

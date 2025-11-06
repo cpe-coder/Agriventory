@@ -261,6 +261,29 @@ public partial class PigView
             try
             {
                 await _mongoService.DeliveryPigAsync(newDelivery);
+                var pigs = await _mongoService.GetAllPigsAsync();
+                var pigToUpdate = pigs.FirstOrDefault(c => c.ProductName == productName && c.Brand == brand);
+                if (pigToUpdate == null)
+                {
+                    MessageBox.Show("Selected product not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                if (pigToUpdate.Stocks <= 0)
+                {
+                    MessageBox.Show("This product is out of stock and cannot be delivered.", "Out of Stock", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                if (quantityValue > pigToUpdate.Stocks)
+                {
+                    MessageBox.Show($"Cannot deliver {quantityValue} items. Only {pigToUpdate.Stocks} in stock.", "Insufficient Stock", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                pigToUpdate!.Stocks -= quantityValue; 
+                pigToUpdate.DateUpdated = DateTime.Now;
+                await _mongoService.UpdatePigAsync(pigToUpdate);
                 MessageBox.Show("Delivery saved successfully!:", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
