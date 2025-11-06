@@ -8,7 +8,8 @@ public class PigItem
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
     public string? Id { get; init; } = string.Empty;
-    
+    [BsonIgnore]
+    public int Number { get; set; }
     [BsonElement("productName")]
     public string? ProductName { get; set; } = string.Empty;
     [BsonElement("stocks")]

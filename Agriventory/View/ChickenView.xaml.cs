@@ -31,6 +31,14 @@ public partial class ChickenView
                 item.DateUpdated = TimeZoneInfo.ConvertTime(item.DateUpdated, manila);
             }
             FeedsDataGrid.ItemsSource = new ObservableCollection<ChickenItem>(items);
+            var index = 1;
+            foreach (var item in items)
+            {
+                item.Number = index++;
+            }
+
+            FeedsDataGrid.ItemsSource = new ObservableCollection<ChickenItem>(items);
+            
         }
         catch (Exception ex)
         {
@@ -269,6 +277,11 @@ public partial class ChickenView
         
             LoadProducts();
             
+        }
+
+        private void FeedsDataGrid_OnLoadingRow(object? sender, DataGridRowEventArgs e)
+        {
+            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
         }
 }
 

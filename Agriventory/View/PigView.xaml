@@ -98,7 +98,7 @@
         </Grid>
         <Border CornerRadius="10" Grid.Row="2">
             
-        <DataGrid x:Name="FeedsDataGrid" ItemsSource="{Binding }" VerticalContentAlignment="Center" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False">
+        <DataGrid x:Name="FeedsDataGrid" LoadingRow="FeedsDataGrid_OnLoadingRow" ItemsSource="{Binding }" VerticalContentAlignment="Center" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False">
             <DataGrid.Resources>
                 <Style TargetType="DataGridCell">
                     <Setter Property="VerticalAlignment" Value="Center"/>
@@ -106,6 +106,7 @@
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns >
+                <DataGridTextColumn FontSize="14" Foreground="White" IsReadOnly="True" Header="No." Binding="{Binding Number}" Width="*"/>
                 <DataGridTextColumn FontSize="14" Foreground="White" IsReadOnly="True" Header="Products" Binding="{Binding ProductName}" Width="*"/>
                 <DataGridTextColumn FontSize="14" Foreground="White" IsReadOnly="True" Header="Stocks" Binding="{Binding Stocks}" Width="80"/>
                 <DataGridTextColumn FontSize="14" Foreground="White" IsReadOnly="True" Header="Brands" Binding="{Binding Brand}" Width="*"/>
