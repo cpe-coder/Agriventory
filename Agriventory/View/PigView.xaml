@@ -47,7 +47,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="1" Content="Deliver"
+                <Button Grid.Column="1" Content="Order"
                         Width="80"
                         Margin="0,0,0,10"
                         VerticalAlignment="Center"

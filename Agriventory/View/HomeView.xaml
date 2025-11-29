@@ -28,7 +28,7 @@
                 
                 <!-- Dashboard Title -->
                 <StackPanel Grid.Row="0" Margin="0,0,0,5">
-                    <TextBlock Text="Dashboard" 
+                    <TextBlock Text="AVAILABLE FOR PIG AND CHICKEN" 
                                Foreground="White" 
                                Margin="0,5,0,0" 
                                FontSize="30" 
@@ -130,7 +130,7 @@
                 <StackPanel HorizontalAlignment="Center" 
                             Grid.Row="2" 
                             Margin="0,20,0,0">
-                    <TextBlock Text="Available for Chicken" 
+                    <TextBlock Text="AVAILABLE PRODUCTS/STOCKS FOR CHICKEN" 
                                Foreground="White" 
                                Margin="0,5,0,0" 
                                FontSize="20" 
@@ -173,7 +173,7 @@
                 <StackPanel HorizontalAlignment="Center" 
                             Grid.Row="4" 
                             Margin="0,20,0,0">
-                    <TextBlock Text="Available for Pig" 
+                    <TextBlock Text="AVAILABLE PRODUCTS/STOCKS FOR PIG" 
                                Foreground="White" 
                                Margin="0,5,0,0" 
                                FontSize="20" 
