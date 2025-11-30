@@ -83,6 +83,51 @@ public class HomeViewModel : INotifyPropertyChanged
             OnPropertyChanged();
         }
     }
+    
+    private int _dailyOrders;
+    public int DailyOrders
+    {
+        get => _dailyOrders;
+        set
+        {
+            _dailyOrders = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private int _weeklyOrders;
+    public int WeeklyOrders
+    {
+        get => _weeklyOrders;
+        set
+        {
+            _weeklyOrders = value;
+            OnPropertyChanged();
+        }
+    }
+    private int _monthlyOrders;
+    public int MonthlyOrders
+    {
+        get => _monthlyOrders;
+        set
+        {
+            _monthlyOrders = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private int _annualOrders;
+    public int AnnualOrders
+    {
+        get => _annualOrders;
+        set
+        {
+            _annualOrders = value;
+            OnPropertyChanged();
+        }
+    }
+
+
 
     private async void LoadDashboardData()
     {
@@ -92,6 +137,11 @@ public class HomeViewModel : INotifyPropertyChanged
             TotalTransactions = await _dbService.GetTotalTransactionsAsync();
             TotalPigProducts = await _dbService.GetTotalPigProductsAsync();
             TotalChickenProducts = await _dbService.GetTotalChickenProductsAsync();
+            DailyOrders   = await _dbService.GetDailyOrdersAsync();
+            WeeklyOrders  = await _dbService.GetWeeklyOrdersAsync();
+            MonthlyOrders = await _dbService.GetMonthlyOrdersAsync();
+            AnnualOrders  = await _dbService.GetAnnualOrdersAsync();
+
 
             ChickenBrands.Clear();
             var chickenBrandStocks = await _dbService.GetChickenBrandsWithStocksAsync();

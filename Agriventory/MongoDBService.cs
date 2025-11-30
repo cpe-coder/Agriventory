@@ -216,4 +216,41 @@ public class MongoDbService
             return new Dictionary<string, int>();
         }
     }
+    
+    public async Task<int> GetDailyOrdersAsync()
+    {
+        var today = DateTime.Today;
+
+        var filter = Builders<TransactionItem>.Filter.Gte(x => x.DateOfDelivery, today);
+
+        return (int)await _deliveryCollection.CountDocumentsAsync(filter);
+    }
+
+    public async Task<int> GetWeeklyOrdersAsync()
+    {
+        var startOfWeek = DateTime.Today.AddDays(-7);
+
+        var filter = Builders<TransactionItem>.Filter.Gte(x => x.DateOfDelivery, startOfWeek);
+
+        return (int)await _deliveryCollection.CountDocumentsAsync(filter);
+    }
+
+    public async Task<int> GetMonthlyOrdersAsync()
+    {
+        var startOfMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+
+        var filter = Builders<TransactionItem>.Filter.Gte(x => x.DateOfDelivery, startOfMonth);
+
+        return (int)await _deliveryCollection.CountDocumentsAsync(filter);
+    }
+
+    public async Task<int> GetAnnualOrdersAsync()
+    {
+        var startOfYear = new DateTime(DateTime.Today.Year, 1, 1);
+
+        var filter = Builders<TransactionItem>.Filter.Gte(x => x.DateOfDelivery, startOfYear);
+
+        return (int)await _deliveryCollection.CountDocumentsAsync(filter);
+    }
+
 }
