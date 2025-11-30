@@ -36,6 +36,32 @@
         <StackPanel Grid.Row="0" Margin="0,0,0,10" >
             <TextBlock Text="Transaction" Foreground="#ff5757" Margin="0,5,0,0" FontSize="30" FontWeight="Bold"/>
         </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
+            <!--<Button Content="Print Transactions"
+                    Click="PrintTransactions_Click"
+                    Padding="10,5"
+                    Background="#ff5757"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    Width="160" Margin="0,0,10,0"/>-->
+
+            <Button Content="Print Preview"
+                    Click="PrintPreview_Click"
+                    Padding="10,5"
+                    Background="#444"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    Width="140" Margin="0,0,10,0"/>
+
+            <Button Content="Export PDF"
+                    Click="ExportPDF_Click"
+                    Padding="10,5"
+                    Background="#0084ff"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    Width="140"/>
+        </StackPanel>
+
         <Border CornerRadius="10" Grid.Row="2">
         <DataGrid x:Name="TransactionDataGrid" LoadingRow="TransactionGrid_LoadingRow" ItemsSource="{Binding}" VerticalContentAlignment="Center" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False">
             <DataGrid.Resources>
