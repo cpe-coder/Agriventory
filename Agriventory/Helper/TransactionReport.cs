@@ -21,15 +21,13 @@ public class TransactionReport : IDocument
         container.Page(page =>
         {
             page.Size(PageSizes.A4);
-            page.Margin(40);   // valid
-            page.DefaultTextStyle(x => x.FontSize(10)); // FIX: sets default font size safely
+            page.Margin(40);  
+            page.DefaultTextStyle(x => x.FontSize(10)); 
 
-            // ---------- HEADER ----------
             page.Header().Element(header =>
             {
                 header.Row(row =>
                 {
-                    // LEFT LOGO
                     row.ConstantItem(60).Element(e =>
                     {
                         if (Logo != null)
@@ -42,13 +40,12 @@ public class TransactionReport : IDocument
                         }
                     });
 
-                    // RIGHT HEADER TEXT
                     row.RelativeItem().Column(col =>
                     {
                         col.Item().Text("AGRITECH")
                             .FontSize(22)
                             .Bold()
-                            .FontColor("#ff5757")     // 🔥 RED TITLE
+                            .FontColor("#ff5757")     
                             .AlignCenter();
 
                         col.Item().Text("Murillo Agrivet Supply Inventory System")
@@ -58,16 +55,14 @@ public class TransactionReport : IDocument
                         col.Item().PaddingTop(4).Text("Transaction Report")
                             .FontSize(14)
                             .Bold()
-                            .FontColor("#ff5757")     // 🔥 RED SUBTITLE
+                            .FontColor("#ff5757")     
                             .AlignCenter();
                     });
                 });
             });
 
-            // ---------- CONTENT ----------
             page.Content().Element(ComposeContent);
 
-            // ---------- FOOTER ----------
             page.Footer().AlignCenter().Text(text =>
             {
                 text.Span("Generated • ").SemiBold().FontSize(10);
@@ -93,7 +88,6 @@ public class TransactionReport : IDocument
                     columns.ConstantColumn(90);     // Date
                 });
 
-                // Header
                 table.Header(h =>
                 {
                     h.Cell().Element(CellStyle).Text("#").Bold();
@@ -105,7 +99,6 @@ public class TransactionReport : IDocument
                     h.Cell().Element(CellStyle).Text("Delivery Date").Bold();
                 });
 
-                // Rows
                 foreach (var t in Items)
                 {
                     table.Cell().Element(CellStyle).Text(t.Number.ToString());
