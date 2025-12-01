@@ -120,10 +120,28 @@ public partial class TransactionView
     doc.PagePadding = new Thickness(50);
     doc.FontSize = 14;
     doc.ColumnWidth = 800;
-
+    
+    Paragraph systemName = new Paragraph(new Run("AGRITECH"))
+    {
+        FontSize = 30,
+        FontWeight = FontWeights.Bold,
+        TextAlignment = TextAlignment.Center,
+        Margin = new Thickness(0, 0, 0, 5)
+    };
+    doc.Blocks.Add(systemName);
+    
+    Paragraph storeName = new Paragraph(new Run("Murillo Agrivet Supply Inventory System"))
+    {
+        FontSize = 16,
+        FontWeight = FontWeights.Light,
+        TextAlignment = TextAlignment.Center,
+        Margin = new Thickness(0, 0, 0, 16)
+    };
+    doc.Blocks.Add(storeName);
+    
     Paragraph title = new Paragraph(new Run("Transaction Report"))
     {
-        FontSize = 24,
+        FontSize = 20,
         FontWeight = FontWeights.Bold,
         TextAlignment = TextAlignment.Center,
         Margin = new Thickness(0, 0, 0, 20)

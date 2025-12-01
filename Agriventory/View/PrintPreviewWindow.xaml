@@ -1,12 +1,31 @@
 <Window x:Class="Agriventory.View.PrintPreviewWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:Agriventory.View"
-        mc:Ignorable="d"
-        Title="Print Preview" Height="800" Width="600">
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <FlowDocumentReader Name="PreviewReader"/>
-    </ScrollViewer>
+        Title="Print Preview"
+        Height="800"
+        Width="600">
+
+    <DockPanel>
+
+        <!-- Top Bar -->
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Background="#eee" >
+            <Button x:Name="PrintButton"
+                    Width="120"
+                    Height="35"
+                    Margin="0 0 10 0"
+                    Content="Print"
+                    Click="PrintButton_Click"/>
+            <Button Width="100"
+                    Height="35"
+                    Content="Close"
+                    Click="CloseButton_Click"/>
+        </StackPanel>
+
+        <!-- Preview Content -->
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <FlowDocumentReader Name="PreviewReader"/>
+        </ScrollViewer>
+
+    </DockPanel>
+
 </Window>
