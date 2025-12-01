@@ -7,7 +7,6 @@
 
     <DockPanel>
 
-        <!-- Top Bar -->
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Background="#eee" >
             <Button x:Name="PrintButton"
                     Width="120"
@@ -21,7 +20,6 @@
                     Click="CloseButton_Click"/>
         </StackPanel>
 
-        <!-- Preview Content -->
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <FlowDocumentReader Name="PreviewReader"/>
         </ScrollViewer>
