@@ -224,7 +224,7 @@ public partial class PigView
                 .Distinct()
                 .ToList();
         }
-           private async void SaveDelivery_Click(object sender, RoutedEventArgs e)
+        private async void SaveDelivery_Click(object sender, RoutedEventArgs e)
         {
             var customerName = CustomersName.Text;
             var productName = ProductNameComboBox.Text;
@@ -238,66 +238,76 @@ public partial class PigView
                 string.IsNullOrWhiteSpace(brand) ||
                 !dateDelivery.HasValue)
             {
-                MessageBox.Show($"Please fill out all fields.{customerName}, {productName}, {quantity}, {brand}, {dateDelivery}", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show($"Please fill out all fields.{customerName}, {productName}, {quantity}, {brand}, {dateDelivery}", 
+                    "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             if (!int.TryParse(quantity, out int quantityValue))
             {
-                MessageBox.Show("Quantity must be a number.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Quantity must be a number.", 
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            var newDelivery = new TransactionItem()
-            {
-                CustomerName = customerName,
-                ProductName = productName,
-                Quantity = quantityValue,
-                Brand = brand,
-                Category = "Pig",
-                DateOfDelivery = DateTime.Now
-            };
-
             try
             {
-                await _mongoService.DeliveryPigAsync(newDelivery);
                 var pigs = await _mongoService.GetAllPigsAsync();
                 var pigToUpdate = pigs.FirstOrDefault(c => c.ProductName == productName && c.Brand == brand);
+
                 if (pigToUpdate == null)
                 {
-                    MessageBox.Show("Selected product not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Selected product not found.", 
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
                 if (pigToUpdate.Stocks <= 0)
                 {
-                    MessageBox.Show("This product is out of stock and cannot be delivered.", "Out of Stock", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("This product is out of stock and cannot be delivered.", 
+                        "Out of Stock", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
                 if (quantityValue > pigToUpdate.Stocks)
                 {
-                    MessageBox.Show($"Cannot deliver {quantityValue} items. Only {pigToUpdate.Stocks} in stock.", "Insufficient Stock", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
+                    MessageBox.Show($"Cannot deliver {quantityValue} items. Only {pigToUpdate.Stocks} in stock.", 
+                        "Insufficient Stock", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return; 
                 }
 
-                pigToUpdate!.Stocks -= quantityValue; 
+                var newDelivery = new TransactionItem()
+                {
+                    CustomerName = customerName,
+                    ProductName = productName,
+                    Quantity = quantityValue,
+                    Brand = brand,
+                    Category = "Pig",
+                    DateOfDelivery = DateTime.Now
+                };
+
+                await _mongoService.DeliveryPigAsync(newDelivery);
+
+                pigToUpdate.Stocks -= quantityValue;
                 pigToUpdate.DateUpdated = DateTime.Now;
                 await _mongoService.UpdatePigAsync(pigToUpdate);
-                MessageBox.Show("Delivery saved successfully!:", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                MessageBox.Show("Delivery saved successfully!", 
+                    "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error saving delivery: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Error saving delivery: {ex.Message}", 
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
-            }  
+            }
+
             CustomersName.Clear();
             QuantityTextBox.Clear();
             DateDelivery.SelectedDate = DateTime.Now;
             DeliveryProductModal.Visibility = Visibility.Collapsed;
-        
+
             LoadProducts();
-            
         }
 
         private void FeedsDataGrid_OnLoadingRow(object? sender, DataGridRowEventArgs e)
