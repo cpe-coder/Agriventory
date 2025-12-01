@@ -1,18 +1,20 @@
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using Agriventory.Model;
 using Agriventory.ViewModel;
 using System.Windows.Documents;
 using System.Windows.Media;
-using PdfSharp.Drawing;
-using PdfSharp.Pdf;
+using Agriventory.Helper;
+using QuestPDF.Fluent;
 
 namespace Agriventory.View;
 
 public partial class TransactionView
 {
     private readonly MongoDbService _mongoService;
+    
     public TransactionView()
     {
         InitializeComponent();
@@ -72,46 +74,44 @@ public partial class TransactionView
             if (dialog.ShowDialog() != true)
                 return;
 
-            PdfDocument pdf = new PdfDocument();
-            pdf.Info.Title = "Transaction Report";
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
 
-            PdfPage page = pdf.AddPage();
-            XGraphics gfx = XGraphics.FromPdfPage(page);
-            XFont font = new XFont("Arial", 12);
+            string projectDir = Directory.GetParent(baseDir)!.Parent!.Parent!.Parent!.FullName;
 
-            double y = 40;
-            gfx.DrawString("Transaction Report", new XFont("Arial", 20, XFontStyleEx.Bold),
-                XBrushes.Black, new XPoint(40, y));
-            y += 40;
+            string logoPath = Path.Combine(projectDir, "Assets", "dashboardLogo.png");
 
-            foreach (var row in TransactionDataGrid.Items)
+
+            byte[]? logoBytes = null;
+
+            if (File.Exists(logoPath))
+                logoBytes = File.ReadAllBytes(logoPath);
+            else
+                MessageBox.Show($"Logo not found:\n{logoPath}");
+
+
+            var items = TransactionDataGrid.Items.OfType<TransactionItem>().ToList();
+
+            var report = new TransactionReport
             {
-                if (row is not TransactionItem item) continue;
+                Items = items,
+                Logo = logoBytes
+            };
 
-                string line =
-                    $"{item.Number} | {item.CustomerName} | {item.ProductName} | " +
-                    $"{item.Quantity} | {item.Category} | {item.Brand} | {item.DateOfDelivery:MM/dd/yyyy}";
+            report.GeneratePdf(dialog.FileName);
 
-                gfx.DrawString(line, font, XBrushes.Black, new XPoint(40, y));
-                y += 20;
-
-                if (y > page.Height - 50)
-                {
-                    page = pdf.AddPage();
-                    gfx = XGraphics.FromPdfPage(page);
-                    y = 40;
-                }
-            }
-
-            pdf.Save(dialog.FileName);
-            MessageBox.Show("PDF Exported Successfully!", "Success", MessageBoxButton.OK,
-                MessageBoxImage.Information);
+            MessageBox.Show("PDF Exported Successfully!", "Success",
+                MessageBoxButton.OK, MessageBoxImage.Information);
         }
         catch (Exception ex)
         {
-            MessageBox.Show(ex.Message, "PDF Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(ex.ToString(), "PDF Error",
+                MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
+
+
+
+
 
     private FlowDocument CreateFlowDocument()
 {
@@ -133,7 +133,7 @@ public partial class TransactionView
     Table table = new Table();
     doc.Blocks.Add(table);
 
-    foreach (var col in TransactionDataGrid.Columns)
+    foreach (var unused in TransactionDataGrid.Columns)
         table.Columns.Add(new TableColumn());
 
     TableRowGroup headerGroup = new TableRowGroup();
